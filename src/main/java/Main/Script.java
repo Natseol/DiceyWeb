@@ -19,6 +19,20 @@ public class Script implements Color {
 		System.out.println();
 	}
 	
+	public String getChooseJob() {
+		String str="";
+		str+="------------------------------------------------<br>";
+		str+="<br>";
+		str+="\\t    주사위 던전에 온신걸 환영합니다<br>";
+		str+="<br>";
+		str+="------------------------------------------------<br>";
+		str+="\\t\\t클래스를 선택하세요<br>";
+		str+="\\t(1.전사 2.도적 3.궁수 4.마법사 5.기사)<br>";
+		str+="------------------------------------------------<br>";
+		str+="<br>";
+		return str;
+	}
+	
 	public void explain() {
 		System.out.println();
 		System.out.println("------------------------------------------------");

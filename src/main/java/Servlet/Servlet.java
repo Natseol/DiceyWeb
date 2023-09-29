@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Character.*;
+import Main.*;
+
 /**
  * Servlet implementation class Servlet
  */
@@ -20,13 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
-    public Servlet() {
-        // TODO Auto-generated constructor stub
-    }
-
+	Player player = new Player(1);
+	
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -45,10 +43,21 @@ public class Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		player.setJobItem(player.getJob(), 1);
+		Script script = new Script();
+		
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
+        
+        player.subtractHp(2);
+        String changedhp = Integer.toString(player.getHp());
+                
         jsonData.put("name", "John");
-        jsonData.put("age", 30);
+        jsonData.put("age", changedhp);
+        jsonData.put("player", player);
+        jsonData.put("script", script.getChooseJob());
+                
         
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
