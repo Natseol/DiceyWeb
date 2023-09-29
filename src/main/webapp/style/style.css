@@ -1,0 +1,15 @@
+#image-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.dice-image {
+    width: 96px;
+    height: 96px;
+    margin: 10px;
+}
+
+#testPrint {
+    width : 100px;
+    height : 40px;
+    margin: 10px;
+}
