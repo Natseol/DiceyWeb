@@ -94,7 +94,7 @@ public class Servlet extends HttpServlet {
         System.out.println("equipmentNum: " + param2);
 		
 		player.chooseJob(Integer.parseInt(param1));
-		player.setJobItem(player.getJob(), 1);
+		player.setJobItem(player.getJob(), Integer.parseInt(param2));
 		 
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
