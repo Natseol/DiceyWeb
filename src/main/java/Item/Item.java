@@ -33,6 +33,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	protected String newDice="";
 		
 	protected int accmulation;
+
 	
 	@Override
 	public void setAttack(int attack) {this.attack=attack;}	
@@ -119,13 +120,14 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	@Override
 	public String getDescription() {return description;}
 	
-	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
+	public String action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
+		String str = "";
 		if (getCount()!=0) {
-			if (actionCount(dice, my, idx)) return;
+			if (actionCount(dice, my, idx)) return str;
 		}
 				
 		if (getNeedDice()!=0) {
-			if (actionNeedDice(my, idx, dice)) return;
+			if (actionNeedDice(my, idx, dice)) return str;
 		}
 		
 		if (getAttack()!=0) {actionAttack(player, enemy, dice);}
@@ -142,6 +144,8 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			if (getDefence()!=0) {actionDefence(player, dice);}
 			if (getNewDice()!="") {actionNewDice(my, dice);}
 		}
+		str = strb.toString();
+		return str;
 	}
 	
 	@Override

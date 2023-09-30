@@ -248,6 +248,11 @@ public class Script implements Color {
 			System.out.println("------------------------------------------------");
 	}
 	
+	public String selectTurnEndStr() {
+		String str = " - 턴 종료 -";
+		return str;
+	}
+	
 	public void printSelectItem(TurnInfo turnInfo) {
 		System.out.println(YELLOW+"장비를 선택하세요 (0:주사위 다시 선택하기)"+RESET);
 	}
@@ -335,6 +340,10 @@ public class Script implements Color {
 		System.out.println(B_BLACK+" * 주사위 눈금을 확인하세요 * "+RESET);
 		System.out.println();
 		System.out.println("------------------------------------------------");
+	}
+	
+	public String printCheckTrueStr() {
+		return " * 주사위 눈금을 확인하세요 * ";
 	}
 	
 	public void chooseInField(int floor) {

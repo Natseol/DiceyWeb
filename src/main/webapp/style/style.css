@@ -13,3 +13,11 @@
     height : 40px;
     margin: 10px;
 }
+
+.itemRed {	
+    color: red;
+}
+
+.itemBasic {
+    color: black;
+}

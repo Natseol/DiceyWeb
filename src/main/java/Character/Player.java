@@ -4,7 +4,7 @@ import Item.Item;
 import ItemList.*;
 import Main.Color;
 
-public class Player extends Job {
+public class Player extends Job{
 	protected int exp;
 	protected int[] expTable= {6,6,6,8,8,10};
 	protected int level;

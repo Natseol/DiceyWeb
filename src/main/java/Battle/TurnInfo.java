@@ -1,5 +1,7 @@
 package Battle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Character.*;
@@ -15,6 +17,7 @@ public class TurnInfo extends BattleSetting{
 	Scanner scanner = new Scanner(System.in);
 	Item[] turnItem;
 	Script script = new Script();
+	List<String> turnScript = new ArrayList<>();
 	
 	public TurnInfo() {}
 	
@@ -28,6 +31,15 @@ public class TurnInfo extends BattleSetting{
 	}
 	public void setItem(int idx, Item item) {
 		turnItem[idx] = item;
+	}
+
+	public List<String> getTurnScript() {
+		return turnScript;
+	}
+	
+	public void resetTurnScript() {
+		turnScript.clear();
 	}	
+	
 }
 

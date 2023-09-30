@@ -43,7 +43,7 @@ public class Main extends Script {
 				myTurn.startTurn(player);
 				enemyTurn.startTurn(enemy[eNum]);
 
-				myTurn.doMyTurnLoop(player, enemy[eNum], enemyTurn);
+//				myTurn.doMyTurnLoop(player, enemy[eNum], enemyTurn);
 				if (player.getHp()<1||enemy[eNum].getHp()<1) break;
 
 				enemyTurn.doEnemyTurnLoop(player, enemy[eNum], myTurn);

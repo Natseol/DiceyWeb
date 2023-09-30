@@ -89,7 +89,7 @@ function printInventory() {
 
 function inside() {
     fetch("./servlet", {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -129,56 +129,149 @@ console.log("Person 2 Age: " + person2.age);
 
 // 0부터 9까지의 이미지 URL 배열을 정의합니다.
 const imagePaths = [
-    "image/dice10.png",
-    "image/dice1.png",
-    "image/dice2.png",
-    "image/dice3.png",
-    "image/dice4.png",
-    "image/dice5.png",
-    "image/dice6.png",
-    "image/dice7.png",
-    "image/dice8.png",
-    "image/dice9.png"
+    "http://localhost:8088/DiceyWeb/image/dice10.png",
+    "http://localhost:8088/DiceyWeb/image/dice1.png",
+    "http://localhost:8088/DiceyWeb/image/dice2.png",
+    "http://localhost:8088/DiceyWeb/image/dice3.png",
+    "http://localhost:8088/DiceyWeb/image/dice4.png",
+    "http://localhost:8088/DiceyWeb/image/dice5.png",
+    "http://localhost:8088/DiceyWeb/image/dice6.png",
+    "http://localhost:8088/DiceyWeb/image/dice7.png",
+    "http://localhost:8088/DiceyWeb/image/dice8.png",
+    "http://localhost:8088/DiceyWeb/image/dice9.png"
 ];
 
 const imageRedPaths = [
-    "image/dicered10.png",
-    "image/dicered1.png",
-    "image/dicered2.png",
-    "image/dicered3.png",
-    "image/dicered4.png",
-    "image/dicered5.png",
-    "image/dicered6.png",
-    "image/dicered7.png",
-    "image/dicered8.png",
-    "image/dicered9.png"
+    "http://localhost:8088/DiceyWeb/image/dicered10.png",
+    "http://localhost:8088/DiceyWeb/image/dicered1.png",
+    "http://localhost:8088/DiceyWeb/image/dicered2.png",
+    "http://localhost:8088/DiceyWeb/image/dicered3.png",
+    "http://localhost:8088/DiceyWeb/image/dicered4.png",
+    "http://localhost:8088/DiceyWeb/image/dicered5.png",
+    "http://localhost:8088/DiceyWeb/image/dicered6.png",
+    "http://localhost:8088/DiceyWeb/image/dicered7.png",
+    "http://localhost:8088/DiceyWeb/image/dicered8.png",
+    "http://localhost:8088/DiceyWeb/image/dicered9.png"
 ];
 
 const imageContainer = document.getElementById("image-container");
 
-const diceList = [2,3,5,6,2];
+function setDiceImage(list) {
+    imageContainer.innerHTML = "";
+    for (let i = 0; i < list.length; i++) {
 
-for (let i = 0; i < diceList.length; i++) {
+        let imageElement = document.createElement("img");
+        imageElement.className = "dice-image";
+        imageElement.src = imagePaths[list[i]];
+        imageElement.addEventListener("click", function() {
+            console.log(imageElement.src);
+            console.log(imagePaths[list[i]]);
+            if (imageElement.src == imagePaths[list[i]]) {
+                console.log("검은색");
+                resetDiceImage(list);
+                imageElement.src = imageRedPaths[list[i]];
+                
+            } else if (imageElement.src == imageRedPaths[list[i]]) {
+                console.log("빨강");
+                imageElement.src = imagePaths[list[i]];
+            } else {
+                console.log("안됨");
+            }
+        });
+        imageContainer.appendChild(imageElement);
+    }
+}
+function resetDiceImage(list) {
+    for (let i = 0; i < list.length; i++) {
+        document.getElementsByClassName("dice-image")[i].src = imagePaths[list[i]];
+    }
+}
 
-    let imageElement = document.createElement("img");
-    imageElement.className = "dice-image";
-    imageElement.src = imagePaths[diceList[i]];
-    imageElement.addEventListener("click", function() {
-        console.log(imageElement.src);
-        console.log(imagePaths[diceList[i]]);
-        if (imageElement.src == imagePaths[diceList[i]]) {
+const itemContainer = document.getElementById("item-container");
+
+function setItemList(list) {
+    itemContainer.innerHTML = "";
+    for (let i = 0; i < list.length; i++) {
+        let itemElement = document.createElement("div");
+        itemElement.className = "item-div";
+        itemElement.innerHTML = list[i].name + " : " + list[i].description;
+		itemElement.classList.add("itemBasic");
+        
+        itemElement.addEventListener("click", function () {
+        if (itemElement.classList.contains("itemBasic")) {
             console.log("검은색");
-            imageElement.src = imageRedPaths[diceList[i]];
-        } else if (imageElement.src == imageRedPaths[diceList[i]]) {
+            resetItemColor(list);
+            itemElement.classList.remove("itemBasic");
+            itemElement.classList.add("itemRed");
+        } else if (itemElement.classList.contains("itemRed")) {
             console.log("빨강");
-            imageElement.src = imagePaths[diceList[i]];
+            itemElement.classList.remove("itemRed");
+            itemElement.classList.add("itemBasic");
         } else {
             console.log("안됨");
         }
-    });
-    
-    imageContainer.appendChild(imageElement);
+      });
+
+      itemContainer.appendChild(itemElement);
+    }
 }
+
+function resetItemColor(list) {
+    for (let i = 0; i < list.length; i++) {
+        document.getElementsByClassName("item-div")[i].classList.remove("itemRed");
+        document.getElementsByClassName("item-div")[i].classList.add("itemBasic");
+    }
+}
+
+function printDice() {
+    fetch("./battleserv", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            const diceList = data.myTurn.diceList;
+
+            console.log(diceList);
+            console.log(data.myTurn.item);
+
+            setDiceImage(diceList);
+            setItemList(data.myTurn.item);
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+};
+
+function myBattle() {
+    fetch("./battleserv", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            const diceList = data.myTurn.diceList;
+
+            console.log(diceList);
+
+            setDiceImage(diceList);
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+};
+
+
 
 function consolPrint() {
     var container = document.getElementById("image-container");
