@@ -6,7 +6,10 @@ import Item.*;
 public class BattleSetting extends TurnDice {
 	
 	int[][] itemState=new int[6][4];//0:times 1:count 2:needDice 3:use
-	
+			
+	public int[][] getItemState() {
+		return itemState;
+	}
 	public int getTurnTimes(int idx) {
 		return itemState[idx][0];
 	}

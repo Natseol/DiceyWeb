@@ -1,5 +1,6 @@
 package Field;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import Character.*;
@@ -7,7 +8,7 @@ import Main.Color;
 import Main.Input;
 import Main.Script;
 
-public class Field {
+public class Field implements Serializable{
 	
 	Scanner scanner = new Scanner(System.in);
 	Store store = new Store();

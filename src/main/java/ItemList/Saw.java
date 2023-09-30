@@ -20,7 +20,7 @@ public class Saw extends Item{
 	}
 	
 	@Override
-	public String action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
+	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
 		switch (dice) {
 		case 6:
 			my.getDiceList().add(2);
@@ -47,6 +47,6 @@ public class Saw extends Item{
 			my.setTurnTimes(idx, 0);	
 			break;	
 		}
-		return "";
+		return ;
 	}
 }

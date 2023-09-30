@@ -1,5 +1,6 @@
 package Character;
 
+import java.io.Serializable;
 import java.util.Collections;
 
 import Battle.*;
@@ -7,7 +8,7 @@ import Item.*;
 import ItemList.*;
 import Main.*;
 
-public class Status {
+public class Status implements Serializable {
 	protected int hp;
 	protected int maxHp;
 	protected int def;

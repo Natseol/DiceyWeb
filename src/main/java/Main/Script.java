@@ -1,12 +1,16 @@
 package Main;
 
+import java.io.Serializable;
+
 import Battle.*;
 import Character.*;
 import Dice.Roll;
 import Field.Store;
 import ItemList.*;
 
-public class Script implements Color {
+public class Script implements Color, Serializable {
+	StringBuilder strb = new StringBuilder();
+	
 	public void chooseJob() {
 		System.out.println("------------------------------------------------");
 		System.out.println();

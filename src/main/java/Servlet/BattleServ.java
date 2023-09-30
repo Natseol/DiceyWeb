@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Battle.EnemyTurn;
@@ -61,8 +62,8 @@ public class BattleServ extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		player.chooseJob(1);
-		player.setJobItem(player.getJob(), 1);
+//		player.chooseJob(1);
+//		player.setJobItem(player.getJob(), 1);
 		
 		System.out.println("batlle GET 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
@@ -93,19 +94,19 @@ public class BattleServ extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
         
-//        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-//
-//        // 각각의 파라미터로 저장
-//        String param1 = jsonNode.get("jobNum").asText();
-//        String param2 = jsonNode.get("equipmentNum").asText();
-//
-//        // 변수 확인
-//        System.out.println("jobNum: " + param1);
-//        System.out.println("equipmentNum: " + param2);
-//
-//        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
+        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
+
+        // 각각의 파라미터로 저장
+        String param1 = jsonNode.get("idxDice").asText();
+        String param2 = jsonNode.get("idxItem").asText();
+
+        // 변수 확인
+        System.out.println("idxDice: " + param1);
+        System.out.println("idxItem: " + param2);
+
+        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
         
-        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, 0, 0);
+//        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, 0, 0);
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
@@ -116,6 +117,7 @@ public class BattleServ extends HttpServlet {
         jsonData.put("myTurn", myTurn);
         jsonData.put("enemyTurn", enemyTurn);
         jsonData.put("script", scriptArray);
+        jsonData.put("itemState", myTurn.getItemState());
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");

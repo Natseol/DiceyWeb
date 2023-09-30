@@ -100,13 +100,15 @@ public class MyTurn extends TurnInfo{
 			
 			getDiceList().remove(idxDice);
 			if (getIsUseSkill()) {
-				turnScript.add(getItem(idxInven).action(player, enemy, numDice, this, idxInven));
+				getItem(idxInven).action(player, enemy, numDice, this, idxInven);
+				turnScript.add(getItem(idxInven).getStrb().toString());
 				getItem(idxInven).resetStrb();
 				setTurnTimes(idxInven, getTurnTimes(idxInven));
 				turnScript.add(" * 한번 더 발동합니다 *<br>");					
 				setIsUseSkill(false);
 			}
-			turnScript.add(getItem(idxInven).action(player, enemy, numDice, this, idxInven));
+			getItem(idxInven).action(player, enemy, numDice, this, idxInven);
+			turnScript.add(getItem(idxInven).getStrb().toString());
 			getItem(idxInven).resetStrb();
 			//장비 발동
 			if (player.getHp()<1||enemy.getHp()<1) return;

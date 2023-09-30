@@ -10,6 +10,10 @@ public class ItemScript {
 		strb.setLength(0);
 	}
 
+	public static StringBuilder getStrb() {
+		return strb;
+	}
+
 	public static void printDamage(int dice) {
 		System.out.println(" "+Color.B_RED+" "+dice+" "+Color.RESET+" 의 피해를 줬습니다!!");
 		System.out.println();

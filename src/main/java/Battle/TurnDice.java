@@ -1,12 +1,13 @@
 package Battle;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import Character.Status;
 import Dice.Roll;
 
-public class TurnDice {
+public class TurnDice implements Serializable{
 	
 	List<Integer> diceList = new LinkedList<>();
 	int addDice;
