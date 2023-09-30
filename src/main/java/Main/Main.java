@@ -15,65 +15,38 @@ public class Main extends Script {
 
 		Scanner scanner = new Scanner(System.in);
 		Script script = new Script();		
-
-		script.chooseJob();
-		int inputNum=0;
-		while (inputNum>5||inputNum<1) {
-			inputNum=Input.checkInput(scanner.nextLine());
-		}
-		Player player = new Player(inputNum);
-
-		script.chooseItem(player.getJob());
-		inputNum=0;
-		while (inputNum>2||inputNum<1) {
-			inputNum=Input.checkInput(scanner.nextLine());
-		}
-		player.setJobItem(player.getJob(), inputNum);
-
+		Player player = new Player();
 		Enemy[] enemy = Enemy.enemyList();
 		
 		int floor=1;		
 		int eNum=0;
 		Field field = new Field();
+		
+		script.chooseJob();
+		int inputNum=scanner.nextInt();
+		player.chooseJob(inputNum);
+		
+		script.chooseItem(player.getJob());
+		inputNum=scanner.nextInt();
+		player.setJobItem(player.getJob(), inputNum);
 
-//		player.setCondition(0,3);
-//		player.setCondition(1,2);
-//		player.setCondition(2,4);
-//		player.setCondition(3,2);
-
-//		player.setLevel(5);
-//		player.setSp(12);
-//		player.setHp(62);
-//		enemy[eNum].setHp(2);
-
-//			enemy[eNum].setCondition(0,3);
-//			enemy[eNum].setCondition(1,2);
-//			enemy[eNum].setCondition(2,2);
-//			enemy[eNum].setCondition(3,2);
-
+		MyTurn myTurn = new MyTurn(player);//주사위 초기화;
+		EnemyTurn enemyTurn = new EnemyTurn(enemy[eNum]);;
+		
 		while (true) {//스테이지 진입
 			
 			script.startBattle();			
-			MyTurn myturn = new MyTurn(player);//주사위 초기화
-			EnemyTurn enemyTurn = new EnemyTurn(enemy[eNum]);
+			myTurn = new MyTurn(player);//주사위 초기화
+			enemyTurn = new EnemyTurn(enemy[eNum]);
 			while (true) {//전투시작
 				
-				myturn.startTurn(player);
+				myTurn.startTurn(player);
 				enemyTurn.startTurn(enemy[eNum]);
 
-				myturn.doMyTurnLoop(player, enemy[eNum], enemyTurn);
+				myTurn.doMyTurnLoop(player, enemy[eNum], enemyTurn);
 				if (player.getHp()<1||enemy[eNum].getHp()<1) break;
-				
-				//*****************
-				// 전투 탈출
-				//*****************
-//				System.out.println();
-//				System.out.println("---------------------------------");
-//				System.out.println("종료 = 1");
-//				if (scanner.nextLine().equals("1")) break;
 
-				System.out.println();
-				enemyTurn.doEnemyTurnLoop(player, enemy[eNum], myturn);
+				enemyTurn.doEnemyTurnLoop(player, enemy[eNum], myTurn);
 				if (player.getHp()<1||enemy[eNum].getHp()<1) break;
 
 				script.startMyTurn();

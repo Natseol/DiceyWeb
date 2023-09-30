@@ -10,7 +10,20 @@ public class Player extends Job {
 	protected int level;
 	
     public Player() {}
-	public Player(int num) {//1.전사 2.도적
+	public Player(int num) {
+		level=1;
+		inventory = new Item[5];
+		switch (num) {
+		case 1 : setJobWarrior(); break;
+		case 2 : setJobThief(); break;
+		case 3 : setJobArcher(); break;
+		case 4 : setJobMagician(); break;
+		case 5 : setJobKnight(); break;
+		default : break;
+		}		
+	}
+	
+	public void chooseJob(int num) {
 		level=1;
 		inventory = new Item[5];
 		switch (num) {

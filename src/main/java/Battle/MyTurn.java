@@ -15,14 +15,16 @@ public class MyTurn extends TurnInfo{
 	boolean isUseSkill;
 	
  	public MyTurn(Player player) {
- 		super(player);		
-		turnItem= player.getInventory().clone();		
+ 		super(player);
 		resetDiceList(player);
 		isUseSkill=false;
-		resetTimes(turnItem);
-		resetCount(player);
-		resetNeedDice(player);
-		resetUse(player);
+ 		if (player.getInventory()!=null) {
+ 			turnItem= player.getInventory().clone();
+ 			resetTimes(turnItem);
+ 			resetCount(player);
+ 			resetNeedDice(player);
+ 			resetUse(player);
+ 		}
 	}
  	
  	public void startTurn(Player player) {

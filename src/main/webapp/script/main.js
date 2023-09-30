@@ -1,3 +1,53 @@
+const buttons = document.querySelectorAll('.jn');
+let jobNumber=0;
+// 각 버튼에 클릭 이벤트 리스너를 추가합니다.
+buttons.forEach((button) => {
+  button.addEventListener('click', function(event) {
+    // 클릭된 버튼의 data-buttonid 속성을 읽어옵니다.
+    const buttonId = event.target.getAttribute('data-buttonid');
+    
+    // 버튼을 구분할 수 있는 작업을 수행합니다.
+    console.log('눌린 버튼의 아이디:', buttonId);
+    
+    // 버튼 아이디에 따라 다른 동작을 수행할 수 있습니다.
+    if (buttonId === '1') {jobNumber=1;      
+    } else if (buttonId === '2') {jobNumber=2;      
+    } else if (buttonId === '3') {jobNumber=3;
+    } else if (buttonId === '4') {jobNumber=4;
+    } else if (buttonId === '5') {jobNumber=5;
+    }
+    jnPost();
+  });
+});
+
+function jnPost() {
+	const postData = {
+        jobNum: jobNumber,
+        equipmentNum: 'value2'
+    }
+
+	fetch("./servlet", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+        .then(response => response.json())
+        .then(data => {
+ 
+            // fetch 내부에서 변수를 사용하려면 여기에 추가 작업을 수행하세요.
+            // 변수에 저장된 값 출력
+            console.log(data);
+            console.log(data.player.inventory[0].name);
+            console.log(data.script);
+            document.getElementById("script").innerHTML = data.script;   
+        })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+}
+
 function inside() {
     fetch("./servlet", {
         method: 'GET',
@@ -7,18 +57,13 @@ function inside() {
     })
         .then(response => response.json())
         .then(data => {
-            // "name" 속성의 값을 전역 변수에 저장
-            let nameValue = data.name;
-            let ageValue = data.age;        
-
+ 
             // fetch 내부에서 변수를 사용하려면 여기에 추가 작업을 수행하세요.
             // 변수에 저장된 값 출력
             console.log(data);
             console.log(data.player.inventory[0].name);
             console.log(data.script);
-            document.getElementById("script").innerHTML = data.script;
-            console.log("Name Value (inside fetch): " + nameValue);
-            console.log("Age Value (inside fetch): " + ageValue);         
+            document.getElementById("script").innerHTML = data.script;   
         })
         .catch(error => {
             console.error('Error:', error);
@@ -50,7 +95,7 @@ console.log("Person 2 Age: " + person2.age);
 const imagePaths = [
     "image/dice10.png",
     "image/dice1.png",
-    "http://192.168.0.35:5500/image/dice2.png",
+    "image/dice2.png",
     "image/dice3.png",
     "image/dice4.png",
     "image/dice5.png",
@@ -63,7 +108,7 @@ const imagePaths = [
 const imageRedPaths = [
     "image/dicered10.png",
     "image/dicered1.png",
-    "http://192.168.0.35:5500/image/dicered2.png",
+    "image/dicered2.png",
     "image/dicered3.png",
     "image/dicered4.png",
     "image/dicered5.png",

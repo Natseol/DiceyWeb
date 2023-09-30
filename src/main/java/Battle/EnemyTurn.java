@@ -14,13 +14,15 @@ import Main.Script;
 public class EnemyTurn extends TurnInfo{
 		
  	public EnemyTurn(Status enemy) {
- 		super(enemy);		
-		turnItem= enemy.getInventory().clone();		
-		itemState=new int[enemy.getInventory().length][4];
-		resetDiceList(enemy);
-		resetTimes(turnItem);
-		resetCount(enemy);
-		resetNeedDice(enemy);
+ 		super(enemy);
+ 		if (enemy.getInventory()!=null) {
+	 		turnItem= enemy.getInventory().clone();		
+			itemState=new int[enemy.getInventory().length][4];
+			resetDiceList(enemy);
+			resetTimes(turnItem);
+			resetCount(enemy);
+			resetNeedDice(enemy);
+ 		}
 	}
  	
  	public void startTurn(Status enemy) {

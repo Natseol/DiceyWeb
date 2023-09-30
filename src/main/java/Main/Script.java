@@ -90,6 +90,38 @@ public class Script implements Color {
 		System.out.println();
 	}
 	
+	public String getChooseItem(String job) {
+		String str="";
+		switch (job) {
+		case "전사" :
+			str +="장비를 선택하세요<br>";
+			str +="1.[검, 도끼, 변경]<br>";
+			str +="2.[카타나, 부메랑, 희생]<br>";
+			break;
+		case "도적" :
+			str +="장비를 선택하세요<br>";
+			str +="1.[단검, 짧은활, 락픽]<br>";
+			str +="2.[맹독, 독칼, 자르기]<br>";
+			break;
+		case "궁수" :
+			str +="장비를 선택하세요<br>";
+			str +="1.[장궁, 짧은검, 정밀]<br>";
+			str +="2.[석궁, 함정, 위조]<br>";
+			break;
+		case "마법사" :
+			str +="장비를 선택하세요<br>";
+			str +="1.[완드, 얼음파편, 거울]<br>";
+			str +="2.[스태프, 눈폭풍, 두사위]<br>";
+			break;
+		case "기사" :
+			str +="장비를 선택하세요<br>";
+			str +="1.[격돌, 가시방패, 막기]<br>";
+			str +="2.[성검, 패링, 매직쉴드]<br>";
+			break;
+		}		
+		return str;
+	}
+	
 
 	public void startBattle() {
 		System.out.println();
