@@ -18,7 +18,20 @@ public class TurnInfo extends BattleSetting{
 	Item[] turnItem;
 	Script script = new Script();
 	List<String> turnScript = new ArrayList<>();
+	boolean isTurn;
 	
+	public boolean isTurn() {
+		return isTurn;
+	}
+
+	public void changeTurn() {
+		if (!isTurn) {
+			isTurn = true;
+		} else {
+			isTurn = false;
+		}
+	}
+
 	public TurnInfo() {}
 	
  	public TurnInfo(Status status) {}

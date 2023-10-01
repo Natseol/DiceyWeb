@@ -1,12 +1,14 @@
 package Item;
 
+import java.util.ArrayList;
+
 import Main.Color;
 
 public class ItemScript {	
 	
 	static StringBuilder strb = new StringBuilder();
 	
-	public void resetStrb() {
+	public static void resetStrb() {
 		strb.setLength(0);
 	}
 

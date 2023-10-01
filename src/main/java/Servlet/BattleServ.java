@@ -1,7 +1,9 @@
 package Servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -48,6 +50,7 @@ public class BattleServ extends HttpServlet {
 		System.out.println("배틀서브 생성");
 		player.chooseJob(1);
 		player.setJobItem(player.getJob(), 1);
+		myTurn.changeTurn();
 	}
 
 	/**
@@ -73,7 +76,7 @@ public class BattleServ extends HttpServlet {
 		enemyTurn.startTurn(enemy[enemyNum]);
         
 		// JSON 데이터를 생성
-        Map<String, Object> jsonData = new HashMap<>();        
+        Map<String, Object> jsonData = new HashMap<>();
         
         jsonData.put("player", player);
         jsonData.put("enemy", enemy[enemyNum]);
@@ -106,18 +109,14 @@ public class BattleServ extends HttpServlet {
 
         myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
         
-//        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, 0, 0);
-        
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
-        String scriptArray = myTurn.getTurnScript().toString();
         
         jsonData.put("player", player);
         jsonData.put("enemy", enemy[enemyNum]);
         jsonData.put("myTurn", myTurn);
         jsonData.put("enemyTurn", enemyTurn);
-        jsonData.put("script", scriptArray);
-        jsonData.put("itemState", myTurn.getItemState());
+        jsonData.put("script", myTurn.getTurnScript());
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
@@ -128,7 +127,48 @@ public class BattleServ extends HttpServlet {
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("batlle PUT 연결됨");
+		response.setContentType("text/html;charset=UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+//        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
+//
+//        // 각각의 파라미터로 저장
+//        String param1 = jsonNode.get("idxDice").asText();
+//        String param2 = jsonNode.get("idxItem").asText();
+//
+//        // 변수 확인
+//        System.out.println("idxDice: " + param1);
+//        System.out.println("idxItem: " + param2);
+        System.out.println("내턴:"+myTurn.isTurn());
+        System.out.println("적턴:"+enemyTurn.isTurn());
+        
+        if (myTurn.isTurn()) {
+        	myTurn.changeTurn();
+        	enemyTurn.changeTurn();
+        	enemyTurn.startTurn(enemy[enemyNum]);
+        	enemyTurn.resetTimes(enemy[enemyNum].getInventory());	
+        } else {        
+        	enemyTurn.doEnemyTurnLoop(player, enemy[enemyNum], myTurn);
+        }
+        if (!enemyTurn.isTurn()) {
+        	myTurn.startTurn(player);
+        	myTurn.resetTimes(player.getInventory());
+        }
+        System.out.println("내턴:"+myTurn.isTurn());
+        System.out.println("적턴:"+enemyTurn.isTurn());
+        
+		// JSON 데이터를 생성
+        Map<String, Object> jsonData = new HashMap<>();        
+        
+        jsonData.put("player", player);
+        jsonData.put("enemy", enemy[enemyNum]);
+        jsonData.put("myTurn", myTurn);
+        jsonData.put("enemyTurn", enemyTurn);
+        jsonData.put("script", enemyTurn.getTurnScript());
+                
+        // JSON 데이터를 클라이언트에게 전송
+        response.setContentType("application/json");
+        objectMapper.writeValue(response.getWriter(), jsonData);
 	}
-
 }

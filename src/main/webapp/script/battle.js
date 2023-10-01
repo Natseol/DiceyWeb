@@ -58,6 +58,19 @@ function resetDiceImage(list) {
     }
 }
 
+//적 주사위 그림 생성
+const imageContainer2 = document.getElementById("image-container2");
+function setDiceImage2(list) {
+    imageContainer2.innerHTML = "";
+    for (let i = 0; i < list.length; i++) {
+
+        let imageElement = document.createElement("img");
+        imageElement.className = "dice-image2";
+        imageElement.src = imagePaths[list[i]];        
+        imageContainer2.appendChild(imageElement);
+    }
+}
+
 //아이템 리스트 생성
 const itemContainer = document.getElementById("item-container");
 function setItemList(list) {
@@ -202,10 +215,9 @@ function useItem() {
     });
 }
 
-
-function myBattle() {
+function myTurnEnd() {
     fetch("./battleserv", {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -213,13 +225,14 @@ function myBattle() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            //스크립트 출력
+            setScript(data.script)
+            setPlayerInfo(data.player);
+            setEnemyInfo(data.enemy);
+            setDiceImage(data.myTurn.diceList);
+            setItemList(data.myTurn.item);
 
-            const diceList = data.myTurn.diceList;
-
-            console.log(diceList);
-
-            setDiceImage(diceList);
-
+            setDiceImage2(data.enemyTurn.diceList);
         })
         .catch(error => {
             console.error('Error:', error);
