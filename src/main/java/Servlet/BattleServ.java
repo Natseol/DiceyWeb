@@ -21,6 +21,7 @@ import Battle.EnemyTurn;
 import Battle.MyTurn;
 import Character.Enemy;
 import Character.Player;
+import Character.Skill;
 import Field.Field;
 import Main.Script;
 
@@ -82,7 +83,7 @@ public class BattleServ extends HttpServlet {
 //		player.setCondition(3,2);
         
 //		player.setLevel(5);
-//		player.setSp(12);
+		player.setSp(12);
 //		player.setHp(62);
 //		enemy[eNum].setHp(2);
 
@@ -119,7 +120,12 @@ public class BattleServ extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-
+        
+        if (jsonNode.get("isUseSkill").asText().equals("true")) {
+        	String param = jsonNode.get("isUseSkill").asText();
+        	System.out.println("isUseSkill: " + param);
+        	Skill.useSkill(player, enemy[enemyNum], myTurn);
+        } else {
         // 각각의 파라미터로 저장
         String param1 = jsonNode.get("idxDice").asText();
         String param2 = jsonNode.get("idxItem").asText();
@@ -129,6 +135,8 @@ public class BattleServ extends HttpServlet {
         System.out.println("idxItem: " + param2);
 
         myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
+        
+        }
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
@@ -140,6 +148,8 @@ public class BattleServ extends HttpServlet {
         jsonData.put("isEnemyTurn", enemyTurn.getIsTurn());
         jsonData.put("enemyTurn", enemyTurn);
         jsonData.put("script", myTurn.getTurnScript());
+        jsonData.put("skillScript", Skill.getStrb().toString());
+        Skill.getStrb().setLength(0);
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
@@ -191,6 +201,8 @@ public class BattleServ extends HttpServlet {
         jsonData.put("myTurn", myTurn);
         jsonData.put("enemyTurn", enemyTurn);
         jsonData.put("script", enemyTurn.getTurnScript());
+        jsonData.put("skillScript", Skill.getStrb().toString());
+        Skill.getStrb().setLength(0);
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
