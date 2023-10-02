@@ -5,65 +5,73 @@ import Item.*;
 
 public class BattleSetting extends TurnDice {
 	
-	int[][] itemState=new int[6][4];//0:times 1:count 2:needDice 3:use
-			
-	public int[][] getItemState() {
-		return itemState;
+	int[] timesState=new int[5];
+	int[] countState=new int[5];
+	int[] needDiceState=new int[5];
+	int[] useState=new int[5];
+		
+	public int[] getTimesState() {
+		return timesState;
 	}
-	public int getTurnTimes(int idx) {
-		return itemState[idx][0];
+	public int[] getCountState() {
+		return countState;
 	}
-	public void setTurnTimes(int idx, int num) {
-		itemState[idx][0]=num;
+	public int[] getNeedDiceState() {
+		return needDiceState;
 	}
-	
-	public int getTurnCount(int idx) {
-		return itemState[idx][1];
-	}
-	public void setTurnCount(int idx, int num) {
-		itemState[idx][1]=num;
-	}
-	
-	public int getNeedDice(int idx) {
-		return itemState[idx][2];
-	}
-	public void setNeedDice(int idx, int num) {
-		itemState[idx][2]=num;
+	public int[] getUseState() {
+		return useState;
 	}
 	
-	public int getTurnUse(int idx) {
-		return itemState[idx][3];
+	public int getTimesState(int idx) {
+		return timesState[idx];
 	}
-	public void setTurnUse(int idx, int num) {
-		itemState[idx][3]=num;
+	public void setTimesState(int idx, int num) {
+		timesState[idx]=num;
+	}
+	
+	public int getCountState(int idx) {
+		return countState[idx];
+	}
+	public void setCountState(int idx, int num) {
+		countState[idx]=num;
+	}
+	
+	public int getNeedDiceState(int idx) {
+		return needDiceState[idx];
+	}
+	public void setNeedDiceState(int idx, int num) {
+		needDiceState[idx]=num;
+	}
+	
+	public int getUseState(int idx) {
+		return useState[idx];
+	}
+	public void setUseState(int idx, int num) {
+		useState[idx]=num;
 	}
 	
 	public void resetTimes(Item[] item) {
-		try {
-			for (int i=0;i<item.length;i++) {
-				this.itemState[i][0]=item[i].getTimes();
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (int i=0;i<item.length;i++) {
+			timesState[i]=item[i].getTimes();
 		}
 	}
 	
 	public void resetCount(Status status) {
 		for (int i=0;i<status.getInventory().length;i++) {
-			this.itemState[i][1]=status.getInventory(i).getCount();
+			countState[i]=status.getInventory(i).getCount();
 		}
 	}
 	
 	public void resetNeedDice(Status status) {
 		for (int i=0;i<status.getInventory().length;i++) {
-			this.itemState[i][2]=0;
+			needDiceState[i]=0;
 		}
 	}
 	
 	public void resetUse(Status status) {
 		for (int i=0;i<status.getInventory().length;i++) {
-			this.itemState[i][3]=0;
+			useState[i]=0;
 		}
 	}
 }

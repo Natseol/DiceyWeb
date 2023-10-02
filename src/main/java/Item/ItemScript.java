@@ -6,7 +6,7 @@ import Main.Color;
 
 public class ItemScript {	
 	
-	static StringBuilder strb = new StringBuilder();
+	protected static StringBuilder strb = new StringBuilder();
 	
 	public static void resetStrb() {
 		strb.setLength(0);

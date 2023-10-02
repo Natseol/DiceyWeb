@@ -21,6 +21,6 @@ public class Mirror extends Item{
 	@Override
 	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
 		my.setAddDice(my.getAddDice()+1);
-		my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+		my.setTimesState(idx, my.getTimesState(idx)-1);
 	}
 }

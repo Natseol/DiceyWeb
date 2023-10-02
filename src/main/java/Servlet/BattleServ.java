@@ -31,16 +31,16 @@ import Main.Script;
 public class BattleServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	Script script = new Script();		
-	Player player = new Player();
-	Enemy[] enemy = Enemy.enemyList();
+	Script script;		
+	Player player;
+	Enemy[] enemy;
 	
-	int floor=1;		
-	int enemyNum=0;
-	Field field = new Field();
+	int floor;		
+	int enemyNum;
+	Field field;
 	
-	MyTurn myTurn = new MyTurn(player);
-	EnemyTurn enemyTurn = new EnemyTurn(enemy[enemyNum]);
+	MyTurn myTurn;
+	EnemyTurn enemyTurn;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -48,10 +48,6 @@ public class BattleServ extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("배틀서브 생성");
-		
-		player.chooseJob(1);
-		player.setJobItem(player.getJob(), 1);
-		myTurn.changeTurn();
 	}
 
 	/**
@@ -71,36 +67,34 @@ public class BattleServ extends HttpServlet {
         if (session.getAttribute("player") != null) {
         	System.out.println("전달됨");
     		player = (Player) session.getAttribute("player");
+    		session.removeAttribute("player");
     		enemy = (Enemy[]) session.getAttribute("enemy");
     		floor = (int) session.getAttribute("floor");
     		enemyNum = (int) session.getAttribute("enemyNum");
     		field = (Field) session.getAttribute("field");
+    		myTurn = new MyTurn(player);
+    		enemyTurn = new EnemyTurn(enemy[enemyNum]);
         }
 		
-		player.setCondition(0,2);
-		player.setCondition(1,2);
-		player.setCondition(2,2);
-		player.setCondition(3,2);
+//		player.setCondition(0,2);
+//		player.setCondition(1,2);
+//		player.setCondition(2,2);
+//		player.setCondition(3,2);
         
 //		player.setLevel(5);
 //		player.setSp(12);
 //		player.setHp(62);
 //		enemy[eNum].setHp(2);
 
-//			enemy[eNum].setCondition(0,3);
-//			enemy[eNum].setCondition(1,2);
-//			enemy[eNum].setCondition(2,2);
-//			enemy[eNum].setCondition(3,2);
+		enemy[enemyNum].setCondition(0,2);
+		enemy[enemyNum].setCondition(1,2);
+		enemy[enemyNum].setCondition(2,2);
+		enemy[enemyNum].setCondition(3,2);
         
 		System.out.println("batlle GET 연결됨");
+		System.out.println("오류확인용 이름확인 "+enemy[enemyNum].getName());
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
-    
-		myTurn.startTurn(player);
-		System.out.println("오류확인용 이름확인 "+enemy[enemyNum].getName());
-		enemyTurn.startTurn(enemy[enemyNum]);
-		myTurn.resetCount(player);
-		enemyTurn.resetCount(enemy[enemyNum]);
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
@@ -175,19 +169,14 @@ public class BattleServ extends HttpServlet {
         if (myTurn.getIsTurn()) {
         	player.resetFireStack();
         	myTurn.changeTurn();
-        	enemyTurn.changeTurn();
         	enemyTurn.getTurnScript().add("= 턴 시작 =<br><br>");
         	enemyTurn.startTurn(enemy[enemyNum]);
-        	enemyTurn.resetTimes(enemy[enemyNum].getInventory());	
         } else {        
         	enemyTurn.doEnemyTurnLoop(player, enemy[enemyNum], myTurn);
         }
         if (myTurn.getIsTurn()) {
         	enemyTurn.getTurnScript().add("<br>= 턴 종료 =<br><br>");
         	myTurn.startTurn(player);
-        	myTurn.resetTimes(player.getInventory());
-        	myTurn.checkPoison(player);        	
-        	myTurn.checkIce(player);
         	enemyTurn.getTurnScript().addAll(myTurn.getTurnScript());
         }
         System.out.println("내턴:"+myTurn.getIsTurn());

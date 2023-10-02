@@ -73,7 +73,7 @@ function setDiceImage2(list) {
 
 //아이템 리스트 생성
 const itemContainer = document.getElementById("item-container");
-function setItemList(list, stateList) {
+function setItemList(list, turn) {
     itemContainer.innerHTML = "";
     for (let i = 0; i < list.length; i++) {
         let itemElement = document.createElement("div");
@@ -83,14 +83,14 @@ function setItemList(list, stateList) {
 		}
         itemElement.innerHTML = list[i].name+"<br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
-        if (stateList[i][0]>1) {
-        	itemElement.innerHTML +="남은횟수 : "+stateList[i][0]+"<br><br>";
+        if (turn.timesState[i]>1) {
+        	itemElement.innerHTML +="남은횟수 : "+turn.timesState[i]+"<br><br>";
         }
-		if (stateList[i][1]>0) {
-        	itemElement.innerHTML +="카운트 : "+stateList[i][1]+"<br><br>";
+		if (turn.countState[i]>0) {
+        	itemElement.innerHTML +="카운트 : "+turn.countState[i]+"<br><br>";
         }
-        if (stateList[i][2]>0) {
-        	itemElement.innerHTML +="누적 : "+stateList[i][2]+"<br><br>";
+        if (turn.needDiceState[i]>0) {
+        	itemElement.innerHTML +="누적 : "+turn.needDiceState[i]+"<br><br>";
         }
 		itemElement.classList.add("itemBasic");
         
@@ -127,7 +127,7 @@ function setPlayerInfo(player) {
     playerElement1.className = "player-div";
     playerElement1.innerHTML = player.job + " " + player.hp
     if (player.def>0) { 
-		playerElement1.innerHTML += " ("+player.def+")";
+		playerElement1.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
 	}
     playerElement1.innerHTML += " / " + player.maxHp + "<br>"
     playerContainer.appendChild(playerElement1);
@@ -135,20 +135,30 @@ function setPlayerInfo(player) {
     playerElement2.className = "player-div";
     playerElement2.innerHTML = "Level "+player.level + " sp:" + player.sp + " dice:" + player.diceQuantity + "<br>"
     playerContainer.appendChild(playerElement2);
-    let playerElement3 = document.createElement("div");
     if (player.condition[0]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="화염 : "+player.condition[0]+"<br>";
+        playerElement3.style.color = "red";
+        playerContainer.appendChild(playerElement3);
     }
     if (player.condition[1]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="냉기 : "+player.condition[1]+"<br>";
+        playerElement3.style.color = "blue";
+        playerContainer.appendChild(playerElement3);
     }
     if (player.condition[2]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="전기 : "+player.condition[2]+"<br>";
+        playerElement3.style.color = "yellow";
+        playerContainer.appendChild(playerElement3);
     }
     if (player.condition[3]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="독 : "+player.condition[3]+"<br>";
+        playerElement3.style.color = "purple";
+        playerContainer.appendChild(playerElement3);
     }
-    playerContainer.appendChild(playerElement3);
 }
 
 //적 정보 생성
@@ -164,20 +174,30 @@ function setEnemyInfo(player) {
     playerElement2.className = "enemy-div";
     playerElement2.innerHTML = "Grade:"+player.grade + " dice:" + player.diceQuantity + "<br>"
     enemyContainer.appendChild(playerElement2);
-    let playerElement3 = document.createElement("div");
     if (player.condition[0]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="화염 : "+player.condition[0]+"<br>";
+        playerElement3.style.color = "red";
+        enemyContainer.appendChild(playerElement3);
     }
     if (player.condition[1]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="냉기 : "+player.condition[1]+"<br>";
+        playerElement3.style.color = "blue";
+        enemyContainer.appendChild(playerElement3);
     }
     if (player.condition[2]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="전기 : "+player.condition[2]+"<br>";
+        playerElement3.style.color = "yellow";
+        enemyContainer.appendChild(playerElement3);
     }
     if (player.condition[3]>0) {
+        let playerElement3 = document.createElement("div");
         playerElement3.innerHTML +="독 : "+player.condition[3]+"<br>";
+        playerElement3.style.color = "purple";
+        enemyContainer.appendChild(playerElement3);
     }
-    enemyContainer.appendChild(playerElement3);
 }
 
 //스크립트 출력
@@ -186,12 +206,22 @@ function setScript(script) {
     scriptContainer.innerHTML = "<br>";
 
     for (let i = 0 ; i < script.length ; i ++) {
-    let element = document.createElement("div");
+        let element = document.createElement("div");
         element.className = "script-div";
         element.innerHTML = script[i];
+        if (script[i].includes("불태")) {
+            element.style.color="red"
+        } else if (script[i].includes("얼립")) {
+            element.style.color="blue"
+        } else if (script[i].includes("감전")) {
+            element.style.color="yellow"
+        }else if (script[i].includes("중독")) {
+            element.style.color="purple"
+        }else {
+            console.log("미포함")
+        }
         scriptContainer.appendChild(element);
     }    
-
 }
 
 function selectDice() {
@@ -280,7 +310,7 @@ function printDice() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
-            setItemList(data.myTurn.item, data.myTurn.itemState);
+            setItemList(data.myTurn.item, data.myTurn);
             gameover(data.player, data.enemy);
         })
         .catch(error => {
@@ -322,7 +352,7 @@ function useItem() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
-            setItemList(data.myTurn.item, data.myTurn.itemState);
+            setItemList(data.myTurn.item, data.myTurn);
             gameover(data.player, data.enemy)
         })
         .catch(error => {
@@ -347,14 +377,14 @@ function myTurnEnd() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
-            setItemList(data.enemyTurn.item, data.enemyTurn.itemState);
+            setItemList(data.enemyTurn.item, data.enemyTurn);
 						
             setDiceImage2(data.enemyTurn.diceList);
             
             console.log(data.myTurn.isTurn);
             if (data.myTurn.isTurn==true) {
                 useItemButton.disabled = false;
-                setItemList(data.myTurn.item, data.myTurn.itemState); 
+                setItemList(data.myTurn.item, data.myTurn); 
                 console.log("사용버튼 활성화");
             } else {
                 useItemButton.disabled = true;

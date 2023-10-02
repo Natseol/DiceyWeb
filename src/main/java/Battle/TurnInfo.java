@@ -59,5 +59,21 @@ public class TurnInfo extends BattleSetting{
 		script.getStrb().setLength(0);
 	}
 	
+ 	public void checkPoison(Status player) {
+		if (player.getCondition(3)>0) {
+			turnScript.add(player.damagedPoisonStr());
+		}//상태이상	중독
+ 	}
+ 	
+ 	public void checkIce(Status player) {
+		while (player.getCondition(1)>0) {
+			if (player.getCondition(1)>0) {
+				script.selectDiceList(this);	
+				player.damagedIceList(this);
+				script.printDamagedIce();
+			}//상태이상 빙결
+		}
+		turnScript.add(script.getStrb().toString());
+ 	}
 }
 

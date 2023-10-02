@@ -56,7 +56,7 @@ public class Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+				
 		System.out.println("servlet GET 연결됨");
 		response.setContentType("text/html;charset=UTF-8");  
 		HttpSession session = request.getSession();
@@ -66,6 +66,9 @@ public class Servlet extends HttpServlet {
 		session.setAttribute("floor", floor);
 		session.setAttribute("enemyNum", enemyNum);
 		session.setAttribute("field", field);
+
+		player = new Player();
+		enemy = Enemy.enemyList();
 		
 		response.sendRedirect("battleserv");
 

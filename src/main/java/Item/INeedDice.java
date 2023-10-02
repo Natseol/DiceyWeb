@@ -7,12 +7,12 @@ public interface INeedDice {
 	public int getNeedDice();	
 
 	default boolean actionNeedDice(TurnInfo my, int idx, int dice) {
-		if (my.getNeedDice(idx)==0) {
-			my.setNeedDice(idx, dice);
+		if (my.getNeedDiceState(idx)==0) {
+			my.setNeedDiceState(idx, dice);
 			return true;
 		}
 		else {
-			my.setNeedDice(idx, 0);
+			my.setNeedDiceState(idx, 0);
 			return false;
 		}	
 	}

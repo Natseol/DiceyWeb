@@ -27,27 +27,27 @@ public class LockPick extends Item{
 		case 6:
 			my.getDiceList().add(3);
 			my.getDiceList().add(3);
-			my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+			my.setTimesState(idx, my.getTimesState(idx)-1);
 			break;
 		case 5:
 			my.getDiceList().add(3);
 			my.getDiceList().add(2);
-			my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+			my.setTimesState(idx, my.getTimesState(idx)-1);
 			break;
 		case 4:
 			my.getDiceList().add(2);
 			my.getDiceList().add(2);
-			my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+			my.setTimesState(idx, my.getTimesState(idx)-1);
 			break;
 		case 3:
 			my.getDiceList().add(2);
 			my.getDiceList().add(1);
-			my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+			my.setTimesState(idx, my.getTimesState(idx)-1);
 			break;
 		case 2:
 			my.getDiceList().add(1);
 			my.getDiceList().add(1);
-			my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+			my.setTimesState(idx, my.getTimesState(idx)-1);
 			break;		
 		}
 	}

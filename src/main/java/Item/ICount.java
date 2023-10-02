@@ -7,12 +7,12 @@ public interface ICount {
 	public int getCount();
 	
 	default boolean actionCount(int dice, TurnInfo my, int idx) {
-		if (my.getTurnCount(idx)-dice>0) {
-			my.setTurnCount(idx, my.getTurnCount(idx)-dice);
+		if (my.getCountState(idx)-dice>0) {
+			my.setCountState(idx, my.getCountState(idx)-dice);
 			return true;
 		}
 		else {
-			my.setTurnCount(idx, getCount());
+			my.setCountState(idx, getCount());
 			return false;
 		}		
 	};

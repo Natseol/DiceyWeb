@@ -7,6 +7,6 @@ public interface ITimes {
 	public int getTimes();
 	
 	default void actionTimes(TurnInfo my, int idx) {
-		my.setTurnTimes(idx, my.getTurnTimes(idx)-1);
+		my.setTimesState(idx, my.getTimesState(idx)-1);
 	};
 }

@@ -17,7 +17,7 @@ public class UnholySword extends Item{
 	@Override
 	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
 		int effect = Roll.random(4)-1;
-		my.setTurnTimes(idx, 0);
+		my.setTimesState(idx, 0);
 		switch (effect) {
 		case 0:
 			enemy.subtractHp(dice);

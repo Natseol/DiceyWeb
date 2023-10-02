@@ -16,42 +16,33 @@ public class EnemyTurn extends TurnInfo{
  	public EnemyTurn(Status enemy) {
  		super(enemy);
  		if (enemy.getInventory()!=null) {
-	 		turnItem= enemy.getInventory().clone();		
-			itemState=new int[enemy.getInventory().length][4];
+	 		turnItem= enemy.getInventory().clone();
+	 		timesState=new int[enemy.getInventory().length];
+	 		countState=new int[enemy.getInventory().length];
+	 		needDiceState=new int[enemy.getInventory().length];
+	 		useState=new int[enemy.getInventory().length];
 			resetDiceList(enemy);
 			resetTimes(turnItem);
 			resetCount(enemy);
 			resetNeedDice(enemy);
+			isTurn=true;
  		}
 	}
  	
  	public void startTurn(Status enemy) {
 		turnItem= enemy.getInventory().clone();		
  		resetDiceList(enemy);
- 		resetTimes(turnItem);
+ 		resetTimes(enemy.getInventory());
  		resetNeedDice(enemy);
  		resetTurnScript();
  		resetStrb();
+ 		changeTurn();
+ 		checkPoison(enemy);        	
+    	checkIce(enemy);
  	}
 	
 	public void doEnemyTurnLoop(Player player, Enemy enemy, MyTurn myTurn) {
-		
-//		if (enemy.getCondition(3)>0) {
-//			enemy.damagedPoison();	
-//		}//상태이상	중독
-//		if (player.getHp()<1||enemy.getHp()<1) return;
-//		//죽었는지 확인
-		
-//		resetTimes(enemy.getInventory());		
-		
-//		while (enemy.getCondition(1)>0) {
-//			if (enemy.getCondition(1)>0) {
-//				enemy.damagedIceList(this);
-//				script.selectDiceList(this);	
-//				script.printDamagedIce();
-//			}//상태이상 빙결
-//		}
-		
+	
 		if (getDiceList().size()>0) {
 			int enemyItemNum=0;
 			
@@ -63,24 +54,18 @@ public class EnemyTurn extends TurnInfo{
 				indexDice = getDiceList().indexOf(maxMin);
 			}
 				
-//				if (enemy.getCondition(0)>0) {
-//					enemy.damagedFire();	
-//				}//상태이상	발화
-//				if (player.getHp()<1||enemy.getHp()<1) break;
-//				//죽었는지 확인
+				if (enemy.getCondition(0)>0) {
+					enemy.damagedFire();	
+				}//상태이상	발화
+				if (player.getHp()<1||enemy.getHp()<1) return;
+				//죽었는지 확인
 
-//				script.printSelectedDice(getDiceList(indexDice));
-//				if (enemy.getCondition(2)>0) {
-//					if (enemy.damagedParalysisList(this, indexDice)) {
-//						continue;
-//					}
-//				}//상태이상 마비
-
-//				if (enemy.getCondition(0)>0) {
-//					enemy.damagedFire();	
-//				}//상태이상	발화
-//				if (player.getHp()<1||enemy.getHp()<1) break;
-//				//죽었는지 확인
+				if (enemy.getCondition(2)>0) {
+					if (enemy.damagedParalysisList(this, indexDice)) {
+						turnScript.add(" * 충격을 받았습니다. 주사위를 놓칩니다 * <br>");
+						return;
+					}
+				}//상태이상 마비
 				
 			for(int j=0; j<getItem().length;j++) {
 				if (getItem(enemyItemNum).getName().equals(new Nothing().getName())
@@ -103,7 +88,7 @@ public class EnemyTurn extends TurnInfo{
 				getItem(j).resetStrb();
 				getDiceList().remove(indexDice);
 
-				if (getTurnTimes(enemyItemNum)==0) {
+				if (getTimesState(enemyItemNum)==0) {
 					setItem(enemyItemNum, new Nothing());
 				}//횟수0 아이템은 빈슬롯으로 변경
 				break;

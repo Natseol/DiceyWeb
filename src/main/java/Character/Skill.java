@@ -35,8 +35,8 @@ public class Skill {
 				System.out.println(Color.CYAN+" [빠른 손놀림] 스킬을 사용합니다");
 				System.out.println("  모든 장비의 카운트를 낮춥니다\n"+Color.RESET);
 				for (int i=0;i<myturn.getItem().length;i++) {
-					if (myturn.getTurnCount(i)>0) {
-						myturn.setTurnCount(i, myturn.getTurnCount(i)-(2+player.getLevel()));
+					if (myturn.getCountState(i)>0) {
+						myturn.setCountState(i, myturn.getCountState(i)-(2+player.getLevel()));
 					}
 				}
 				break;				

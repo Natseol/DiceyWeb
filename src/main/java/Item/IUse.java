@@ -8,6 +8,6 @@ public interface IUse {
 	public boolean getUse();
 	
 	default void actionUse(TurnInfo my, int idx) {
-		my.setTurnUse(idx, 1);
+		my.setUseState(idx, 1);
 	};
 }

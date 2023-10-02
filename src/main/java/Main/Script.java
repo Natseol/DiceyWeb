@@ -301,18 +301,18 @@ public class Script implements Color, Serializable {
 	public void printItem(TurnInfo turnInfo) {
 		System.out.println("------------------------------------------------");
 		for (int i = 0; i < turnInfo.getItem().length; i++) {
-			if (turnInfo.getItem(i).getName().equals(new Nothing().getName())||turnInfo.getTurnUse(i)==1) {
+			if (turnInfo.getItem(i).getName().equals(new Nothing().getName())||turnInfo.getUseState(i)==1) {
 				System.out.print(BLACK);
 			}
 			System.out.print(i+1+") "+turnInfo.getItem(i).getName()+" : "+turnInfo.getItem(i).getDescription());
-			if (turnInfo.getTurnTimes(i) > 1) {
-				System.out.print(" 남은횟수:"+turnInfo.getTurnTimes(i));
+			if (turnInfo.getTimesState(i) > 1) {
+				System.out.print(" 남은횟수:"+turnInfo.getTimesState(i));
 			}
-			if(turnInfo.getTurnCount(i)>0) {
-				System.out.print(" (카운트:"+turnInfo.getTurnCount(i)+")");
+			if(turnInfo.getCountState(i)>0) {
+				System.out.print(" (카운트:"+turnInfo.getCountState(i)+")");
 			}
-			if(turnInfo.getNeedDice(i)>0) {
-				System.out.print(" 누적:"+turnInfo.getNeedDice(i));
+			if(turnInfo.getNeedDiceState(i)>0) {
+				System.out.print(" 누적:"+turnInfo.getNeedDiceState(i));
 			}			
 			System.out.println(RESET);
 		}

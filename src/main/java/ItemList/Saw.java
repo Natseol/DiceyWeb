@@ -26,25 +26,25 @@ public class Saw extends Item{
 			my.getDiceList().add(2);
 			my.getDiceList().add(2);
 			my.getDiceList().add(2);
-			my.setTurnTimes(idx, 0);	
+			my.setTimesState(idx, 0);	
 			break;
 		case 5:
 			my.getDiceList().add(2);
 			my.getDiceList().add(1);
 			my.getDiceList().add(2);
-			my.setTurnTimes(idx, 0);	
+			my.setTimesState(idx, 0);	
 			break;
 		case 4:
 			my.getDiceList().add(2);
 			my.getDiceList().add(1);
 			my.getDiceList().add(1);
-			my.setTurnTimes(idx, 0);	
+			my.setTimesState(idx, 0);	
 			break;
 		case 3:
 			my.getDiceList().add(1);
 			my.getDiceList().add(1);
 			my.getDiceList().add(1);
-			my.setTurnTimes(idx, 0);	
+			my.setTimesState(idx, 0);	
 			break;	
 		}
 		return ;

@@ -21,17 +21,17 @@ public class TwoHandedSword extends Item{
 	
 	@Override
 	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
-		if (my.getNeedDice(idx)>0) {
+		if (my.getNeedDiceState(idx)>0) {
 			enemy.subtractHp(dice+accmulation);			
 			printDamage(dice+accmulation);
 			accmulation=0;
-			my.setNeedDice(idx, 0);
-			my.setTurnTimes(idx, 0);
+			my.setNeedDiceState(idx, 0);
+			my.setTimesState(idx, 0);
 		}
 		else {
 			accmulation += dice;
-			my.setNeedDice(idx, accmulation);
-			my.setTurnTimes(idx, 1);
+			my.setNeedDiceState(idx, accmulation);
+			my.setTimesState(idx, 1);
 		}			
 	}
 }
