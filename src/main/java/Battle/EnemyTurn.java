@@ -55,7 +55,7 @@ public class EnemyTurn extends TurnInfo{
 			}
 				
 				if (enemy.getCondition(0)>0) {
-					enemy.damagedFire();	
+					turnScript.add(enemy.damagedFireStr());
 				}//상태이상	발화
 				if (player.getHp()<1||enemy.getHp()<1) return;
 				//죽었는지 확인

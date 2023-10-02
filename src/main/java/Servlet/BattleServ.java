@@ -86,10 +86,10 @@ public class BattleServ extends HttpServlet {
 //		player.setHp(62);
 //		enemy[eNum].setHp(2);
 
-		enemy[enemyNum].setCondition(0,2);
-		enemy[enemyNum].setCondition(1,2);
-		enemy[enemyNum].setCondition(2,2);
-		enemy[enemyNum].setCondition(3,2);
+		enemy[enemyNum].setCondition(0,4);
+//		enemy[enemyNum].setCondition(1,2);
+//		enemy[enemyNum].setCondition(2,2);
+//		enemy[enemyNum].setCondition(3,2);
         
 		System.out.println("batlle GET 연결됨");
 		System.out.println("오류확인용 이름확인 "+enemy[enemyNum].getName());
@@ -175,6 +175,7 @@ public class BattleServ extends HttpServlet {
         	enemyTurn.doEnemyTurnLoop(player, enemy[enemyNum], myTurn);
         }
         if (myTurn.getIsTurn()) {
+        	enemy[enemyNum].resetFireStack();
         	enemyTurn.getTurnScript().add("<br>= 턴 종료 =<br><br>");
         	myTurn.startTurn(player);
         	enemyTurn.getTurnScript().addAll(myTurn.getTurnScript());

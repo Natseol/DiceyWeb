@@ -209,18 +209,18 @@ function setScript(script) {
         let element = document.createElement("div");
         element.className = "script-div";
         element.innerHTML = script[i];
-        if (script[i].includes("불태")) {
+        if (script[i].includes("불태")||script[i].includes("건들")) {
             element.style.color="red"
-        } else if (script[i].includes("얼립")) {
+        } else if (script[i].includes("얼립")||script[i].includes("얼어")) {
             element.style.color="blue"
-        } else if (script[i].includes("감전")) {
+        } else if (script[i].includes("감전")||script[i].includes("충격")) {
             element.style.color="yellow"
         }else if (script[i].includes("중독")) {
             element.style.color="purple"
         }else {
             console.log("미포함")
         }
-        scriptContainer.appendChild(element);
+        scriptContainer.appendChild(element);        
     }    
 }
 
