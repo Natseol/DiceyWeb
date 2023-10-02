@@ -20,7 +20,7 @@ public class TurnInfo extends BattleSetting{
 	List<String> turnScript = new ArrayList<>();
 	boolean isTurn;
 	
-	public boolean isTurn() {
+	public boolean getIsTurn() {
 		return isTurn;
 	}
 

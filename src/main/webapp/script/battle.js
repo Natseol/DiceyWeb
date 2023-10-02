@@ -142,10 +142,13 @@ function setScript(script) {
     const scriptContainer = document.getElementById("script");
     scriptContainer.innerHTML = "<br>";
 
+    for (let i = 0 ; i < script.length ; i ++) {
     let element = document.createElement("div");
-    element.className = "script-div";
-    element.innerHTML = script
-    scriptContainer.appendChild(element);
+        element.className = "script-div";
+        element.innerHTML = script[i];
+        scriptContainer.appendChild(element);
+    }    
+
 }
 
 // 턴시작
@@ -215,6 +218,8 @@ function useItem() {
     });
 }
 
+let useItemButton = document.getElementById("useItem");
+
 function myTurnEnd() {
     fetch("./battleserv", {
         method: 'PUT',
@@ -231,8 +236,17 @@ function myTurnEnd() {
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
             setItemList(data.myTurn.item);
-
+						
             setDiceImage2(data.enemyTurn.diceList);
+            
+            console.log(data.myTurn.isTurn);
+            if (data.myTurn.isTurn==true) {
+                useItemButton.disabled = false;
+                console.log("사용버튼 활성화");
+            } else {
+                useItemButton.disabled = true;
+                console.log("사용버튼 비활성화");
+            }
         })
         .catch(error => {
             console.error('Error:', error);

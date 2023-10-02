@@ -87,9 +87,20 @@ function printInventory() {
     });
 }
 
-function inside() {
+const nextPage = document.getElementById('nextPage');
+nextPage.addEventListener('click', function() {
     fetch("./servlet", {
-        method: 'POST',
+        method: 'GET'
+    })          
+        .catch(error => {
+            console.error('Error:', error);
+    });
+});
+
+/*
+function nextPage() {
+    fetch("./servlet", {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -108,6 +119,7 @@ function inside() {
             console.error('Error:', error);
     });
 };
+*/
 
 /* 참고할 것
 // JSON 데이터 예제

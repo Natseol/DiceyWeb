@@ -48,6 +48,7 @@ public class BattleServ extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("배틀서브 생성");
+		
 		player.chooseJob(1);
 		player.setJobItem(player.getJob(), 1);
 		myTurn.changeTurn();
@@ -65,8 +66,16 @@ public class BattleServ extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		player.chooseJob(1);
-//		player.setJobItem(player.getJob(), 1);
+        HttpSession session = request.getSession(false);
+        
+        if (session.getAttribute("player") != null) {
+        	System.out.println("전달됨");
+    		player = (Player) session.getAttribute("player");
+    		enemy = (Enemy[]) session.getAttribute("enemy");
+    		floor = (int) session.getAttribute("floor");
+    		enemyNum = (int) session.getAttribute("enemyNum");
+    		field = (Field) session.getAttribute("field");
+        }
 		
 		System.out.println("batlle GET 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
@@ -115,6 +124,8 @@ public class BattleServ extends HttpServlet {
         jsonData.put("player", player);
         jsonData.put("enemy", enemy[enemyNum]);
         jsonData.put("myTurn", myTurn);
+        jsonData.put("isMyTurn", myTurn.getIsTurn());
+        jsonData.put("isEnemyTurn", enemyTurn.getIsTurn());
         jsonData.put("enemyTurn", enemyTurn);
         jsonData.put("script", myTurn.getTurnScript());
                 
@@ -140,23 +151,26 @@ public class BattleServ extends HttpServlet {
 //        // 변수 확인
 //        System.out.println("idxDice: " + param1);
 //        System.out.println("idxItem: " + param2);
-        System.out.println("내턴:"+myTurn.isTurn());
-        System.out.println("적턴:"+enemyTurn.isTurn());
+        System.out.println("내턴:"+myTurn.getIsTurn());
+        System.out.println("적턴:"+enemyTurn.getIsTurn());
         
-        if (myTurn.isTurn()) {
+        if (myTurn.getIsTurn()) {
         	myTurn.changeTurn();
         	enemyTurn.changeTurn();
+        	enemyTurn.resetTurnScript();
+        	enemyTurn.getTurnScript().add("= 턴 시작 =<br>");
         	enemyTurn.startTurn(enemy[enemyNum]);
         	enemyTurn.resetTimes(enemy[enemyNum].getInventory());	
         } else {        
         	enemyTurn.doEnemyTurnLoop(player, enemy[enemyNum], myTurn);
         }
-        if (!enemyTurn.isTurn()) {
+        if (!enemyTurn.getIsTurn()) {
+        	enemyTurn.getTurnScript().add("= 턴 종료 =<br>");
         	myTurn.startTurn(player);
         	myTurn.resetTimes(player.getInventory());
         }
-        System.out.println("내턴:"+myTurn.isTurn());
-        System.out.println("적턴:"+enemyTurn.isTurn());
+        System.out.println("내턴:"+myTurn.getIsTurn());
+        System.out.println("적턴:"+enemyTurn.getIsTurn());
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
