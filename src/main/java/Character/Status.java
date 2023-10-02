@@ -124,8 +124,21 @@ public class Status implements Serializable {
 		if (Math.random()<(0.25*getCondition(0))) {
 			subtractHp(2);
 		setCondition(0,getCondition(0)-1);
-		System.out.println(Color.RED+" * 주사위를 건들다 [2]의 피해를 입습니다 * "+Color.RESET);		
+		System.out.println(Color.RED+" * 주사위를 건들다 [2]의 피해를 입습니다 * "+Color.RESET);
 		}
+	}
+	
+	public String damagedFireStr() {
+		if (Math.random()<(0.25*getCondition(0))) {
+			subtractHp(1);
+		System.out.println(Color.RED+" * 주사위를 건들다 [1]의 피해를 입습니다 * "+Color.RESET);
+		return " * 주사위를 건들다 [1]의 피해를 입습니다 * <br><br>";
+		}
+		return "";
+	}
+	
+	public void resetFireStack() {
+		setCondition(0,0);
 	}
 	
 	public void damagedIceList(TurnInfo turninfo) {
@@ -151,6 +164,12 @@ public class Status implements Serializable {
 		System.out.println();
 		System.out.println(Color.BPURPLE+" * 중독됐습니다. ["+getCondition(3)+"]의 피해를 입습니다 * "+Color.RESET);
 		System.out.println();
+		setCondition(3,getCondition(3)-1);		
+	}
+	
+	public String damagedPoisonStr() {
+		subtractHp(getCondition(3));
 		setCondition(3,getCondition(3)-1);
+		return " * 중독됐습니다. ["+(getCondition(3)+1)+"]의 피해를 입습니다 * <br><br>";
 	}
 }

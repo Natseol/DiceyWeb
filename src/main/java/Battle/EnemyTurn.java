@@ -30,6 +30,8 @@ public class EnemyTurn extends TurnInfo{
  		resetDiceList(enemy);
  		resetTimes(turnItem);
  		resetNeedDice(enemy);
+ 		resetTurnScript();
+ 		resetStrb();
  	}
 	
 	public void doEnemyTurnLoop(Player player, Enemy enemy, MyTurn myTurn) {

@@ -39,8 +39,13 @@ public class BattleSetting extends TurnDice {
 	}
 	
 	public void resetTimes(Item[] item) {
-		for (int i=0;i<item.length;i++) {
-			this.itemState[i][0]=item[i].getTimes();
+		try {
+			for (int i=0;i<item.length;i++) {
+				this.itemState[i][0]=item[i].getTimes();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	

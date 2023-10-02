@@ -11,6 +11,10 @@ import ItemList.*;
 public class Script implements Color, Serializable {
 	StringBuilder strb = new StringBuilder();
 	
+	public StringBuilder getStrb() {
+		return strb;
+	}
+
 	public void chooseJob() {
 		System.out.println("------------------------------------------------");
 		System.out.println();
@@ -253,7 +257,7 @@ public class Script implements Color, Serializable {
 	}
 	
 	public String selectTurnEndStr() {
-		String str = " - 턴 종료 -";
+		String str = "- 턴 종료 -";
 		return str;
 	}
 	
@@ -337,6 +341,7 @@ public class Script implements Color, Serializable {
 	public void printDamagedIce() {
 		System.out.println(B_BBLUE+" * 주사위가 얼어붙습니다. 눈금이 1로 변합니다 *"+RESET);
 		System.out.println();
+		strb.append(" * 주사위가 얼어붙습니다. 주사위 한개의 눈금이 1로 변합니다 *<br><br>");
 	}
 
 	public void printCheckTrue() {
@@ -347,7 +352,7 @@ public class Script implements Color, Serializable {
 	}
 	
 	public String printCheckTrueStr() {
-		return " * 주사위 눈금을 확인하세요 * ";
+		return " * 사용할 수 없습니다 * <br>";
 	}
 	
 	public void chooseInField(int floor) {
@@ -369,6 +374,9 @@ public class Script implements Color, Serializable {
 		System.out.println("(한번만 교환가능합니다)");
 		System.out.println("------------------------------------------------");
 		System.out.println();
+		strb.append("상점에 방문했습니다<br>");
+		strb.append("상품이 중복으로 보이는건 기분 탓입니다<br>");
+		strb.append("(한번만 교환가능합니다)<br><br>");
 	}
 	
 	public void printForge() {
@@ -377,6 +385,8 @@ public class Script implements Color, Serializable {
 		System.out.println("(한층마다 한번만 교환가능합니다)");
 		System.out.println("------------------------------------------------");
 		System.out.println();
+		strb.append("대장간에 방문했습니다<br>");
+		strb.append("(한층마다 한번만 교환가능합니다)<br><br>");		
 	}
 	
 	public void changeAlready() {
@@ -384,11 +394,14 @@ public class Script implements Color, Serializable {
 		System.out.println("이미 교환완료 했습니다");
 		System.out.println();
 		System.out.println("------------------------------------------------");
+		strb.append("이미 교환완료 했습니다<br><br>");
+		
 	}
 	public void useAlready() {
 	System.out.println();
 	System.out.println("지금은 이용할 수 없습니다");
 	System.out.println("------------------------------------------------");
+	strb.append("지금은 이용할 수 없습니다<br><br>");
 	}
 	
 	public void downFloor() {
@@ -397,6 +410,7 @@ public class Script implements Color, Serializable {
 		System.out.println("\t*** 한 층 더 아래로 내려갑니다 ***");
 		System.out.println();
 		System.out.println();
+		strb.append("*** 한 층 더 아래로 내려갑니다 ***<br><br>");
 	}
 	
 	public void ending() {
@@ -407,5 +421,7 @@ public class Script implements Color, Serializable {
 		System.out.println("\t   *** 모든 몬스터를 쓰러트렸습니다 ***");
 		System.out.println();
 		System.out.println("------------------------------------------------");
+		strb.append("축하합니다.<br><br>");
+		strb.append("*** 모든 몬스터를 쓰러트렸습니다 ***<br><br>");
 	}
 }

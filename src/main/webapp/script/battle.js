@@ -73,12 +73,25 @@ function setDiceImage2(list) {
 
 //아이템 리스트 생성
 const itemContainer = document.getElementById("item-container");
-function setItemList(list) {
+function setItemList(list, stateList) {
     itemContainer.innerHTML = "";
     for (let i = 0; i < list.length; i++) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
-        itemElement.innerHTML = list[i].name + " : " + list[i].description;
+        if (list[i].name=="빈슬롯"){
+			itemElement.style.opacity = 0.3;
+		}
+        itemElement.innerHTML = list[i].name+"<br><br>";
+        itemElement.innerHTML +=list[i].description+"<br><br>";
+        if (stateList[i][0]>1) {
+        	itemElement.innerHTML +="남은횟수 : "+stateList[i][0]+"<br><br>";
+        }
+		if (stateList[i][1]>0) {
+        	itemElement.innerHTML +="카운트 : "+stateList[i][1]+"<br><br>";
+        }
+        if (stateList[i][2]>0) {
+        	itemElement.innerHTML +="누적 : "+stateList[i][2]+"<br><br>";
+        }
 		itemElement.classList.add("itemBasic");
         
         itemElement.addEventListener("click", function () {
@@ -95,7 +108,6 @@ function setItemList(list) {
             console.log("안됨");
         }
       });
-
       itemContainer.appendChild(itemElement);
     }
 }
@@ -113,13 +125,30 @@ function setPlayerInfo(player) {
 
     let playerElement1 = document.createElement("div");
     playerElement1.className = "player-div";
-    playerElement1.innerHTML = player.job + " " + player.hp + " / " + player.maxHp + "<br>"
+    playerElement1.innerHTML = player.job + " " + player.hp
+    if (player.def>0) { 
+		playerElement1.innerHTML += " ("+player.def+")";
+	}
+    playerElement1.innerHTML += " / " + player.maxHp + "<br>"
     playerContainer.appendChild(playerElement1);
     let playerElement2 = document.createElement("div");
     playerElement2.className = "player-div";
     playerElement2.innerHTML = "Level "+player.level + " sp:" + player.sp + " dice:" + player.diceQuantity + "<br>"
     playerContainer.appendChild(playerElement2);
-    
+    let playerElement3 = document.createElement("div");
+    if (player.condition[0]>0) {
+        playerElement3.innerHTML +="화염 : "+player.condition[0]+"<br>";
+    }
+    if (player.condition[1]>0) {
+        playerElement3.innerHTML +="냉기 : "+player.condition[1]+"<br>";
+    }
+    if (player.condition[2]>0) {
+        playerElement3.innerHTML +="전기 : "+player.condition[2]+"<br>";
+    }
+    if (player.condition[3]>0) {
+        playerElement3.innerHTML +="독 : "+player.condition[3]+"<br>";
+    }
+    playerContainer.appendChild(playerElement3);
 }
 
 //적 정보 생성
@@ -135,6 +164,20 @@ function setEnemyInfo(player) {
     playerElement2.className = "enemy-div";
     playerElement2.innerHTML = "Grade:"+player.grade + " dice:" + player.diceQuantity + "<br>"
     enemyContainer.appendChild(playerElement2);
+    let playerElement3 = document.createElement("div");
+    if (player.condition[0]>0) {
+        playerElement3.innerHTML +="화염 : "+player.condition[0]+"<br>";
+    }
+    if (player.condition[1]>0) {
+        playerElement3.innerHTML +="냉기 : "+player.condition[1]+"<br>";
+    }
+    if (player.condition[2]>0) {
+        playerElement3.innerHTML +="전기 : "+player.condition[2]+"<br>";
+    }
+    if (player.condition[3]>0) {
+        playerElement3.innerHTML +="독 : "+player.condition[3]+"<br>";
+    }
+    enemyContainer.appendChild(playerElement3);
 }
 
 //스크립트 출력
@@ -151,6 +194,74 @@ function setScript(script) {
 
 }
 
+function selectDice() {
+    var container = document.getElementById("image-container");
+    var images = container.getElementsByTagName('img');
+
+    let diceNum=-1;
+    for (var i = 0; i < images.length; i++) {
+        var currentImageSrc = images[i].src;
+        if (imageRedPaths.includes(images[i].src)) {
+            console.log('이미지를 찾았습니다:', i);
+            diceNum=i;
+        } else {
+            console.log('이미지가 없습니다:', i);
+        }
+    }
+    return diceNum;
+}
+
+function selectItem() {
+    var container = document.getElementById("item-container");
+    var items = container.getElementsByTagName('div');
+
+    let itemNum=-1;
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].classList.contains("itemRed")){
+            console.log('아이템을 찾았습니다:', i);
+            itemNum=i;
+        } else {
+            console.log('아이템이 없습니다:', i);
+        }
+    }
+    return itemNum;
+}
+
+function disabledAllButton() {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(button => {
+    button.disabled = true;
+    });
+}
+
+function createNextButton() {
+    const next = document.getElementById("nextStage");
+    const nextButton = document.createElement('button');
+    nextButton.className="btn btn-success";
+    nextButton.type="button";
+    nextButton.innerHTML="다음으로";
+    nextButton.addEventListener("click", nextStage());
+    next.appendChild(nextButton);
+}
+
+function gameover(player, enemy) {
+    const script = document.getElementById("script");
+    if (player.hp<1) {
+        disabledAllButton();
+        script.innerHTML = "YOU DIED";
+        script.style.color = "red";
+        script.style.fontSize = "25px";
+        script.style.fontWeight = "bold";
+        return;
+    }
+    if (enemy.hp<1) {
+        disabledAllButton();
+        createNextButton();
+        script.innerHTML = "승리";
+        return;
+    }
+}
+
 // 턴시작
 function printDice() {
     fetch("./battleserv", {
@@ -163,22 +274,23 @@ function printDice() {
         .then(data => {
             console.log(data);
 
-            const diceList = data.myTurn.diceList;
-
-            console.log(diceList);
+            console.log(data.myTurn.diceList);
             console.log(data.myTurn.item);
 
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
-            setDiceImage(diceList);
-            setItemList(data.myTurn.item);
-
+            setDiceImage(data.myTurn.diceList);
+            setItemList(data.myTurn.item, data.myTurn.itemState);
+            gameover(data.player, data.enemy);
         })
         .catch(error => {
             console.error('Error:', error);
     });
+    this.disabled = true;
 };
+printDice();
 
+// 사용버튼
 function useItem() {
     const diceNum=selectDice();
     const itemNum=selectItem();
@@ -210,8 +322,8 @@ function useItem() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
-            setItemList(data.myTurn.item);
-                         
+            setItemList(data.myTurn.item, data.myTurn.itemState);
+            gameover(data.player, data.enemy)
         })
         .catch(error => {
             console.error('Error:', error);
@@ -219,7 +331,7 @@ function useItem() {
 }
 
 let useItemButton = document.getElementById("useItem");
-
+//턴종료 버튼
 function myTurnEnd() {
     fetch("./battleserv", {
         method: 'PUT',
@@ -235,60 +347,37 @@ function myTurnEnd() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
-            setItemList(data.myTurn.item);
+            setItemList(data.enemyTurn.item, data.enemyTurn.itemState);
 						
             setDiceImage2(data.enemyTurn.diceList);
             
             console.log(data.myTurn.isTurn);
             if (data.myTurn.isTurn==true) {
                 useItemButton.disabled = false;
+                setItemList(data.myTurn.item, data.myTurn.itemState); 
                 console.log("사용버튼 활성화");
             } else {
                 useItemButton.disabled = true;
                 console.log("사용버튼 비활성화");
             }
+            gameover(data.player, data.enemy)
         })
         .catch(error => {
             console.error('Error:', error);
     });
 };
 
-function selectDice() {
-    var container = document.getElementById("image-container");
-        // 컨테이너 내의 모든 이미지 요소 가져오기
-    var images = container.getElementsByTagName('img');
+//턴종료 버튼
+function nextStage() {    
 
-    let diceNum=-1;
-    // 이미지를 찾는 반복문
-    for (var i = 0; i < images.length; i++) {
-        var currentImageSrc = images[i].src;
-        if (imageRedPaths.includes(images[i].src)) {
-            // 이미지가 배열에 있는 경우 해당 이미지에 대한 작업을 수행
-            console.log('이미지를 찾았습니다:', i);
-            // 추가 작업을 수행할 수 있습니다.
-            diceNum=i;
-        } else {
-            console.log('이미지가 없습니다:', i);
+    fetch("./battleserv", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
-    }
-    return diceNum;
-}
-
-function selectItem() {
-    var container = document.getElementById("item-container");
-        // 컨테이너 내의 모든 이미지 요소 가져오기
-    var items = container.getElementsByTagName('div');
-
-    let itemNum=-1;
-    // 이미지를 찾는 반복문
-    for (var i = 0; i < items.length; i++) {
-        if (items[i].classList.contains("itemRed")){
-            console.log('아이템을 찾았습니다:', i);
-            itemNum=i;
-        } else {
-            console.log('아이템이 없습니다:', i);
-        }
-    }
-    return itemNum;
-}
+    })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+};
 

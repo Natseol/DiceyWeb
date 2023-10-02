@@ -94,13 +94,13 @@ public class ItemScript {
 	public static void printGainDefence(int dice) {
 		System.out.println(" "+Color.B_BCYAN+" "+dice+" "+Color.RESET+" 의 방어력을 얻었습니다!!");
 		System.out.println();
-		strb.append(dice+" "+Color.RESET+" 의 방어력을 얻었습니다!!<br>");
+		strb.append(dice+" 의 방어력을 얻었습니다!!<br>");
 	}	
 
 	public static void printRecovery(int dice) {
 		System.out.println(" "+Color.B_BGREEN+" "+dice+" "+Color.RESET+" 의 체력을 회복했습니다");
 		System.out.println();
-		strb.append(dice+" "+Color.RESET+" 의 체력을 회복했습니다<br>");
+		strb.append(dice+" 의 체력을 회복했습니다<br>");
 	}
 	
 	public static void printIncorrectDice() {

@@ -77,12 +77,30 @@ public class BattleServ extends HttpServlet {
     		field = (Field) session.getAttribute("field");
         }
 		
+		player.setCondition(0,2);
+		player.setCondition(1,2);
+		player.setCondition(2,2);
+		player.setCondition(3,2);
+        
+//		player.setLevel(5);
+//		player.setSp(12);
+//		player.setHp(62);
+//		enemy[eNum].setHp(2);
+
+//			enemy[eNum].setCondition(0,3);
+//			enemy[eNum].setCondition(1,2);
+//			enemy[eNum].setCondition(2,2);
+//			enemy[eNum].setCondition(3,2);
+        
 		System.out.println("batlle GET 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
     
 		myTurn.startTurn(player);
+		System.out.println("오류확인용 이름확인 "+enemy[enemyNum].getName());
 		enemyTurn.startTurn(enemy[enemyNum]);
+		myTurn.resetCount(player);
+		enemyTurn.resetCount(enemy[enemyNum]);
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
@@ -155,19 +173,22 @@ public class BattleServ extends HttpServlet {
         System.out.println("적턴:"+enemyTurn.getIsTurn());
         
         if (myTurn.getIsTurn()) {
+        	player.resetFireStack();
         	myTurn.changeTurn();
         	enemyTurn.changeTurn();
-        	enemyTurn.resetTurnScript();
-        	enemyTurn.getTurnScript().add("= 턴 시작 =<br>");
+        	enemyTurn.getTurnScript().add("= 턴 시작 =<br><br>");
         	enemyTurn.startTurn(enemy[enemyNum]);
         	enemyTurn.resetTimes(enemy[enemyNum].getInventory());	
         } else {        
         	enemyTurn.doEnemyTurnLoop(player, enemy[enemyNum], myTurn);
         }
-        if (!enemyTurn.getIsTurn()) {
-        	enemyTurn.getTurnScript().add("= 턴 종료 =<br>");
+        if (myTurn.getIsTurn()) {
+        	enemyTurn.getTurnScript().add("<br>= 턴 종료 =<br><br>");
         	myTurn.startTurn(player);
         	myTurn.resetTimes(player.getInventory());
+        	myTurn.checkPoison(player);        	
+        	myTurn.checkIce(player);
+        	enemyTurn.getTurnScript().addAll(myTurn.getTurnScript());
         }
         System.out.println("내턴:"+myTurn.getIsTurn());
         System.out.println("적턴:"+enemyTurn.getIsTurn());

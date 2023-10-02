@@ -19,6 +19,7 @@ public class TurnInfo extends BattleSetting{
 	Script script = new Script();
 	List<String> turnScript = new ArrayList<>();
 	boolean isTurn;
+	boolean isEndTurn;
 	
 	public boolean getIsTurn() {
 		return isTurn;
@@ -52,7 +53,11 @@ public class TurnInfo extends BattleSetting{
 	
 	public void resetTurnScript() {
 		turnScript.clear();
-	}	
+	}
+	
+	public void resetStrb() {
+		script.getStrb().setLength(0);
+	}
 	
 }
 

@@ -11,6 +11,7 @@ jobButtons.forEach((button) => {
     } else if (buttonId === '5') {jobNumber=5;
     }
     jobPost();
+    printInventory();
   });
 });
 
@@ -76,7 +77,10 @@ function printInventory() {
 	                str += data.player.inventory[i].name;
 	                str += " : ";
 	                str += data.player.inventory[i].description;
-	                str += "<br>";
+                    if (data.player.inventory[i].count>0) {
+                        str += "  [카운트 : "+data.player.inventory[i].count+"]";
+                    }
+                    str += "<br>";
 	            }
 	            str += "<br>";
 	            document.getElementById("inventory").innerHTML = str;
