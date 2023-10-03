@@ -1,6 +1,6 @@
 // 0부터 9까지의 Dice 이미지를 정의합니다.
 const imagePaths = [
-    "http://localhost:8088/DiceyWeb/image/dice10.png",
+    "http://localhost:8088/DiceyWeb/image/book.png",
     "http://localhost:8088/DiceyWeb/image/dice1.png",
     "http://localhost:8088/DiceyWeb/image/dice2.png",
     "http://localhost:8088/DiceyWeb/image/dice3.png",
@@ -9,11 +9,12 @@ const imagePaths = [
     "http://localhost:8088/DiceyWeb/image/dice6.png",
     "http://localhost:8088/DiceyWeb/image/dice7.png",
     "http://localhost:8088/DiceyWeb/image/dice8.png",
-    "http://localhost:8088/DiceyWeb/image/dice9.png"
+    "http://localhost:8088/DiceyWeb/image/dice9.png",
+    "http://localhost:8088/DiceyWeb/image/dice10.png"
 ];
 
 const imageRedPaths = [
-    "http://localhost:8088/DiceyWeb/image/dicered10.png",
+    "http://localhost:8088/DiceyWeb/image/bookred.png",
     "http://localhost:8088/DiceyWeb/image/dicered1.png",
     "http://localhost:8088/DiceyWeb/image/dicered2.png",
     "http://localhost:8088/DiceyWeb/image/dicered3.png",
@@ -22,7 +23,8 @@ const imageRedPaths = [
     "http://localhost:8088/DiceyWeb/image/dicered6.png",
     "http://localhost:8088/DiceyWeb/image/dicered7.png",
     "http://localhost:8088/DiceyWeb/image/dicered8.png",
-    "http://localhost:8088/DiceyWeb/image/dicered9.png"
+    "http://localhost:8088/DiceyWeb/image/dicered9.png",
+    "http://localhost:8088/DiceyWeb/image/dicered10.png"
 ];
 
 //주사위 그림 생성
@@ -78,6 +80,8 @@ function setItemList(list, turn) {
     for (let i = 0; i < list.length; i++) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
+        itemElement.classList.add("rounded-3");
+        itemElement.classList.add("bg-khaki");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
@@ -219,6 +223,8 @@ function setScript(script) {
             element.style.color = "red";
             element.style.fontSize = "25px";
             element.style.fontWeight = "bold";
+        }else if(script[i].includes("피해")){
+            element.style.fontWeight = "bold";
         } else {
             console.log("미포함")
         }
@@ -267,12 +273,29 @@ function disabledAllButton() {
 }
 
 function createNextButton() {
-    const next = document.getElementById("nextStage");
+    const next = document.getElementById("nextField");
     const nextButton = document.createElement('button');
     nextButton.className="btn btn-success";
     nextButton.type="button";
     nextButton.innerHTML="다음으로";
-    nextButton.addEventListener("click", nextStage());
+    nextButton.addEventListener("click", function() {
+
+        const postData = {
+        endStage: "true",
+        }
+
+        fetch("./battleserv", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })   
+            .catch(error => {
+                console.error('Error:', error);
+        });
+        location.href="field.html";
+    });
     next.appendChild(nextButton);
 }
 
@@ -445,20 +468,6 @@ function myTurnEnd() {
             }
             gameover(data.player, data.enemy)
         })
-        .catch(error => {
-            console.error('Error:', error);
-    });
-};
-
-//다음스테이지 버튼
-function nextStage() {    
-
-    fetch("./fieldserv", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
         .catch(error => {
             console.error('Error:', error);
     });

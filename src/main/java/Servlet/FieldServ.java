@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Battle.EnemyTurn;
 import Battle.MyTurn;
 import Character.Enemy;
 import Character.Player;
+import Character.Skill;
 import Field.Field;
+import Main.Color;
 import Main.Script;
 
 /**
@@ -41,7 +44,7 @@ public class FieldServ extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-
+		System.out.println("플레이어 생성, 직업선택");
 	}
 
 	/**
@@ -55,22 +58,31 @@ public class FieldServ extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		HttpSession session = request.getSession(false);
-//
-//		if (session.getAttribute("player") != null) {
-//			System.out.println("전달됨");
-//			player = (Player) session.getAttribute("player");
-//			enemy = (Enemy[]) session.getAttribute("enemy");
-//			floor = (int) session.getAttribute("floor");
-//			enemyNum = (int) session.getAttribute("enemyNum");
-//			field = (Field) session.getAttribute("field");
-//		}
-
 		System.out.println("field GET 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
 		ObjectMapper objectMapper = new ObjectMapper();
+		
+        HttpSession session = request.getSession(false);
+        
+        if (session.getAttribute("player") != null) {
+        	System.out.println("전달됨");
+    		player = (Player) session.getAttribute("player");
+    		session.removeAttribute("player");
+    		enemy = (Enemy[]) session.getAttribute("enemy");
+    		floor = (int) session.getAttribute("floor");
+    		enemyNum = (int) session.getAttribute("enemyNum");
+    		field = (Field) session.getAttribute("field");
+    		System.out.println("적넘버"+enemyNum);
+    		if (enemyNum==4||enemyNum==7||enemyNum==10||enemyNum==14||enemyNum==17) {
+    			field = new Field();
+    			field.setForgeCount(1);
+    		}
+    		if (enemyNum==12||enemyNum==16) {
+    			int num = field.getForgeCount();
+    			field = new Field();
+    			field.setForgeCount(num);
+    		}
+        }
 
 		// JSON 데이터를 생성
 		Map<String, Object> jsonData = new HashMap<>();
@@ -85,30 +97,72 @@ public class FieldServ extends HttpServlet {
 		objectMapper.writeValue(response.getWriter(), jsonData);
 	}
 
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stubresponse.getWriter().append("Served at: ").append(request.getContextPath());
-//		HttpSession session = request.getSession(false);
-//
-//		if (session.getAttribute("player") != null) {
-//			System.out.println("전달됨");
-//			player = (Player) session.getAttribute("player");
-//			enemy = (Enemy[]) session.getAttribute("enemy");
-//			floor = (int) session.getAttribute("floor");
-//			enemyNum = (int) session.getAttribute("enemyNum");
-//			field = (Field) session.getAttribute("field");
-//		}
-		player.chooseJob(1);
-		player.setJobItem(player.getJob(), 1);
-		System.out.println("플레이어 생성, 직업선택");
-		System.out.println(player.getInventoryName(0));
 
 		System.out.println("field POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
 		ObjectMapper objectMapper = new ObjectMapper();
+		
+		JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
+        
+        if (jsonNode.get("endStage")!=null) {
+        	System.out.println("포장중");
+    		HttpSession session = request.getSession();
+    		
+    		session.setAttribute("player", player);
+    		session.setAttribute("enemy", enemy);
+    		session.setAttribute("floor", floor);
+    		session.setAttribute("enemyNum", enemyNum);
+    		session.setAttribute("field", field);
+    		
+    		response.sendRedirect("battleserv");
+    		return;
+        }
+		
+		if (jsonNode.get("store")!=null) {
+	        String param1 = jsonNode.get("store").asText();
+	        String param2 = jsonNode.get("forge").asText();
+	        String param3 = jsonNode.get("well").asText();
+	        int param4 = Integer.parseInt(jsonNode.get("idxItem").asText());
+	        int param5 = Integer.parseInt(jsonNode.get("idxStore").asText());
+	        
+	        System.out.println("idxDice: " + param1);
+	        System.out.println("idxItem: " + param2);
+	        System.out.println("idxDice: " + param3);
+	        System.out.println("idxItem: " + param4);
+	        System.out.println("idxDice: " + param5);
+	        
+	        if (param1.equals("true")) {
+	        	if (field.getStoreCount()>0) {
+	        		player.setInventory(param4,field.getStore().getStoreList(param5));
+	        		field.setStoreCount(field.getStoreCount()-1);
+	        	} else {
+	        		script.getStrb().append("모든 횟수를 소진 했습니다");
+	        	}
+	        } else if (param2.equals("true")) {
+	    		if (player.getInventory(param4).getEnhName().equals("빈슬롯")) {
+	    			System.out.println("빈 슬롯을 선택하였습니다");
+	    		} else if (field.getForgeCount()>0) {
+	        		System.out.println("업글");
+	        		player.getInventory(param4).enhance();
+	        		field.setForgeCount(field.getForgeCount()-1);	
+	        	} else {
+	        		script.getStrb().append("모든 횟수를 소진 했습니다");
+	        	}
+	        } else if (param3.equals("true")) {
+	        	if (field.getHealCount()>0) {
+	        		System.out.println("회복");
+		        	player.addHp(4+player.getLevel());
+					field.setHealCount(field.getHealCount()-1);
+					script.getStrb().append(" * 체력을 "+(4+player.getLevel())+" 회복했습니다 *");
+	        	} else {
+	        		script.getStrb().append("모든 횟수를 소진 했습니다");
+	        	}
+	        }	        
+		}
 
 		// JSON 데이터를 생성
 		Map<String, Object> jsonData = new HashMap<>();

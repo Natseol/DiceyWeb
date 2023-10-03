@@ -69,6 +69,7 @@ public class Servlet extends HttpServlet {
 
 		player = new Player();
 		enemy = Enemy.enemyList();
+		field = new Field();
 		
 		response.sendRedirect("battleserv");
 	}

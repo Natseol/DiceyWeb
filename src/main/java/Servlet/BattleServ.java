@@ -73,6 +73,7 @@ public class BattleServ extends HttpServlet {
     		floor = (int) session.getAttribute("floor");
     		enemyNum = (int) session.getAttribute("enemyNum");
     		field = (Field) session.getAttribute("field");
+    		enemy[enemyNum].setHp(enemy[enemyNum].getMaxHp());
     		myTurn = new MyTurn(player);
     		enemyTurn = new EnemyTurn(enemy[enemyNum]);
         }
@@ -83,10 +84,10 @@ public class BattleServ extends HttpServlet {
 //		player.setCondition(3,2);
         
 //		player.setLevel(5);
-		player.setSp(12);
-		player.setExp(4);
+//		player.setSp(12);
+//		player.setExp(4);
 //		player.setHp(62);
-//		enemy[eNum].setHp(2);
+//		enemy[enemyNum].setHp(2);
 
 //		enemy[enemyNum].setCondition(0,4);
 //		enemy[enemyNum].setCondition(1,2);
@@ -115,12 +116,28 @@ public class BattleServ extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
 		System.out.println("batlle POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
-        ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
+        
+        if (jsonNode.get("endStage")!=null) {
+        	player.resetPlayer();
+        	
+    		HttpSession session = request.getSession();
+    		
+    		session.setAttribute("player", player);
+    		session.setAttribute("enemy", enemy);
+    		session.setAttribute("floor", floor);
+    		session.setAttribute("enemyNum", enemyNum+1);
+    		session.setAttribute("field", field);
+    		
+    		response.sendRedirect("fieldserv");
+    		return;
+        }
         
         if (jsonNode.get("isUseSkill").asText().equals("true")) {
         	String param = jsonNode.get("isUseSkill").asText();
@@ -140,7 +157,6 @@ public class BattleServ extends HttpServlet {
         if (player.getHp()<1) {
         	myTurn.getTurnScript().add("<br>YOU DIED");
         } else if (enemy[enemyNum].getHp()<1) {
-        	enemyNum++;
         	myTurn.getTurnScript().add("<br>승리");
         	myTurn.getTurnScript().add(player.levelUpStr());
         }
@@ -194,7 +210,6 @@ public class BattleServ extends HttpServlet {
         if (player.getHp()<1) {
         	enemyTurn.getTurnScript().add("<br>YOU DIED");
         } else if (enemy[enemyNum].getHp()<1) {
-        	enemyNum++;
         	enemyTurn.getTurnScript().add("<br>승리");
         	enemyTurn.getTurnScript().add(player.levelUpStr());
         }

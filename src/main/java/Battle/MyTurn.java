@@ -85,7 +85,7 @@ public class MyTurn extends TurnInfo{
  			getItem(idxInven).action(player, enemy, numDice, this, idxInven);
  			turnScript.add(getItem(idxInven).getStrb().toString());
  			getItem(idxInven).resetStrb();
- 			setTimesState(idxInven, getTimesState(idxInven));
+ 			setTimesState(idxInven, getTimesState(idxInven)+1);
  			turnScript.add(" * 한번 더 발동합니다 *<br>");					
  			setIsUseSkill(false);
  		}

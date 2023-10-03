@@ -6,7 +6,7 @@ import Main.Color;
 
 public class Player extends Job{
 	protected int exp;
-	protected int[] expTable= {6,6,6,8,8,10};
+	protected int[] expTable= {0,6,6,6,8,8,10};
 	protected int level;
 	
     public Player() {}
@@ -50,13 +50,16 @@ public class Player extends Job{
 		this.level = level;
 	}
 	
-    public int getExpTable(int idx) {
+    public int[] getExpTable() {
+		return expTable;
+	}
+	public int getExpTable(int idx) {
     	return expTable[idx];
     }
 	
 	public void levelUp() {
 		exp += 2;
-		if (exp == expTable[level-1]) {
+		if (exp == expTable[level]) {
 			level++;
 			exp=0;
 			if (job.equals("전사")||job.equals("기사")) {
@@ -75,7 +78,7 @@ public class Player extends Job{
 	public String levelUpStr() {
 		StringBuilder strb = new StringBuilder();
 		exp += 2;
-		if (exp == expTable[level-1]) {
+		if (exp == expTable[level]) {
 			level++;
 			exp=0;			
 			strb.append("<br>레벨이 올랐습니다!!<br>");
