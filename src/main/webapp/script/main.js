@@ -91,7 +91,8 @@ function printInventory() {
     });
 }
 
-const nextPage = document.getElementById('nextPage');
+const nextPage = document.getElementById("nextPage");
+if (nextPage) {
 nextPage.addEventListener('click', function() {
     fetch("./servlet", {
         method: 'GET'
@@ -100,3 +101,4 @@ nextPage.addEventListener('click', function() {
             console.error('Error:', error);
     });
 });
+}
