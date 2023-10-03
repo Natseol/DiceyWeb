@@ -1,10 +1,12 @@
 package Field;
 
+import java.io.Serializable;
+
 import Character.*;
 import Item.Item;
 import ItemList.*;
 
-public class Store{
+public class Store implements Serializable{
 	
 	Item[] storeList = new Item[3];
 	
@@ -14,6 +16,14 @@ public class Store{
 		}
 	}
 	
+	public Item[] getStoreList() {
+		return storeList;
+	}
+
+	public static Item[] getItemlist() {
+		return ITEMLIST;
+	}
+
 	public Item getStoreList(int num) {
 		return storeList[num];
 	}		

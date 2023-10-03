@@ -71,7 +71,6 @@ public class Servlet extends HttpServlet {
 		enemy = Enemy.enemyList();
 		
 		response.sendRedirect("battleserv");
-
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +116,6 @@ public class Servlet extends HttpServlet {
 		session.setAttribute("field", field);
 		
 		response.sendRedirect("battleserv");
-		
 	}
 
 

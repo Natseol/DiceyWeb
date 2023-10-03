@@ -84,10 +84,11 @@ public class BattleServ extends HttpServlet {
         
 //		player.setLevel(5);
 		player.setSp(12);
+		player.setExp(4);
 //		player.setHp(62);
 //		enemy[eNum].setHp(2);
 
-		enemy[enemyNum].setCondition(0,4);
+//		enemy[enemyNum].setCondition(0,4);
 //		enemy[enemyNum].setCondition(1,2);
 //		enemy[enemyNum].setCondition(2,2);
 //		enemy[enemyNum].setCondition(3,2);
@@ -135,7 +136,13 @@ public class BattleServ extends HttpServlet {
         System.out.println("idxItem: " + param2);
 
         myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
-        
+        }
+        if (player.getHp()<1) {
+        	myTurn.getTurnScript().add("<br>YOU DIED");
+        } else if (enemy[enemyNum].getHp()<1) {
+        	enemyNum++;
+        	myTurn.getTurnScript().add("<br>승리");
+        	myTurn.getTurnScript().add(player.levelUpStr());
         }
         
 		// JSON 데이터를 생성
@@ -164,15 +171,6 @@ public class BattleServ extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
         
-//        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-//
-//        // 각각의 파라미터로 저장
-//        String param1 = jsonNode.get("idxDice").asText();
-//        String param2 = jsonNode.get("idxItem").asText();
-//
-//        // 변수 확인
-//        System.out.println("idxDice: " + param1);
-//        System.out.println("idxItem: " + param2);
         System.out.println("내턴:"+myTurn.getIsTurn());
         System.out.println("적턴:"+enemyTurn.getIsTurn());
         
@@ -192,6 +190,14 @@ public class BattleServ extends HttpServlet {
         }
         System.out.println("내턴:"+myTurn.getIsTurn());
         System.out.println("적턴:"+enemyTurn.getIsTurn());
+        
+        if (player.getHp()<1) {
+        	enemyTurn.getTurnScript().add("<br>YOU DIED");
+        } else if (enemy[enemyNum].getHp()<1) {
+        	enemyNum++;
+        	enemyTurn.getTurnScript().add("<br>승리");
+        	enemyTurn.getTurnScript().add(player.levelUpStr());
+        }
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        

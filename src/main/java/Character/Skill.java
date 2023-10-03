@@ -84,13 +84,13 @@ public class Skill {
 				}
 				if (player.getLevel()>3) {
 					player.setDef(player.getDef()+6);
-					ItemScript.printGainDefence(6);
+					strb.append("6 의 방어력을 얻었습니다!!<br>");
 					player.addHp(player.getLevel()-3);
-					ItemScript.printRecovery(player.getLevel()-3);
+					strb.append((player.getLevel()-3)+" 의 체력을 회복했습니다<br>");
 				}
 				else {
-					ItemScript.printGainDefence(player.getDef()+3+player.getLevel());
 					player.setDef(player.getDef()+3+player.getLevel());				
+					strb.append((player.getLevel()+3+player.getLevel())+" 의 방어력을 얻었습니다!!<br>");
 				}
 				break;
 			}

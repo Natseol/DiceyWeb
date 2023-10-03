@@ -72,6 +72,30 @@ public class Player extends Job{
 		}
 	}
 	
+	public String levelUpStr() {
+		StringBuilder strb = new StringBuilder();
+		exp += 2;
+		if (exp == expTable[level-1]) {
+			level++;
+			exp=0;			
+			strb.append("<br>레벨이 올랐습니다!!<br>");
+			if (job.equals("전사")||job.equals("기사")) {
+				maxHp+=6;
+				strb.append("최대 HP가 6 올랐습니다!!<br>");
+			}
+			else {
+				maxHp+=5;
+				strb.append("최대 HP가 5 올랐습니다!!<br>");
+			}				
+			hp = maxHp;			
+			if (level==2||level==4||level==6) {
+				diceQuantity++;
+				strb.append("주사위를 획득했습니다!!<br>");
+			}
+		}
+		return strb.toString();
+	}
+	
 	public void resetPlayer() {
 		for (int i =0;i<inventory.length;i++) {//누적 초기화
 			inventory[i].setAccumulation(0);
