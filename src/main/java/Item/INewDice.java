@@ -15,9 +15,19 @@ public interface INewDice {
 		}
 		
 		for (int i : newDiceInt) {
-			if (i < 0) my.getDiceList().add(dice);
-			else if (i > 6) my.getDiceList().add(Roll.roll6());
-			else my.getDiceList().add(i);
+			int num;
+			if (i < 0) {
+				num=dice;
+				my.getDiceList().add(dice);
+			} else if (i > 6) {
+				num=Roll.roll6();
+				my.getDiceList().add(num);
+				
+			} else {
+				num=i;
+				my.getDiceList().add(i);
+			}
+			ItemScript.printNewDIce(num);
 		}
 	}	
 }

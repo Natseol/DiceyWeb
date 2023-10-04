@@ -54,6 +54,8 @@ function setStoreList(list) {
         let itemElement = document.createElement("div");
         itemElement.className = "store-div";
         itemElement.classList.add("rounded-3");
+        itemElement.classList.add("bg-info");
+        itemElement.classList.add("bg-gradient");
         itemElement.innerHTML = list[i].name+"<br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
@@ -234,6 +236,8 @@ function setItemList(list) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
+        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
@@ -307,6 +311,11 @@ function setForge(list, index) {
     const forgeContainer = document.getElementById("store-container");
     forgeContainer.innerHTML="";
     let forgeInfo = document.createElement("div");
+    forgeInfo.className = "forge-div";
+    forgeInfo.classList.add("rounded-3");
+    forgeInfo.classList.add("bg-secondary");
+    forgeInfo.classList.add("bg-gradient"); 
+    forgeInfo.style.color="white";
     forgeInfo.innerHTML = list[index].enhName+"<br><br>";
     forgeInfo.innerHTML += list[index].enhDescription+"<br></br>";
     if (list[index].enhCount>0) {
@@ -327,6 +336,8 @@ function forgeList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
+        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-gradient");        
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
@@ -416,6 +427,13 @@ function createForgeButton() {
 const well = document.getElementById("well");
 well.addEventListener("click", function(){
     const storeContainer = document.getElementById("store-container");
+    storeContainer.innerHTML="";
+    let itemElement = document.createElement("div");
+    itemElement.className = "well-div";
+    itemElement.setAttribute("id", "wellScript");
+    itemElement.classList.add("rounded-3");
+    itemElement.classList.add("bg-success");
+    itemElement.classList.add("bg-gradient"); 
     fetch("./fieldserv", {
         method: 'POST',
         headers: {
@@ -432,16 +450,17 @@ well.addEventListener("click", function(){
                 document.getElementById("store-button").removeChild(document.getElementById("storeButton"));
             }
             if (data.field.healCount>0) {
-                storeContainer.innerHTML="체력을 ["+(data.player.level+4)+"] 회복합니다<br><br>"
-                storeContainer.style.color="green";
+                itemElement.innerHTML="체력을 ["+(data.player.level+4)+"] 회복합니다<br><br>"
+                itemElement.style.color="white";
                 createWellButton()
             } else {
-                storeContainer.innerHTML="모든 횟수를 소진했습니다"
+                itemElement.innerHTML="모든 횟수를 소진했습니다"
             }
         })
         .catch(error => {
             console.error('Error:', error);
     });
+    storeContainer.appendChild(itemElement);
 });
 function createWellButton() {
     const store = document.getElementById("store-button");

@@ -17,13 +17,9 @@ public class Status implements Serializable {
 	protected int condition[]=new int[4];
 	protected boolean isEffect;
 	protected int sp;
+	protected boolean isUseSkill;
 		
 	public Status() {}	
-	public Status(int hp, int maxHp, int diceQuantity) {
-		this.hp = hp;
-		this.maxHp=maxHp;
-		this.diceQuantity = diceQuantity;		
-	}
 	
 	public int getHp() {
 		return hp;
@@ -105,10 +101,13 @@ public class Status implements Serializable {
 		this.sp = sp;
 	}
 	
-//	상태이상
-//	0. 발화 : 주사위를 사용하려면 체력 2 소모
-//	1. 빙결 : 가장 큰 주사위 눈금이 1로 바뀐다
-//	2. 석화 : 해당 장비를 사용하려면 주사위 1개를 소모해야함
+	public boolean getIsUseSkill() {
+		return isUseSkill;
+	}
+	public void setIsUseSkill(boolean useSkill) {
+		isUseSkill = useSkill;
+	}
+	
 	
 	public int[] getCondition() {
 		return condition;
@@ -119,26 +118,24 @@ public class Status implements Serializable {
 	public void setCondition(int idx,int changeNum) {
 		condition[idx]=changeNum;		
 	}
-
-	public void damagedFire() {
-		if (Math.random()<(0.25*getCondition(0))) {
-			subtractHp(2);
-		setCondition(0,getCondition(0)-1);
-		System.out.println(Color.RED+" * 주사위를 건들다 [2]의 피해를 입습니다 * "+Color.RESET);
-		}
-	}
 	
-	public String damagedFireStr() {
-		if (Math.random()<(0.25*getCondition(0))) {
-			subtractHp(1);
-		System.out.println(Color.RED+" * 주사위를 건들다 [1]의 피해를 입습니다 * "+Color.RESET);
-		return " * 주사위를 건들다 [1]의 피해를 입습니다 * <br><br>";
+	public void resetCondition() {
+		for (int i=0;i<condition.length;i++) {
+			condition[i]=0;
 		}
-		return "";
 	}
 	
 	public void resetFireStack() {
 		setCondition(0,0);
+	}
+	
+	public String damagedFireStr() {
+		if (Math.random()<(0.25*getCondition(0))) {
+			subtractHp(2);
+			System.out.println(Color.RED+" * 주사위를 건들다 [2]의 피해를 입습니다 * "+Color.RESET);
+			return "&nbsp* 주사위를 건들다 [2]의 피해를 입습니다 *&nbsp<br><br>";
+		}
+		return "";
 	}
 	
 	public void damagedIceList(TurnInfo turninfo) {
@@ -159,17 +156,9 @@ public class Status implements Serializable {
 		return false;
 	}
 	
-	public void damagedPoison() {
-		subtractHp(getCondition(3));
-		System.out.println();
-		System.out.println(Color.BPURPLE+" * 중독됐습니다. ["+getCondition(3)+"]의 피해를 입습니다 * "+Color.RESET);
-		System.out.println();
-		setCondition(3,getCondition(3)-1);		
-	}
-	
 	public String damagedPoisonStr() {
 		subtractHp(getCondition(3));
 		setCondition(3,getCondition(3)-1);
-		return " * 중독됐습니다. ["+(getCondition(3)+1)+"]의 피해를 입습니다 * <br><br>";
+		return "&nbsp* 중독됐습니다. ["+(getCondition(3)+1)+"]의 피해를 입습니다 *&nbsp<br><br>";
 	}
 }

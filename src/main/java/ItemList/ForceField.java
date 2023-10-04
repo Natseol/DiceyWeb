@@ -9,12 +9,12 @@ public class ForceField extends Item{
 		
 	public ForceField()	{
 		name = "역장";
-		description = "[1]+("+accmulation+") 의 누적되는 방어력을 얻습니다. (홀수)";
+		description = "[1] 의 사용할때 마다 누적되는 방어력을 얻습니다. (홀수)";
 		limit="-1";
 		defence=1;
 		
 		enhName = name+"(강화)";
-		enhDescription = "[1]+("+accmulation+") 의 누적되는 방어력을 얻습니다.";
+		enhDescription = "[1] 의 사용할때 마다 누적되는 방어력을 얻습니다.";
 		enhLimit="";
 	}	
 	
@@ -23,6 +23,5 @@ public class ForceField extends Item{
 		accmulation++;
 		player.setDef(player.getDef()+accmulation);		
 		ItemScript.printGainDefence(accmulation);
-		description = "[1]+("+accmulation+") 의 누적되는 방어력을 얻습니다.";
 	}
 }

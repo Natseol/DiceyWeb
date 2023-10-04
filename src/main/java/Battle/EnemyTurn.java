@@ -62,7 +62,7 @@ public class EnemyTurn extends TurnInfo{
 
 				if (enemy.getCondition(2)>0) {
 					if (enemy.damagedParalysisList(this, indexDice)) {
-						turnScript.add(" * 충격을 받았습니다. 주사위를 놓칩니다 * <br>");
+						turnScript.add("&nbsp* 충격을 받았습니다. 주사위를 놓칩니다 *&nbsp<br>");
 						return;
 					}
 				}//상태이상 마비

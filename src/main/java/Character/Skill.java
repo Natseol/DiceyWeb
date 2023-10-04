@@ -45,7 +45,7 @@ public class Skill {
 				}
 				System.out.println(Color.RESET);
 				strb.append("<br>");
-				myturn.setIsUseSkill(true);			
+				player.setIsUseSkill(true);			
 			break;
 			case "도적":
 				System.out.println(Color.CYAN+" [속임수] 스킬을 사용합니다");

@@ -68,12 +68,14 @@ public class BattleServ extends HttpServlet {
         if (session.getAttribute("player") != null) {
         	System.out.println("전달됨");
     		player = (Player) session.getAttribute("player");
-    		session.removeAttribute("player");
     		enemy = (Enemy[]) session.getAttribute("enemy");
     		floor = (int) session.getAttribute("floor");
     		enemyNum = (int) session.getAttribute("enemyNum");
     		field = (Field) session.getAttribute("field");
+    		session.removeAttribute("player");
+    		
     		enemy[enemyNum].setHp(enemy[enemyNum].getMaxHp());
+    		enemy[enemyNum].resetCondition();
     		myTurn = new MyTurn(player);
     		enemyTurn = new EnemyTurn(enemy[enemyNum]);
         }
@@ -84,10 +86,11 @@ public class BattleServ extends HttpServlet {
 //		player.setCondition(3,2);
         
 //		player.setLevel(5);
-//		player.setSp(12);
+		player.setSp(12);
 //		player.setExp(4);
 //		player.setHp(62);
-//		enemy[enemyNum].setHp(2);
+		enemy[enemyNum].setHp(2);
+		field.setForgeCount(1);
 
 //		enemy[enemyNum].setCondition(0,4);
 //		enemy[enemyNum].setCondition(1,2);
@@ -95,18 +98,15 @@ public class BattleServ extends HttpServlet {
 //		enemy[enemyNum].setCondition(3,2);
         
 		System.out.println("batlle GET 연결됨");
-		System.out.println("오류확인용 이름확인 "+enemy[enemyNum].getName());
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
         
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
         
-        jsonData.put("player", player);
-        jsonData.put("enemy", enemy[enemyNum]);
-        jsonData.put("myTurn", myTurn);
-        jsonData.put("enemyTurn", enemyTurn);
-                
+        putJsonData(jsonData);
+        jsonData.put("field", field);
+        
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
         objectMapper.writeValue(response.getWriter(), jsonData);
@@ -129,10 +129,11 @@ public class BattleServ extends HttpServlet {
         	
     		HttpSession session = request.getSession();
     		
+    		enemyNum++;
     		session.setAttribute("player", player);
     		session.setAttribute("enemy", enemy);
     		session.setAttribute("floor", floor);
-    		session.setAttribute("enemyNum", enemyNum+1);
+    		session.setAttribute("enemyNum", enemyNum);
     		session.setAttribute("field", field);
     		
     		response.sendRedirect("fieldserv");
@@ -152,6 +153,7 @@ public class BattleServ extends HttpServlet {
         System.out.println("idxDice: " + param1);
         System.out.println("idxItem: " + param2);
 
+        System.out.println();
         myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
         }
         if (player.getHp()<1) {
@@ -164,12 +166,9 @@ public class BattleServ extends HttpServlet {
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
         
-        jsonData.put("player", player);
-        jsonData.put("enemy", enemy[enemyNum]);
-        jsonData.put("myTurn", myTurn);
-        jsonData.put("isMyTurn", myTurn.getIsTurn());
-        jsonData.put("isEnemyTurn", enemyTurn.getIsTurn());
-        jsonData.put("enemyTurn", enemyTurn);
+        putJsonData(jsonData);
+//        jsonData.put("isMyTurn", myTurn.getIsTurn());
+//        jsonData.put("isEnemyTurn", enemyTurn.getIsTurn());
         jsonData.put("script", myTurn.getTurnScript());
         jsonData.put("skillScript", Skill.getStrb().toString());
         Skill.getStrb().setLength(0);
@@ -217,16 +216,20 @@ public class BattleServ extends HttpServlet {
 		// JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();        
         
-        jsonData.put("player", player);
-        jsonData.put("enemy", enemy[enemyNum]);
-        jsonData.put("myTurn", myTurn);
-        jsonData.put("enemyTurn", enemyTurn);
+        putJsonData(jsonData);
         jsonData.put("script", enemyTurn.getTurnScript());
-        jsonData.put("skillScript", Skill.getStrb().toString());
-        Skill.getStrb().setLength(0);
+//        jsonData.put("skillScript", Skill.getStrb().toString());
+//        Skill.getStrb().setLength(0);
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
         objectMapper.writeValue(response.getWriter(), jsonData);
+	}
+	
+	private void putJsonData(Map<String, Object> jsonData) {
+		jsonData.put("player", player);
+        jsonData.put("enemy", enemy[enemyNum]);
+        jsonData.put("myTurn", myTurn);
+        jsonData.put("enemyTurn", enemyTurn);
 	}
 }

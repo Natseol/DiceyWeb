@@ -22,6 +22,12 @@ public class TwoHandedSword extends Item{
 	@Override
 	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
 		if (my.getNeedDiceState(idx)>0) {
+			if (player.getIsUseSkill()) {
+				my.getTurnScript().add(" * 분노 스킬로 두번 발동합니다 *<br>");
+				enemy.subtractHp(dice+accmulation);			
+				printDamage(dice+accmulation);
+				player.setIsUseSkill(false);
+			}
 			enemy.subtractHp(dice+accmulation);			
 			printDamage(dice+accmulation);
 			accmulation=0;

@@ -98,16 +98,12 @@ public class Player extends Job{
 		}
 		return strb.toString();
 	}
-	
+		
 	public void resetPlayer() {
 		for (int i =0;i<inventory.length;i++) {//누적 초기화
 			inventory[i].setAccumulation(0);
-		}
-				
-		for (int i=0;i<condition.length;i++) {
-			condition[i]=0;
-		}
-		
+		}				
+		resetCondition();		
 		def = 0;
 		
 		if (job.equals("전사")||job.equals("기사"))

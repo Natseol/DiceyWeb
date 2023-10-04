@@ -27,6 +27,5 @@ public class Parrying extends Item{
 			enemy.subtractHp(dice);
 			printDamage(dice);
 		}
-			
 	}
 }

@@ -1,30 +1,30 @@
 // 0부터 9까지의 Dice 이미지를 정의합니다.
 const imagePaths = [
-    "http://localhost:8088/DiceyWeb/image/book.png",
-    "http://localhost:8088/DiceyWeb/image/dice1.png",
-    "http://localhost:8088/DiceyWeb/image/dice2.png",
-    "http://localhost:8088/DiceyWeb/image/dice3.png",
-    "http://localhost:8088/DiceyWeb/image/dice4.png",
-    "http://localhost:8088/DiceyWeb/image/dice5.png",
-    "http://localhost:8088/DiceyWeb/image/dice6.png",
-    "http://localhost:8088/DiceyWeb/image/dice7.png",
-    "http://localhost:8088/DiceyWeb/image/dice8.png",
-    "http://localhost:8088/DiceyWeb/image/dice9.png",
-    "http://localhost:8088/DiceyWeb/image/dice10.png"
+    "image/book.png",
+    "image/dice1.png",
+    "image/dice2.png",
+    "image/dice3.png",
+    "image/dice4.png",
+    "image/dice5.png",
+    "image/dice6.png",
+    "image/dice7.png",
+    "image/dice8.png",
+    "image/dice9.png",
+    "image/dice10.png"
 ];
 
 const imageRedPaths = [
-    "http://localhost:8088/DiceyWeb/image/bookred.png",
-    "http://localhost:8088/DiceyWeb/image/dicered1.png",
-    "http://localhost:8088/DiceyWeb/image/dicered2.png",
-    "http://localhost:8088/DiceyWeb/image/dicered3.png",
-    "http://localhost:8088/DiceyWeb/image/dicered4.png",
-    "http://localhost:8088/DiceyWeb/image/dicered5.png",
-    "http://localhost:8088/DiceyWeb/image/dicered6.png",
-    "http://localhost:8088/DiceyWeb/image/dicered7.png",
-    "http://localhost:8088/DiceyWeb/image/dicered8.png",
-    "http://localhost:8088/DiceyWeb/image/dicered9.png",
-    "http://localhost:8088/DiceyWeb/image/dicered10.png"
+    "image/bookred.png",
+    "image/dicered1.png",
+    "image/dicered2.png",
+    "image/dicered3.png",
+    "image/dicered4.png",
+    "image/dicered5.png",
+    "image/dicered6.png",
+    "image/dicered7.png",
+    "image/dicered8.png",
+    "image/dicered9.png",
+    "image/dicered10.png"
 ];
 
 //주사위 그림 생성
@@ -39,12 +39,12 @@ function setDiceImage(list) {
         imageElement.addEventListener("click", function() {
             console.log(imageElement.src);
             console.log(imagePaths[list[i]]);
-            if (imageElement.src == imagePaths[list[i]]) {
+            if (imageElement.src.includes(imagePaths[list[i]])) {
                 console.log("검은색");
                 resetDiceImage(list);
                 imageElement.src = imageRedPaths[list[i]];
                 
-            } else if (imageElement.src == imageRedPaths[list[i]]) {
+            } else if (imageElement.src.includes(imageRedPaths[list[i]])) {
                 console.log("빨강");
                 imageElement.src = imagePaths[list[i]];
             } else {
@@ -81,7 +81,8 @@ function setItemList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-khaki");
+        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
@@ -139,25 +140,29 @@ function setPlayerInfo(player) {
     if (player.condition[0]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="화염 : "+player.condition[0]+"<br>";
-        playerElement.style.color = "red";
+        playerElement.style.color = "rgb(255, 71, 71)";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[1]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="냉기 : "+player.condition[1]+"<br>";
-        playerElement.style.color = "blue";
+        playerElement.style.color = "skyblue";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[2]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="전기 : "+player.condition[2]+"<br>";
         playerElement.style.color = "yellow";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[3]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="독 : "+player.condition[3]+"<br>";
-        playerElement.style.color = "purple";
+        playerElement.style.color = "rgb(204, 120, 253)";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
 }
@@ -179,25 +184,29 @@ function setEnemyInfo(player) {
     if (player.condition[0]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="화염 : "+player.condition[0]+"<br>";
-        playerElement.style.color = "red";
+        playerElement.style.color = "rgb(255, 71, 71)";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         enemyContainer.appendChild(playerElement);
     }
     if (player.condition[1]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="냉기 : "+player.condition[1]+"<br>";
-        playerElement.style.color = "blue";
+        playerElement.style.color = "skyblue";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         enemyContainer.appendChild(playerElement);
     }
     if (player.condition[2]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="전기 : "+player.condition[2]+"<br>";
         playerElement.style.color = "yellow";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         enemyContainer.appendChild(playerElement);
     }
     if (player.condition[3]>0) {
         playerElement = document.createElement("div");
         playerElement.innerHTML +="독 : "+player.condition[3]+"<br>";
-        playerElement.style.color = "purple";
+        playerElement.style.color = "rgb(204, 120, 253)";
+        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         enemyContainer.appendChild(playerElement);
     }
 }
@@ -208,17 +217,17 @@ function setScript(script) {
     scriptContainer.innerHTML = "<br>";
 
     for (let i = 0 ; i < script.length ; i ++) {
-        let element = document.createElement("div");
+        let element = document.createElement("span");
         element.className = "script-div";
         element.innerHTML = script[i];
         if (script[i].includes("불태")||script[i].includes("건들")) {
-            element.style.color="red"
+            element.style.backgroundColor="rgb(255, 71, 71)"
         } else if (script[i].includes("얼립")||script[i].includes("얼어")) {
-            element.style.color="blue"
+            element.style.backgroundColor="skyblue"
         } else if (script[i].includes("감전")||script[i].includes("충격")) {
-            element.style.color="yellow"
+            element.style.backgroundColor="yellow"
         }else if (script[i].includes("중독")) {
-            element.style.color="purple"
+            element.style.backgroundColor="rgb(204, 120, 253)"
         }else if(script[i].includes("DIED")){
             element.style.color = "red";
             element.style.fontSize = "25px";
@@ -238,11 +247,13 @@ function selectDice() {
 
     let diceNum=-1;
     for (var i = 0; i < images.length; i++) {
-        var currentImageSrc = images[i].src;
-        if (imageRedPaths.includes(images[i].src)) {
+        let imagesSrc=images[i].src;
+        let newSrc=imagesSrc.slice(imagesSrc.indexOf('DiceyWeb')+9);//로컬 주소 바뀔 시 오류 가능성 있음
+        if (imageRedPaths.includes(newSrc)) {
             console.log('이미지를 찾았습니다:', i);
             diceNum=i;
         } else {
+            console.log('이미지가 없습니다:', newSrc);
             console.log('이미지가 없습니다:', i);
         }
     }
@@ -354,7 +365,6 @@ function createSkillButton() {
     skill.appendChild(skillButton);
 }
 
-
 function checkSp(player) {
     if(document.getElementById("skillButton")){
         document.getElementById("skill").removeChild(document.getElementById("skillButton"));
@@ -376,9 +386,6 @@ function printDice() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
-            console.log(data.myTurn.diceList);
-            console.log(data.myTurn.item);
 
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);

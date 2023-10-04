@@ -341,7 +341,7 @@ public class Script implements Color, Serializable {
 	public void printDamagedIce() {
 		System.out.println(B_BBLUE+" * 주사위가 얼어붙습니다. 눈금이 1로 변합니다 *"+RESET);
 		System.out.println();
-		strb.append(" * 주사위가 얼어붙습니다. 주사위 한개의 눈금이 1로 변합니다 *<br><br>");
+		strb.append("&nbsp* 주사위가 얼어붙습니다. 주사위 한개의 눈금이 1로 변합니다 *&nbsp<br><br>");
 	}
 
 	public void printCheckTrue() {

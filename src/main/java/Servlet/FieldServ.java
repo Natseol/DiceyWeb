@@ -114,9 +114,9 @@ public class FieldServ extends HttpServlet {
     		
     		session.setAttribute("player", player);
     		session.setAttribute("enemy", enemy);
-    		session.setAttribute("floor", floor);
     		session.setAttribute("enemyNum", enemyNum);
     		session.setAttribute("field", field);
+    		session.setAttribute("floor", floor);
     		
     		response.sendRedirect("battleserv");
     		return;

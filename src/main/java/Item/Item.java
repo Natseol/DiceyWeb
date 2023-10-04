@@ -129,10 +129,10 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			if (actionNeedDice(my, idx, dice)) return;
 		}
 		
-		if (getAttack()!=0) {actionAttack(player, enemy, dice);}
 		if (getTimes()!=0) {actionTimes(my, idx);}
-		if (getUse()) {	actionUse(my, idx);	}
+		if (getUse()) {actionUse(my, idx);}
 		
+		if (getAttack()!=0) {actionAttack(player, enemy, dice);}
 		if (actionActiveLimit(dice)) {			
 			if (getFireStack()!=0) {actionFireStack(enemy, dice);}
 			if (getIceStack()!=0) {actionIceStack(enemy, dice);}
@@ -143,7 +143,21 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			if (getDefence()!=0) {actionDefence(player, dice);}
 			if (getNewDice()!="") {actionNewDice(my, dice);}
 		}
-		return;
+		
+		if (player.getIsUseSkill()) {			
+			if (getAttack()!=0) {actionAttack(player, enemy, dice);}
+			if (actionActiveLimit(dice)) {			
+				if (getFireStack()!=0) {actionFireStack(enemy, dice);}
+				if (getIceStack()!=0) {actionIceStack(enemy, dice);}
+				if (getElecStack()!=0) {actionElecStack(enemy, dice);}
+				if (getPoisonStack()!=0) {actionPoisonStack(enemy, dice);}
+				if (getRecovery()!=0) {actionRecovery(player, dice);}
+				if (getDamage()!=0) {actionDamage(player, dice);}		
+				if (getDefence()!=0) {actionDefence(player, dice);}
+			}
+			my.getTurnScript().add(" * 분노 스킬로 두번 발동합니다 *<br>");
+			player.setIsUseSkill(false);
+		}
 	}
 	
 	@Override
