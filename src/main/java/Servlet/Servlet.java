@@ -36,7 +36,10 @@ public class Servlet extends HttpServlet {
 	
 	int floor=1;		
 	int enemyNum=0;
-	Field field = new Field();	
+	Field field = new Field();
+	
+	MyTurn myTurn;
+	EnemyTurn enemyTurn;
 	
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -81,21 +84,24 @@ public class Servlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-
-        // 각각의 파라미터로 저장
-        String param1 = jsonNode.get("jobNum").asText();
-        String param2 = jsonNode.get("equipmentNum").asText();
-
-        // 변수에 저장한 후 필요한 작업을 수행
-        System.out.println("jobNum: " + param1);
-        System.out.println("equipmentNum: " + param2);
-		
-		player.chooseJob(Integer.parseInt(param1));
-		player.setJobItem(player.getJob(), Integer.parseInt(param2));
-		 
-		// JSON 데이터를 생성
+        
+        if (jsonNode.get("jobNum")!=null&&jsonNode.get("equipmentNum")!=null) {
+        	
+        	// 각각의 파라미터로 저장
+        	String param1 = jsonNode.get("jobNum").asText();
+        	String param2 = jsonNode.get("equipmentNum").asText();
+        	
+        	// 변수에 저장한 후 필요한 작업을 수행
+        	System.out.println("jobNum: " + param1);
+        	System.out.println("equipmentNum: " + param2);
+        	
+        	player.chooseJob(Integer.parseInt(param1));
+        	player.setJobItem(player.getJob(), Integer.parseInt(param2));
+        	
+        }
+        // JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
-                
+        
         jsonData.put("player", player);
         jsonData.put("script", script.getChooseItem(player.getJob()));
         
