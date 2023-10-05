@@ -86,7 +86,7 @@ function setItemList(list, turn) {
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
-        itemElement.innerHTML = list[i].name+"<br><br>";
+        itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (turn.timesState[i]>1) {
         	itemElement.innerHTML +="남은횟수 : "+turn.timesState[i]+"<br><br>";
@@ -392,7 +392,7 @@ function printDice() {
             setDiceImage(data.myTurn.diceList);
             setItemList(data.myTurn.item, data.myTurn);
             checkSp(data.player);
-            gameover(data.player, data.enemy);
+            gameover(data.player, data.enemy);            
         })
         .catch(error => {
             console.error('Error:', error);
@@ -480,3 +480,50 @@ function myTurnEnd() {
     });
 };
 
+function modalItemList(list) {
+	let modalItem = document.getElementById("modal-body")
+    for (let i = 0; i < list.length; i++) {
+	    let modalItemElement = document.createElement("div");
+	    modalItemElement.className = "modal-div";
+	    modalItemElement.classList.add("rounded-3");
+	    modalItemElement.classList.add("bg-light");
+	    modalItemElement.classList.add("bg-gradient");        
+	    modalItemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
+	    modalItemElement.innerHTML +=list[i].description+"<br>";
+	    if (list[i].times>1) {
+	    	modalItemElement.innerHTML +="<br>남은횟수 : "+list[i].times+"<br>";
+	    }
+		if (list[i].count>0) {
+	    	modalItemElement.innerHTML +="<br>카운트 : "+list[i].count+"<br>";
+	    }
+     	modalItem.appendChild(modalItemElement);
+    }
+}
+
+//모달 버튼
+const modalButton = document.getElementById("modal-button");
+modalButton.addEventListener("click", function() {
+    const modalName = document.getElementById("exampleModalLabel");
+
+    const modalItem = document.getElementById("modal-body")
+
+    fetch("./battleserv", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.enemy.name);
+        
+        modalName.innerHTML = data.enemy.name + " (" + data.enemy.grade+")";
+        modalName.style.fontWeight = "bold";        
+        modalItem.innerHTML = data.enemy.description+"<br><br>";
+        modalItem.innerHTML += "인벤토리";
+        modalItemList(data.enemy.inventory);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+})

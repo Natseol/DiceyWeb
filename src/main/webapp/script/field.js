@@ -56,7 +56,7 @@ function setStoreList(list) {
         itemElement.classList.add("rounded-3");
         itemElement.classList.add("bg-info");
         itemElement.classList.add("bg-gradient");
-        itemElement.innerHTML = list[i].name+"<br><br>";
+        itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
         	itemElement.innerHTML +="남은횟수 : "+list[i].times+"<br><br>";
@@ -158,31 +158,8 @@ function setPlayerInfo(player) {
 	}
     playerElement.innerHTML += " / " + player.maxHp + "<br>"
     playerElement.innerHTML +=" Dice:" + player.diceQuantity +  " SP:" + player.sp + "<br>"
+    playerElement.innerHTML +=" [ EXP : " + player.exp +  " / " + player.expTable[player.level] + " ]<br>"
     playerContainer.appendChild(playerElement);
-    if (player.condition[0]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="화염 : "+player.condition[0]+"<br>";
-        playerElement.style.color = "red";
-        playerContainer.appendChild(playerElement);
-    }
-    if (player.condition[1]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="냉기 : "+player.condition[1]+"<br>";
-        playerElement.style.color = "blue";
-        playerContainer.appendChild(playerElement);
-    }
-    if (player.condition[2]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="전기 : "+player.condition[2]+"<br>";
-        playerElement.style.color = "yellow";
-        playerContainer.appendChild(playerElement);
-    }
-    if (player.condition[3]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="독 : "+player.condition[3]+"<br>";
-        playerElement.style.color = "purple";
-        playerContainer.appendChild(playerElement);
-    }
 }
 
 //적 정보 생성
@@ -241,7 +218,7 @@ function setItemList(list) {
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
-        itemElement.innerHTML = list[i].name+"<br><br>";
+        itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
         	itemElement.innerHTML +="남은횟수 : "+list[i].times+"<br><br>";
@@ -316,7 +293,7 @@ function setForge(list, index) {
     forgeInfo.classList.add("bg-secondary");
     forgeInfo.classList.add("bg-gradient"); 
     forgeInfo.style.color="white";
-    forgeInfo.innerHTML = list[index].enhName+"<br><br>";
+    forgeInfo.innerHTML ="<br><span style='font-weight:bold'>"+list[index].enhName+"</span><br><br>";
     forgeInfo.innerHTML += list[index].enhDescription+"<br></br>";
     if (list[index].enhCount>0) {
         forgeInfo.innerHTML += "카운트 : "+list[index].enhCount+"<br>";
@@ -341,7 +318,7 @@ function forgeList(list, turn) {
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
-        itemElement.innerHTML = list[i].name+"<br><br>";
+        itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
         	itemElement.innerHTML +="남은횟수 : "+list[i].times+"<br><br>";

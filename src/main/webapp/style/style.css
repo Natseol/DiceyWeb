@@ -74,6 +74,13 @@ body {
     margin: 10px;
 }
 
+.modal-div {	
+    height : minmax(160px, auto);
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 10px;
+}
+
 #store-container {
     display: flex;
     flex-direction: row;    
