@@ -84,7 +84,7 @@ public class Status implements Serializable {
 	}
 	
 	public void setInventory(int idx, Item item) {
-		inventory[idx] = item;
+		inventory[idx] = item.clone();
 	}
 		
 	public boolean getIsEffect() {

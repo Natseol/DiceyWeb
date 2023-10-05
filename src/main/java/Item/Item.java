@@ -6,7 +6,8 @@ import ItemList.*;
 import Main.Color;
 
 public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefence, ILimit, ITimes, IUse,
-	IElecStack, IFireStack, IIceStack, IPoisonStack, INeedDice, INewDice, IRecovery, IDamage, IActiveLimit{
+	IElecStack, IFireStack, IIceStack, IPoisonStack, INeedDice, INewDice, IRecovery, IDamage, IActiveLimit,
+	Cloneable{
 	
 	//흡혈, 상자, 석궁, 격돌, 패링, 역장, 제압, 가시방패, 양손검
 	//전염, 락픽, 쇠톱, 거울, 상승, 주걱, 타락한검, 알수없음, 종말
@@ -33,8 +34,50 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	protected String newDice="";
 		
 	protected int accmulation;
-
 	
+	protected Item() {};
+	
+	protected Item(String name,
+		String description,
+		int attack,
+		int addAttack,
+		int count,
+		String limit,
+		int times,
+		boolean use,
+		int needDice,		
+		String activeLimit,	
+		int fireStack,
+		int iceStack,
+		int elecStack,
+		int poisonStack,	
+		int recovery,
+		int defence,
+		int damage,
+		String newDice,		
+		int accmulation
+			) {
+		this.name=name;
+		this.description=description;
+		this.attack=attack;
+		this.addAttack=addAttack;
+		this.count=count;
+		this.limit=limit;
+		this.times=times;
+		this.use=use;
+		this.needDice=needDice;
+		this.activeLimit=activeLimit;
+		this.fireStack=fireStack;
+		this.iceStack=iceStack;
+		this.elecStack=elecStack;
+		this.poisonStack=poisonStack;
+		this.recovery=recovery;
+		this.defence=defence;
+		this.damage=damage;
+		this.newDice=newDice;
+		this.accmulation=accmulation;
+	}
+		
 	@Override
 	public void setAttack(int attack) {this.attack=attack;}	
 	@Override
@@ -188,4 +231,33 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		accmulation=num;
 	}
 	
+	 @Override
+	    public Item clone() {
+	        try {
+	        	Item cloned = (Item) super.clone();
+	        	cloned.name=this.name;
+	    		cloned.description=this.description;
+	    		cloned.attack=this.attack;
+	    		cloned.addAttack=this.addAttack;
+	    		cloned.count=this.count;
+	    		cloned.limit=this.limit;
+	    		cloned.times=this.times;
+	    		cloned.use=this.use;
+	    		cloned.needDice=this.needDice;
+	    		cloned.activeLimit=this.activeLimit;
+	    		cloned.fireStack=this.fireStack;
+	    		cloned.iceStack=this.iceStack;
+	    		cloned.elecStack=this.elecStack;
+	    		cloned.poisonStack=this.poisonStack;
+	    		cloned.recovery=this.recovery;
+	    		cloned.defence=this.defence;
+	    		cloned.damage=this.damage;
+	    		cloned.newDice=this.newDice;
+	    		cloned.accmulation=this.accmulation;
+	            return cloned;
+	        } catch (CloneNotSupportedException e) {
+	            // 예외 처리
+	            return null;
+	        }
+	    }	
 }
