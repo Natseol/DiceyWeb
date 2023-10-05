@@ -1,30 +1,30 @@
 // 0부터 9까지의 Dice 이미지를 정의합니다.
 const imagePaths = [
-    "http://localhost:8088/DiceyWeb/image/book.png",
-    "http://localhost:8088/DiceyWeb/image/dice1.png",
-    "http://localhost:8088/DiceyWeb/image/dice2.png",
-    "http://localhost:8088/DiceyWeb/image/dice3.png",
-    "http://localhost:8088/DiceyWeb/image/dice4.png",
-    "http://localhost:8088/DiceyWeb/image/dice5.png",
-    "http://localhost:8088/DiceyWeb/image/dice6.png",
-    "http://localhost:8088/DiceyWeb/image/dice7.png",
-    "http://localhost:8088/DiceyWeb/image/dice8.png",
-    "http://localhost:8088/DiceyWeb/image/dice9.png",
-    "http://localhost:8088/DiceyWeb/image/dice10.png"
+    "http://192.168.0.223:8088/DiceyWeb/image/book.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice1.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice2.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice3.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice4.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice5.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice6.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice7.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice8.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice9.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dice10.png"
 ];
 
 const imageRedPaths = [
-    "http://localhost:8088/DiceyWeb/image/bookred.png",
-    "http://localhost:8088/DiceyWeb/image/dicered1.png",
-    "http://localhost:8088/DiceyWeb/image/dicered2.png",
-    "http://localhost:8088/DiceyWeb/image/dicered3.png",
-    "http://localhost:8088/DiceyWeb/image/dicered4.png",
-    "http://localhost:8088/DiceyWeb/image/dicered5.png",
-    "http://localhost:8088/DiceyWeb/image/dicered6.png",
-    "http://localhost:8088/DiceyWeb/image/dicered7.png",
-    "http://localhost:8088/DiceyWeb/image/dicered8.png",
-    "http://localhost:8088/DiceyWeb/image/dicered9.png",
-    "http://localhost:8088/DiceyWeb/image/dicered10.png"
+    "http://192.168.0.223:8088/DiceyWeb/image/bookred.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered1.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered2.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered3.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered4.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered5.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered6.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered7.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered8.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered9.png",
+    "http://192.168.0.223:8088/DiceyWeb/image/dicered10.png"
 ];
 
 //주사위 그림 생성
