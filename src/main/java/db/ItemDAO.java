@@ -1,5 +1,6 @@
-package Board;
+package db;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,13 +13,18 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class ItemDAO {
+public class ItemDAO implements Serializable {
 	private Connection con;
 	
 	public List<ItemVO> getList() {
 		List<ItemVO> list = new ArrayList<>();
 		
 		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
+//			connect();
+			
 			String query = "select * from item";
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery(query);
@@ -28,7 +34,7 @@ public class ItemDAO {
 			rs.close();
 			pstmt.close();
 			con.close();			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
@@ -56,7 +62,7 @@ public class ItemDAO {
 			e.printStackTrace();
 		}
 		return temp;
-	}
+	}	
 	
 	private ItemVO createListRow(ResultSet rs) {
 		ItemVO temp = null;
@@ -82,7 +88,7 @@ public class ItemDAO {
 					rs.getString("newdice"),
 					rs.getInt("accumulation")
 					);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

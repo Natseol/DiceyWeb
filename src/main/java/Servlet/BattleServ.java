@@ -24,6 +24,8 @@ import Character.Player;
 import Character.Skill;
 import Field.Field;
 import Main.Script;
+import db.ItemDAO;
+import db.ItemVO;
 
 /**
  * Servlet implementation class BattleServ
@@ -64,7 +66,7 @@ public class BattleServ extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         HttpSession session = request.getSession(false);
-        
+		
         if (session.getAttribute("player") != null) {
         	System.out.println("전달됨");
     		player = (Player) session.getAttribute("player");

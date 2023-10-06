@@ -1,6 +1,8 @@
-package Board;
+package db;
 
-public class ItemVO {
+import java.io.Serializable;
+
+public class ItemVO implements Serializable{
 	protected String name;
 	protected String description;
 	
@@ -127,6 +129,5 @@ public class ItemVO {
 	public int getAccmulation() {
 		return accmulation;
 	}
-	
 	
 }

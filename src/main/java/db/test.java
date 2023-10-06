@@ -1,9 +1,9 @@
-package Board;
+package db;
 
 import java.util.List;
 
 public class test {
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		ItemDAO DAO = new ItemDAO();
 		List<ItemVO> list=DAO.getList();
 		

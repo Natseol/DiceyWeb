@@ -6,6 +6,57 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="list-container"></div>
+    <script>
+    const listContainer = document.getElementById("list-container");
+    function setDBList(list) {
+        listContainer.innerHTML = "";
+        let dbRow = document.createElement("div");
+        console.log(list[0].name);
+        for (let i = 0; i < list.length; i++) {
+            console.log(list[i].name);
+            dbRow.className = "list-div";
+            dbRow.innerHTML += list[i].name+" ";
+            dbRow.innerHTML += list[i].description+" ";
+            dbRow.innerHTML += list[i].attack+" ";
+            dbRow.innerHTML += list[i].addAttack+" ";
+            dbRow.innerHTML += list[i].count+" ";
+            dbRow.innerHTML += list[i].limit+" ";
+            dbRow.innerHTML += list[i].times+" ";
+            dbRow.innerHTML += list[i].use+" ";
+            dbRow.innerHTML += list[i].needDice+" ";
+            dbRow.innerHTML += list[i].activeLimit+" ";
+            dbRow.innerHTML += list[i].fireStack+" ";
+            dbRow.innerHTML += list[i].iceStack+" ";
+            dbRow.innerHTML += list[i].elecStack+" ";
+            dbRow.innerHTML += list[i].poisonStack+" ";
+            dbRow.innerHTML += list[i].recovery+" ";
+            dbRow.innerHTML += list[i].defence+" ";
+            dbRow.innerHTML += list[i].damage+" ";
+            dbRow.innerHTML += list[i].newDice+" ";
+            dbRow.innerHTML += list[i].accumulation+" ";
+            dbRow.innerHTML += "<br />";
+        };
+        listContainer.appendChild(dbRow);
+    }
+
+    function printList() {
+        fetch("./dbserv", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);        
+                setDBList(data.list);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+    };
+    printList();
+    </script>
 </body>
 </html>
