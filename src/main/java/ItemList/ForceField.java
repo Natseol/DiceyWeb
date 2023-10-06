@@ -20,8 +20,8 @@ public class ForceField extends Item{
 	
 	@Override
 	public void actionDefence(Status player, int dice) {
-		accmulation++;
-		player.setDef(player.getDef()+accmulation);		
-		ItemScript.printGainDefence(accmulation);
+		accumulation++;
+		player.setDef(player.getDef()+accumulation);		
+		ItemScript.printGainDefence(accumulation);
 	}
 }

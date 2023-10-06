@@ -33,7 +33,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	protected int damage;
 	protected String newDice="";
 		
-	protected int accmulation;
+	protected int accumulation;
 	
 	protected Item() {};
 	
@@ -55,7 +55,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		int defence,
 		int damage,
 		String newDice,		
-		int accmulation
+		int accumulation
 			) {
 		this.name=name;
 		this.description=description;
@@ -75,7 +75,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		this.defence=defence;
 		this.damage=damage;
 		this.newDice=newDice;
-		this.accmulation=accmulation;
+		this.accumulation=accumulation;
 	}
 		
 	@Override
@@ -225,10 +225,10 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	}
 
 	public int getAccumulmation() {
-		return accmulation;
+		return accumulation;
 	}
 	public void setAccumulation(int num) {
-		accmulation=num;
+		accumulation=num;
 	}
 	
 	 @Override
@@ -253,7 +253,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	    		cloned.defence=this.defence;
 	    		cloned.damage=this.damage;
 	    		cloned.newDice=this.newDice;
-	    		cloned.accmulation=this.accmulation;
+	    		cloned.accumulation=this.accumulation;
 	            return cloned;
 	        } catch (CloneNotSupportedException e) {
 	            // 예외 처리

@@ -52,7 +52,7 @@ public class ItemDAO implements Serializable {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {//컬럼을 가져옴
+			if (rs.next()) {//로우를 가져옴
 				temp = createListRow(rs);
 			}
 			rs.close();
@@ -62,12 +62,107 @@ public class ItemDAO implements Serializable {
 			e.printStackTrace();
 		}
 		return temp;
-	}	
+	}
+	
+	public void createItem(String name, String description, int attack, int addAttack, int count, String limit, int times,
+			int use, int needDice, String activeLimit, int fireStack, int iceStack, int elecStack, int poisonStack,
+			int recovery, int defence, int damage, String newDice) {
+		
+		try {
+			connect();
+			
+			String insertQuery = "insert into item (name, description, attack, addAttack, count,"
+					+ " limit, times, use, needDice, activeLimit, fireStack, iceStack, elecStack,"
+					+ " poisonStack, recovery, defence, damage, newDice)"
+					+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt = con.prepareStatement(insertQuery);
+			pstmt.setString(1, name);
+			pstmt.setString(2, description);
+			pstmt.setInt(3, attack);
+			pstmt.setInt(4, addAttack);
+			pstmt.setInt(5, count);
+			pstmt.setString(6, limit);
+			pstmt.setInt(7, times);
+			pstmt.setInt(8, use);
+			pstmt.setInt(9, needDice);
+			pstmt.setString(10, activeLimit);
+			pstmt.setInt(11, fireStack);
+			pstmt.setInt(12, iceStack);
+			pstmt.setInt(13, elecStack);
+			pstmt.setInt(14, poisonStack);
+			pstmt.setInt(15, recovery);
+			pstmt.setInt(16, defence);
+			pstmt.setInt(17, damage);
+			pstmt.setString(18, newDice);
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateItem(int id, String name, String description, int attack, int addAttack, int count, String limit, int times,
+			int use, int needDice, String activeLimit, int fireStack, int iceStack, int elecStack, int poisonStack,
+			int recovery, int defence, int damage, String newDice) {
+		try {
+			connect();
+			
+			String insertQuery = "update item set name=?, description=?, attack=?, addAttack=?, count,"
+					+ "limit=?, times=?, use=?, needDice=?, activeLimit=?, fireStack=?, iceStack=?, elecStack=?,"
+					+ "poisonStack=?, recovery=?, defence=?, damage=?, newDice=? where id=?";
+			PreparedStatement pstmt = con.prepareStatement(insertQuery);
+			pstmt.setString(1, name);
+			pstmt.setString(2, description);
+			pstmt.setInt(3, attack);
+			pstmt.setInt(4, addAttack);
+			pstmt.setInt(5, count);
+			pstmt.setString(6, limit);
+			pstmt.setInt(7, times);
+			pstmt.setInt(8, use);
+			pstmt.setInt(9, needDice);
+			pstmt.setString(10, activeLimit);
+			pstmt.setInt(11, fireStack);
+			pstmt.setInt(12, iceStack);
+			pstmt.setInt(13, elecStack);
+			pstmt.setInt(14, poisonStack);
+			pstmt.setInt(15, recovery);
+			pstmt.setInt(16, defence);
+			pstmt.setInt(17, damage);
+			pstmt.setString(18, newDice);
+			pstmt.setInt(19, id);
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteItem(int id) {
+		try {
+			connect();
+			
+			String insertQuery = "delete from item where id=?";
+			PreparedStatement pstmt = con.prepareStatement(insertQuery);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	private ItemVO createListRow(ResultSet rs) {
 		ItemVO temp = null;
 		try {
 			temp = new ItemVO(
+					rs.getInt("id"),
 					rs.getString("name"),
 					rs.getString("description"),
 					rs.getInt("attack"),

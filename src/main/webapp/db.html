@@ -5,40 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    tr:nth-child(even) {
+  background-color: #2e2649;
+}
+tr:nth-child(odd) {
+  background-color: #423b5b;
+}
+th {
+  background-color: #342F44;
+  color: white;
+  padding: 10px;
+}
+td {
+    color:white;
+    border:none !important;
+    padding: 10px;
+}
+</style>
 <body>
+    <table id="table">
+    </table>
     <div id="list-container"></div>
     <script>
-    const listContainer = document.getElementById("list-container");
-    function setDBList(list) {
-        listContainer.innerHTML = "";
-        let dbRow = document.createElement("div");
-        console.log(list[0].name);
-        for (let i = 0; i < list.length; i++) {
-            console.log(list[i].name);
-            dbRow.className = "list-div";
-            dbRow.innerHTML += list[i].name+" ";
-            dbRow.innerHTML += list[i].description+" ";
-            dbRow.innerHTML += list[i].attack+" ";
-            dbRow.innerHTML += list[i].addAttack+" ";
-            dbRow.innerHTML += list[i].count+" ";
-            dbRow.innerHTML += list[i].limit+" ";
-            dbRow.innerHTML += list[i].times+" ";
-            dbRow.innerHTML += list[i].use+" ";
-            dbRow.innerHTML += list[i].needDice+" ";
-            dbRow.innerHTML += list[i].activeLimit+" ";
-            dbRow.innerHTML += list[i].fireStack+" ";
-            dbRow.innerHTML += list[i].iceStack+" ";
-            dbRow.innerHTML += list[i].elecStack+" ";
-            dbRow.innerHTML += list[i].poisonStack+" ";
-            dbRow.innerHTML += list[i].recovery+" ";
-            dbRow.innerHTML += list[i].defence+" ";
-            dbRow.innerHTML += list[i].damage+" ";
-            dbRow.innerHTML += list[i].newDice+" ";
-            dbRow.innerHTML += list[i].accumulation+" ";
-            dbRow.innerHTML += "<br />";
-        };
-        listContainer.appendChild(dbRow);
-    }
+
+    const table = document.getElementById("table");
+    function setDBList(items) {        
+                // 테이블 헤더 생성
+        var thead = document.createElement('thead');
+        var trHead = document.createElement('tr');
+
+        // 테이블 헤더에 속성 이름 추가 (첫 번째 아이템 기준)
+        for (var prop in items[0]) {
+            if (items[0].hasOwnProperty(prop)) {
+                var th = document.createElement('th');
+                th.textContent = prop;
+                trHead.appendChild(th);
+            }
+        }
+
+        thead.appendChild(trHead);
+        table.appendChild(thead);
+
+        // 테이블 바디 생성
+        var tbody = document.createElement('tbody');
+
+        // 배열의 각 아이템을 테이블 행으로 추가
+        for (var i = 0; i < items.length; i++) {
+        var tr = document.createElement('tr');
+        for (var prop in items[i]) {
+            if (items[i].hasOwnProperty(prop)) {
+                var td = document.createElement('td');
+                td.textContent = items[i][prop];
+                tr.appendChild(td);
+                }
+            }
+        tbody.appendChild(tr);
+        }
+
+    table.appendChild(tbody);
+    };
+    
 
     function printList() {
         fetch("./dbserv", {

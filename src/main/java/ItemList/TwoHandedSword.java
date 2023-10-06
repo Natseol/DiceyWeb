@@ -10,7 +10,7 @@ public class TwoHandedSword extends Item{
 		name = "양손검";
 		description = "눈금의 합만큼 피해를 줍니다 (주사위 2개 필요)";
 		attack=1;
-		accmulation=0;
+		accumulation=0;
 		needDice=1;
 		
 		enhName = name+"(강화)";
@@ -24,19 +24,19 @@ public class TwoHandedSword extends Item{
 		if (my.getNeedDiceState(idx)>0) {
 			if (player.getIsUseSkill()) {
 				my.getTurnScript().add(" * 분노 스킬로 두번 발동합니다 *<br>");
-				enemy.subtractHp(dice+accmulation);			
-				printDamage(dice+accmulation);
+				enemy.subtractHp(dice+accumulation);			
+				printDamage(dice+accumulation);
 				player.setIsUseSkill(false);
 			}
-			enemy.subtractHp(dice+accmulation);			
-			printDamage(dice+accmulation);
-			accmulation=0;
+			enemy.subtractHp(dice+accumulation);			
+			printDamage(dice+accumulation);
+			accumulation=0;
 			my.setNeedDiceState(idx, 0);
 			my.setTimesState(idx, 0);
 		}
 		else {
-			accmulation += dice;
-			my.setNeedDiceState(idx, accmulation);
+			accumulation += dice;
+			my.setNeedDiceState(idx, accumulation);
 			my.setTimesState(idx, 1);
 		}			
 	}
