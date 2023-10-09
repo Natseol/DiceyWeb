@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -86,17 +87,44 @@ public class DbServ extends HttpServlet {
 		List<ItemVO> list = dao.getList();
 		
         ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
         
-//        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-//        String param1 = jsonNode.get("jobNum").asText();
-        
+        int id = jsonNode.get("id").asInt();
+        System.out.println("id 확인"+id);
+        if (id>0) {
+        	dao.deleteItem(id);
+        } else {
+        	String name = jsonNode.get("name").asText();
+        	String description = jsonNode.get("description").asText();
+			int attack = jsonNode.get("attack").asInt();
+			int addAttack = jsonNode.get("addAttack").asInt();
+			int count = jsonNode.get("count").asInt();    
+			String limit = jsonNode.get("limit").asText();
+			int times = jsonNode.get("times").asInt();
+			int use = jsonNode.get("use").asInt();
+			int needDice = jsonNode.get("needDice").asInt();
+			String activeLimit = jsonNode.get("activeLimit").asText();
+			int fireStack = jsonNode.get("fireStack").asInt();
+			int iceStack = jsonNode.get("iceStack").asInt();
+			int elecStack = jsonNode.get("elecStack").asInt();
+			int poisonStack = jsonNode.get("poisonStack").asInt();
+			int recovery = jsonNode.get("recovery").asInt();
+			int defence = jsonNode.get("defence").asInt();
+			int damage = jsonNode.get("damage").asInt();
+			String newDice = jsonNode.get("newDice").asText();
+			
+			dao.createItem(name, description, attack, addAttack, count, limit, times,
+					use, needDice, activeLimit, fireStack, iceStack, elecStack, poisonStack,
+					recovery, defence, damage, newDice);
+		}
+                
         // JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
-        
+        list = dao.getList();
         jsonData.put("list", list);
         
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");
-        objectMapper.writeValue(response.getWriter(), jsonData);	
+        objectMapper.writeValue(response.getWriter(), jsonData);
 	}
 }

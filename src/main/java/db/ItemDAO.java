@@ -69,7 +69,10 @@ public class ItemDAO implements Serializable {
 			int recovery, int defence, int damage, String newDice) {
 		
 		try {
-			connect();
+			Class.forName("oracle.jdbc.OracleDriver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
+//			connect();
 			
 			String insertQuery = "insert into item (name, description, attack, addAttack, count,"
 					+ " limit, times, use, needDice, activeLimit, fireStack, iceStack, elecStack,"
@@ -143,7 +146,10 @@ public class ItemDAO implements Serializable {
 	
 	public void deleteItem(int id) {
 		try {
-			connect();
+			Class.forName("oracle.jdbc.OracleDriver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
+//			connect();
 			
 			String insertQuery = "delete from item where id=?";
 			PreparedStatement pstmt = con.prepareStatement(insertQuery);
