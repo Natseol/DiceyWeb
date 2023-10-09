@@ -37,7 +37,7 @@ public class FieldServ extends HttpServlet {
 	
 	int floor=1;		
 	int enemyNum=0;
-	Field field = new Field();	
+	Field field;	
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -74,12 +74,12 @@ public class FieldServ extends HttpServlet {
     		field = (Field) session.getAttribute("field");
     		System.out.println("적넘버"+enemyNum);
     		if (enemyNum==4||enemyNum==7||enemyNum==10||enemyNum==14||enemyNum==17) {
-    			field = new Field();
+    			field.createField();
     			field.setForgeCount(1);
     		}
     		if (enemyNum==12||enemyNum==16) {
     			int num = field.getForgeCount();
-    			field = new Field();
+    			field.createField();
     			field.setForgeCount(num);
     		}
         }

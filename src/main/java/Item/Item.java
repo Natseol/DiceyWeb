@@ -4,6 +4,7 @@ import Battle.*;
 import Character.*;
 import ItemList.*;
 import Main.Color;
+import db.ItemVO;
 
 public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefence, ILimit, ITimes, IUse,
 	IElecStack, IFireStack, IIceStack, IPoisonStack, INeedDice, INewDice, IRecovery, IDamage, IActiveLimit,
@@ -35,9 +36,9 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		
 	protected int accumulation;
 	
-	protected Item() {};
+	public Item() {};
 	
-	protected Item(String name,
+	public Item(String name,
 		String description,
 		int attack,
 		int addAttack,
@@ -77,6 +78,29 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		this.newDice=newDice;
 		this.accumulation=accumulation;
 	}
+	
+	public Item(ItemVO itemVO
+				) {
+			this.name=itemVO.getName();
+			this.description=itemVO.getDescription();
+			this.attack=itemVO.getAttack();
+			this.addAttack=itemVO.getAddAttack();
+			this.count=itemVO.getCount();
+			this.limit=itemVO.getLimit();
+			this.times=itemVO.getTimes();
+			this.use=itemVO.isUse();
+			this.needDice=itemVO.getNeedDice();
+			this.activeLimit=itemVO.getActiveLimit();
+			this.fireStack=itemVO.getFireStack();
+			this.iceStack=itemVO.getIceStack();
+			this.elecStack=itemVO.getElecStack();
+			this.poisonStack=itemVO.getPoisonStack();
+			this.recovery=itemVO.getRecovery();
+			this.defence=itemVO.getDefence();
+			this.damage=itemVO.getDamage();
+			this.newDice=itemVO.getNewDice();
+			this.accumulation=itemVO.getAccumulation();
+		}
 		
 	@Override
 	public void setAttack(int attack) {this.attack=attack;}	

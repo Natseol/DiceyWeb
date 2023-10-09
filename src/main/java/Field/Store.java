@@ -7,6 +7,7 @@ import java.util.List;
 import Character.*;
 import Item.Item;
 import ItemList.*;
+import db.ItemVO;
 
 public class Store implements Serializable{
 	
@@ -14,23 +15,30 @@ public class Store implements Serializable{
 	
 	public Store() {//랜덤 아이템3개 생성
 		for (int i = 0; i < storeList.length; i++) {
-			int randomNum =(int)(Math.random()*(ITEMLIST2.size()-9))+9;
-			storeList[i]=ITEMLIST2.get(14);
+			int randomNum =(int)(Math.random()*(itemList.size()-9))+9;
+			storeList[i]=itemList.get(randomNum);
 		}		
+	}
+	
+	public void resetStore() {
+		for (int i = 0; i < storeList.length; i++) {
+			int randomNum =(int)(Math.random()*(itemList.size()-9))+9;
+			storeList[i]=itemList.get(randomNum);
+		}	
 	}
 	
 	public Item[] getStoreList() {
 		return storeList;
-	}
-
-//	public static Item[] getItemlist() {
-//		return ITEMLIST;
-//	}
+	}	
 
 	public Item getStoreList(int num) {
 		return storeList[num];
-	}		
-			
+	}
+				
+	public ArrayList<Item> getItemList() {
+		return itemList;
+	}
+
 	public void showList() {
 		for (int i =0; i<storeList.length;i++) {			
 			System.out.print((i+1)+") "
@@ -138,7 +146,7 @@ public class Store implements Serializable{
 //			new MagicShield()//D,H
 //	};
 	
-	public static List<Item> ITEMLIST2 = List.of(
+	private List<Item> basicItemlist = List.of(
 			new Nothing(),
 			new UsedGreat(),
 			
@@ -233,8 +241,17 @@ public class Store implements Serializable{
 			new MagicShield()//D,H
 			);
 	
+	ArrayList<Item> itemList = new ArrayList<>(basicItemlist);
 	
 	public void changeItem(Player player, int inven, Item item) {	
 		player.setInventory(inven, item);
-	}	
+	}
+	
+	public void addList(List<ItemVO> list) {
+		ArrayList<Item> temp = new ArrayList<>(basicItemlist);
+		for (int i = 0; i < list.size(); i++) {
+			temp.add(new Item(list.get(i)));
+		}
+		itemList = temp;
+	}
 }

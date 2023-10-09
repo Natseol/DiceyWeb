@@ -3,6 +3,7 @@ package Servlet;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +23,8 @@ import Battle.MyTurn;
 import Character.*;
 import Field.Field;
 import Main.*;
+import db.ItemDAO;
+import db.ItemVO;
 
 /**
  * Servlet implementation class Servlet
@@ -36,7 +39,7 @@ public class Servlet extends HttpServlet {
 	
 	int floor=1;		
 	int enemyNum=0;
-	Field field = new Field();
+	Field field=new Field();
 	
 	MyTurn myTurn;
 	EnemyTurn enemyTurn;
@@ -46,6 +49,7 @@ public class Servlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+
 	}
 
 	/**
@@ -59,9 +63,9 @@ public class Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
 		System.out.println("servlet GET 연결됨");
-		response.setContentType("text/html;charset=UTF-8");  
+		response.setContentType("text/html;charset=UTF-8");
+		
 		HttpSession session = request.getSession();
 		
 		session.setAttribute("player", player);
@@ -72,7 +76,7 @@ public class Servlet extends HttpServlet {
 
 		player = new Player();
 		enemy = Enemy.enemyList();
-		field = new Field();
+//		field = new Field();
 		
 		response.sendRedirect("battleserv");
 	}
@@ -81,6 +85,12 @@ public class Servlet extends HttpServlet {
 		
 		System.out.println("servlet POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
+		
+		ItemDAO dao = new ItemDAO();
+		List<ItemVO> list = dao.getList();
+		field.getStore().addList(list);
+		field.createField();
+		
         ObjectMapper objectMapper = new ObjectMapper();
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());

@@ -92,12 +92,11 @@ input {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
+                        location.href="db.html";
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                    });
-                    location.href="db.html";
+                    });                    
                 });
             })(items[i]["id"]); // 클로저 함수 내에 idValue를 전달합니다.
 
@@ -142,18 +141,18 @@ input {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    location.href="db.html";
                 })
                 .catch(error => {
                     console.error('Error:', error);
             }); 
-            location.href="db.html";
-            printList();
+        
         });
 
         // // 버튼을 테이블 헤더에 추가합니다.
         // const submit = document.getElementById("submit-button");
         theadRow.appendChild(submitButton);
+        
     };    
 
     function printList() {
