@@ -70,11 +70,8 @@ public class Skill {
 			case "마법사":
 				System.out.println(Color.CYAN+" [창조] 스킬을 사용합니다"+Color.RESET);
 				System.out.println(Color.YELLOW+"  생성하고 싶은 주사위의 눈금을 적으세요"+Color.RESET);
-				myturn.getDiceList().add(Roll.random(10));
 				strb.append("[창조] 스킬을 사용합니다<br>");
-				strb.append("생성하고 싶은 주사위의 눈금을 적으세요<br>");				
-				strb.append("미구현으로 무작위 생성 - 모달적용 예정<br>");
-
+				strb.append("생성하고 싶은 주사위의 눈금을 적으세요<br>");	
 				break;
 			case "기사":
 				System.out.println(Color.CYAN+" [신의은총] 스킬을 사용합니다");

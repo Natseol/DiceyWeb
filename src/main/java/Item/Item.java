@@ -99,7 +99,26 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			this.defence=itemVO.getDefence();
 			this.damage=itemVO.getDamage();
 			this.newDice=itemVO.getNewDice();
-			this.accumulation=itemVO.getAccumulation();
+//			this.accumulation=itemVO.getAccumulation();
+			
+			this.enhName=itemVO.getEnhName();
+			this.enhDescription=itemVO.getEnhDescription();
+			this.enhAttack=itemVO.getEnhAttack();
+			this.enhAddAttack=itemVO.getEnhAddAttack();
+			this.enhCount=itemVO.getEnhCount();
+			this.enhLimit=itemVO.getEnhLimit();
+			this.enhTimes=itemVO.getEnhTimes();
+			this.enhUse=itemVO.isEnhUse();
+			this.enhNeedDice=itemVO.getEnhNeedDice();
+			this.enhActiveLimit=itemVO.getEnhActiveLimit();
+			this.enhFireStack=itemVO.getEnhFireStack();
+			this.enhIceStack=itemVO.getEnhIceStack();
+			this.enhElecStack=itemVO.getEnhElecStack();
+			this.enhPoisonStack=itemVO.getEnhPoisonStack();
+			this.enhRecovery=itemVO.getEnhRecovery();
+			this.enhDefence=itemVO.getEnhDefence();
+			this.enhDamage=itemVO.getEnhDamage();
+			this.enhNewDice=itemVO.getEnhNewDice();
 		}
 		
 	@Override
@@ -236,6 +255,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		if (enhCount!=0) {count=enhCount;}
 		if (!enhLimit.equals("")) {limit=enhLimit;}
 		if (enhTimes!=0) {times=enhTimes;}
+		if (enhUse) {use=enhUse;}
 		if (!enhActiveLimit.equals("")) {activeLimit=enhActiveLimit;}
 		if (enhFireStack!=0) {fireStack=enhFireStack;}
 		if (enhIceStack!=0) {iceStack=enhIceStack;}
@@ -278,6 +298,25 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	    		cloned.damage=this.damage;
 	    		cloned.newDice=this.newDice;
 	    		cloned.accumulation=this.accumulation;
+	    		
+	        	cloned.enhName=this.enhName;
+	    		cloned.enhDescription=this.enhDescription;
+	    		cloned.enhAttack=this.enhAttack;
+	    		cloned.enhAddAttack=this.enhAddAttack;
+	    		cloned.enhCount=this.enhCount;
+	    		cloned.enhLimit=this.enhLimit;
+	    		cloned.enhTimes=this.enhTimes;
+	    		cloned.enhUse=this.enhUse;
+	    		cloned.enhNeedDice=this.enhNeedDice;
+	    		cloned.enhActiveLimit=this.enhActiveLimit;
+	    		cloned.enhFireStack=this.enhFireStack;
+	    		cloned.enhIceStack=this.enhIceStack;
+	    		cloned.enhElecStack=this.enhElecStack;
+	    		cloned.enhPoisonStack=this.enhPoisonStack;
+	    		cloned.enhRecovery=this.enhRecovery;
+	    		cloned.enhDefence=this.enhDefence;
+	    		cloned.enhDamage=this.enhDamage;
+	    		cloned.enhNewDice=this.enhNewDice;
 	            return cloned;
 	        } catch (CloneNotSupportedException e) {
 	            // 예외 처리

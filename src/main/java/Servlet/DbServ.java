@@ -112,10 +112,34 @@ public class DbServ extends HttpServlet {
 			int defence = jsonNode.get("defence").asInt();
 			int damage = jsonNode.get("damage").asInt();
 			String newDice = jsonNode.get("newDice").asText();
+						
+        	String enhName = jsonNode.get("enhName").asText();
+        	String enhDescription = jsonNode.get("enhDescription").asText();
+			int enhAttack = jsonNode.get("enhAttack").asInt();
+			int enhAddAttack = jsonNode.get("enhAddAttack").asInt();
+			int enhCount = jsonNode.get("enhCount").asInt();    
+			String enhLimit = jsonNode.get("enhLimit").asText();
+			int enhTimes = jsonNode.get("enhTimes").asInt();
+			int enhUse = jsonNode.get("enhUse").asInt();
+			int enhNeedDice = jsonNode.get("enhNeedDice").asInt();
+			String enhActiveLimit = jsonNode.get("enhActiveLimit").asText();
+			int enhFireStack = jsonNode.get("enhFireStack").asInt();
+			int enhIceStack = jsonNode.get("enhIceStack").asInt();
+			int enhElecStack = jsonNode.get("enhElecStack").asInt();
+			int enhPoisonStack = jsonNode.get("enhPoisonStack").asInt();
+			int enhRecovery = jsonNode.get("enhRecovery").asInt();
+			int enhDefence = jsonNode.get("enhDefence").asInt();
+			int enhDamage = jsonNode.get("enhDamage").asInt();
+			String enhNewDice = jsonNode.get("enhNewDice").asText();
 			
 			dao.createItem(name, description, attack, addAttack, count, limit, times,
 					use, needDice, activeLimit, fireStack, iceStack, elecStack, poisonStack,
-					recovery, defence, damage, newDice);
+					recovery, defence, damage, newDice,
+					enhName, enhDescription, enhAttack,	
+					enhAddAttack, enhCount, enhLimit, enhTimes, enhUse, enhNeedDice,
+					enhActiveLimit, enhFireStack, enhIceStack,
+					enhElecStack, enhPoisonStack, enhRecovery,
+					enhDefence, enhDamage, enhNewDice);
 		}
                 
         // JSON 데이터를 생성

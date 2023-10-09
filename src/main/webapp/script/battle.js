@@ -356,13 +356,56 @@ function createSkillButton() {
                 setDiceImage(data.myTurn.diceList);
                 setItemList(data.myTurn.item, data.myTurn);
                 checkSp(data.player);
-                gameover(data.player, data.enemy)
+                gameover(data.player, data.enemy);
+                if (data.player.job=="마법사") useMagic();
             })
             .catch(error => {
                 console.error('Error:', error);
         });
     });
     skill.appendChild(skillButton);
+}
+
+function useMagic() {
+    const script = document.getElementById("script");
+    const form = document.createElement("form");
+    const input = document.createElement("input");
+    input.style.margin="10px 10px";
+    input.style.width="50px";
+    input.style.height="38px";
+    // 전송 버튼을 추가합니다.
+    var submitButton = document.createElement('button');
+    submitButton.textContent = '생성';
+    submitButton.className = "btn btn-warning"
+    submitButton.style.width="60px"
+    submitButton.style.margin="0px 10px "
+    
+    submitButton.addEventListener('click', function() {
+        const postData = {
+            magicDice: input.value
+        }
+
+        fetch("./battleserv", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                printDice();
+                document.getElementById("script").innerHTML=data.skillScript;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        }); 
+    
+    });
+
+    script.appendChild(input);
+    script.appendChild(submitButton);
+    script.appendChild(form);
 }
 
 function checkSp(player) {

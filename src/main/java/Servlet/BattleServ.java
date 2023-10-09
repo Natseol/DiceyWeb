@@ -88,7 +88,7 @@ public class BattleServ extends HttpServlet {
 //		player.setCondition(3,2);
         
 //		player.setLevel(5);
-		player.setSp(12);
+//		player.setSp(12);
 //		player.setExp(4);
 //		player.setHp(62);
 		enemy[enemyNum].setHp(2);
@@ -126,6 +126,8 @@ public class BattleServ extends HttpServlet {
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
         
+
+        
         if (jsonNode.get("endStage")!=null) {
         	player.resetPlayer();
         	
@@ -142,7 +144,11 @@ public class BattleServ extends HttpServlet {
     		return;
         }
         
-        if (jsonNode.get("isUseSkill").asText().equals("true")) {
+        if (jsonNode.get("magicDice")!=null) {
+        	int dice = jsonNode.get("magicDice").asInt();
+        	Skill.skillMag(player, myTurn, dice);
+        	System.out.println(dice);
+        } else if (jsonNode.get("isUseSkill").asText().equals("true")) {
         	String param = jsonNode.get("isUseSkill").asText();
         	System.out.println("isUseSkill: " + param);
         	Skill.useSkill(player, enemy[enemyNum], myTurn);
@@ -169,8 +175,6 @@ public class BattleServ extends HttpServlet {
         Map<String, Object> jsonData = new HashMap<>();        
         
         putJsonData(jsonData);
-//        jsonData.put("isMyTurn", myTurn.getIsTurn());
-//        jsonData.put("isEnemyTurn", enemyTurn.getIsTurn());
         jsonData.put("script", myTurn.getTurnScript());
         jsonData.put("skillScript", Skill.getStrb().toString());
         Skill.getStrb().setLength(0);

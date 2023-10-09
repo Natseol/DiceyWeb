@@ -66,7 +66,12 @@ public class ItemDAO implements Serializable {
 	
 	public void createItem(String name, String description, int attack, int addAttack, int count, String limit, int times,
 			int use, int needDice, String activeLimit, int fireStack, int iceStack, int elecStack, int poisonStack,
-			int recovery, int defence, int damage, String newDice) {
+			int recovery, int defence, int damage, String newDice,
+			String enhName, String enhDescription, int enhAttack,	
+			int enhAddAttack, int enhCount, String enhLimit, int enhTimes, int enhUse, int enhNeedDice,
+			String enhActiveLimit, int enhFireStack, int enhIceStack,
+			int enhElecStack, int enhPoisonStack, int enhRecovery,
+			int enhDefence, int enhDamage, String enhNewDice) {
 		
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -74,10 +79,15 @@ public class ItemDAO implements Serializable {
 					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
 //			connect();
 			
-			String insertQuery = "insert into item (name, description, attack, addAttack, count,"
-					+ " limit, times, use, needDice, activeLimit, fireStack, iceStack, elecStack,"
-					+ " poisonStack, recovery, defence, damage, newDice)"
-					+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			  String insertQuery = "insert into item (name, description, attack, addAttack, count, limit, times,"
+					+ " use, needDice, activeLimit, fireStack, iceStack, elecStack, poisonStack,"
+					+ " recovery, defence, damage, newDice,"
+					+ " enhName, enhDescription, enhAttack,"
+					+ " enhAddAttack, enhCount, enhLimit, enhTimes, enhUse, enhNeedDice,"
+					+ " enhActiveLimit, enhFireStack, enhIceStack,"
+					+ " enhElecStack, enhPoisonStack, enhRecovery,"
+					+ " enhDefence, enhDamage, enhNewDice)"
+					+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(insertQuery);
 			pstmt.setString(1, name);
 			pstmt.setString(2, description);
@@ -97,44 +107,24 @@ public class ItemDAO implements Serializable {
 			pstmt.setInt(16, defence);
 			pstmt.setInt(17, damage);
 			pstmt.setString(18, newDice);
-			pstmt.executeUpdate();
-
-			pstmt.close();
-			con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void updateItem(int id, String name, String description, int attack, int addAttack, int count, String limit, int times,
-			int use, int needDice, String activeLimit, int fireStack, int iceStack, int elecStack, int poisonStack,
-			int recovery, int defence, int damage, String newDice) {
-		try {
-			connect();
-			
-			String insertQuery = "update item set name=?, description=?, attack=?, addAttack=?, count,"
-					+ "limit=?, times=?, use=?, needDice=?, activeLimit=?, fireStack=?, iceStack=?, elecStack=?,"
-					+ "poisonStack=?, recovery=?, defence=?, damage=?, newDice=? where id=?";
-			PreparedStatement pstmt = con.prepareStatement(insertQuery);
-			pstmt.setString(1, name);
-			pstmt.setString(2, description);
-			pstmt.setInt(3, attack);
-			pstmt.setInt(4, addAttack);
-			pstmt.setInt(5, count);
-			pstmt.setString(6, limit);
-			pstmt.setInt(7, times);
-			pstmt.setInt(8, use);
-			pstmt.setInt(9, needDice);
-			pstmt.setString(10, activeLimit);
-			pstmt.setInt(11, fireStack);
-			pstmt.setInt(12, iceStack);
-			pstmt.setInt(13, elecStack);
-			pstmt.setInt(14, poisonStack);
-			pstmt.setInt(15, recovery);
-			pstmt.setInt(16, defence);
-			pstmt.setInt(17, damage);
-			pstmt.setString(18, newDice);
-			pstmt.setInt(19, id);
+			pstmt.setString(19, enhName);
+			pstmt.setString(20, enhDescription);
+			pstmt.setInt(21, enhAttack);
+			pstmt.setInt(22, enhAddAttack);
+			pstmt.setInt(23, enhCount);
+			pstmt.setString(24, enhLimit);
+			pstmt.setInt(25, enhTimes);
+			pstmt.setInt(26, enhUse);
+			pstmt.setInt(27, enhNeedDice);
+			pstmt.setString(28, enhActiveLimit);
+			pstmt.setInt(29, enhFireStack);
+			pstmt.setInt(30, enhIceStack);
+			pstmt.setInt(31, enhElecStack);
+			pstmt.setInt(32, enhPoisonStack);
+			pstmt.setInt(33, enhRecovery);
+			pstmt.setInt(34, enhDefence);
+			pstmt.setInt(35, enhDamage);
+			pstmt.setString(36, enhNewDice);
 			pstmt.executeUpdate();
 
 			pstmt.close();
@@ -177,17 +167,34 @@ public class ItemDAO implements Serializable {
 					rs.getString("limit"),
 					rs.getInt("times"),
 					rs.getInt("use"),
-					rs.getInt("needdice"),
-					rs.getString("activelimit"),
-					rs.getInt("firestack"),
-					rs.getInt("icestack"),
-					rs.getInt("elecstack"),
-					rs.getInt("poisonstack"),
+					rs.getInt("needDice"),
+					rs.getString("activeLimit"),
+					rs.getInt("fireStack"),
+					rs.getInt("iceStack"),
+					rs.getInt("elecStack"),
+					rs.getInt("poisonStack"),
 					rs.getInt("recovery"),
 					rs.getInt("defence"),
 					rs.getInt("damage"),
 					rs.getString("newdice"),
-					rs.getInt("accumulation")
+					rs.getString("enhName"),
+					rs.getString("enhDescription"),
+					rs.getInt("enhAttack"),
+					rs.getInt("enhAddAttack"),
+					rs.getInt("enhCount"),
+					rs.getString("enhLimit"),
+					rs.getInt("enhTimes"),
+					rs.getInt("enhUse"),
+					rs.getInt("enhNeedDice"),
+					rs.getString("enhActiveLimit"),
+					rs.getInt("enhFireStack"),
+					rs.getInt("enhIceStack"),
+					rs.getInt("enhElecStack"),
+					rs.getInt("enhPoisonStack"),
+					rs.getInt("enhRecovery"),
+					rs.getInt("enhDefence"),
+					rs.getInt("enhDamage"),
+					rs.getString("enhNewDice")
 					);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
