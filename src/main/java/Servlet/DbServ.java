@@ -62,9 +62,6 @@ public class DbServ extends HttpServlet {
 		
         ObjectMapper objectMapper = new ObjectMapper();
         
-//        JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-//        String param1 = jsonNode.get("jobNum").asText();
-        
         // JSON 데이터를 생성
         Map<String, Object> jsonData = new HashMap<>();
         

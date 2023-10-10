@@ -88,7 +88,7 @@ public class BattleServ extends HttpServlet {
 //		player.setCondition(3,2);
         
 //		player.setLevel(5);
-//		player.setSp(12);
+		player.setSp(12);
 //		player.setExp(4);
 //		player.setHp(62);
 		enemy[enemyNum].setHp(2);
@@ -119,14 +119,11 @@ public class BattleServ extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		
 		System.out.println("batlle POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
 		ObjectMapper objectMapper = new ObjectMapper();
         
         JsonNode jsonNode = objectMapper.readTree(request.getInputStream());
-        
-
         
         if (jsonNode.get("endStage")!=null) {
         	player.resetPlayer();
@@ -224,8 +221,6 @@ public class BattleServ extends HttpServlet {
         
         putJsonData(jsonData);
         jsonData.put("script", enemyTurn.getTurnScript());
-//        jsonData.put("skillScript", Skill.getStrb().toString());
-//        Skill.getStrb().setLength(0);
                 
         // JSON 데이터를 클라이언트에게 전송
         response.setContentType("application/json");

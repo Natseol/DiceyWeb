@@ -56,25 +56,7 @@ public class Player extends Job{
 	public int getExpTable(int idx) {
     	return expTable[idx];
     }
-	
-	public void levelUp() {
-		exp += 2;
-		if (exp == expTable[level]) {
-			level++;
-			exp=0;
-			if (job.equals("전사")||job.equals("기사")) {
-				maxHp+=6;
-			}
-			else {
-				maxHp+=5;
-			}				
-			hp = maxHp;
-			diceQuantity=(int)(2+level*0.5);
-			System.out.println();
-			System.out.println(Color.B_BLUE+"레벨이 올랐습니다!!"+Color.RESET);
-		}
-	}
-	
+
 	public String levelUpStr() {
 		StringBuilder strb = new StringBuilder();
 		exp += 2;

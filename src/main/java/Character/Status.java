@@ -132,7 +132,6 @@ public class Status implements Serializable {
 	public String damagedFireStr() {
 		if (Math.random()<(0.25*getCondition(0))) {
 			subtractHp(2);
-			System.out.println(Color.RED+" * 주사위를 건들다 [2]의 피해를 입습니다 * "+Color.RESET);
 			return "&nbsp* 주사위를 건들다 [2]의 피해를 입습니다 *&nbsp<br><br>";
 		}
 		return "";
@@ -150,7 +149,6 @@ public class Status implements Serializable {
 		if (Math.random()<0.15*turninfo.getDiceList().get(idxDice)) {
 		setCondition(2,getCondition(2)-1);
 		turninfo.getDiceList().remove(idxDice);
-		System.out.println(Color.BYELLOW+" * 충격을 받았습니다. 주사위를 놓칩니다 * \n"+Color.RESET);
 		return true;
 		}
 		return false;

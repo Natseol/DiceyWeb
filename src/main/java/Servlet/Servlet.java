@@ -82,7 +82,6 @@ public class Servlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		System.out.println("servlet POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
 		

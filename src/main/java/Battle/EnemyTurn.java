@@ -81,7 +81,7 @@ public class EnemyTurn extends TurnInfo{
 					continue;
 				}
 
-				script.printSelectedDiceUse(enemyItemNum, enemy);
+//				script.printSelectedDiceUse(enemyItemNum, enemy);
 				getItem(j).action
 				(enemy, player, maxMin, this, enemyItemNum);
 				turnScript.add(getItem(j).getStrb().toString());

@@ -144,9 +144,7 @@ public class FieldServ extends HttpServlet {
 	        	}
 	        } else if (param2.equals("true")) {
 	    		if (player.getInventory(param4).getEnhName().equals("빈슬롯")) {
-	    			System.out.println("빈 슬롯을 선택하였습니다");
 	    		} else if (field.getForgeCount()>0) {
-	        		System.out.println("업글");
 	        		player.getInventory(param4).enhance();
 	        		field.setForgeCount(field.getForgeCount()-1);	
 	        	} else {
@@ -154,7 +152,6 @@ public class FieldServ extends HttpServlet {
 	        	}
 	        } else if (param3.equals("true")) {
 	        	if (field.getHealCount()>0) {
-	        		System.out.println("회복");
 		        	player.addHp(4+player.getLevel());
 					field.setHealCount(field.getHealCount()-1);
 					script.getStrb().append(" * 체력을 "+(4+player.getLevel())+" 회복했습니다 *");

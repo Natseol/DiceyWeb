@@ -68,7 +68,7 @@ public class TurnInfo extends BattleSetting{
  	public void checkIce(Status player) {
 		while (player.getCondition(1)>0) {
 			if (player.getCondition(1)>0) {
-				script.selectDiceList(this);	
+//				script.selectDiceList(this);	
 				player.damagedIceList(this);
 				script.printDamagedIce();
 			}//상태이상 빙결

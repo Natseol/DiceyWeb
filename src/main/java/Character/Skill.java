@@ -11,7 +11,6 @@ import Main.Input;
 public class Skill {
 	
 	static StringBuilder strb = new StringBuilder();
-	static int magicNum;
 	
 	public static StringBuilder getStrb() {
 		return strb;
@@ -21,16 +20,7 @@ public class Skill {
 		Skill.strb = strb;
 	}
 
-	public static int getMagicNum() {
-		return magicNum;
-	}
-
-	public static void setMagicNum(int magicNum) {
-		Skill.magicNum = magicNum;
-	}
-
 	public static void useSkill(Player player, Enemy enemy, MyTurn myturn) {
-		Scanner scanner = new Scanner(System.in);
 		if (player.getSp()>10+player.getLevel()) {
 			switch (player.getJob()) {
 			case "전사":
