@@ -94,6 +94,4 @@ public abstract class ItemUpgrade extends ItemScript{
 	public int getEnhNeedDice() {
 		return enhNeedDice;
 	}
-	
-	
 }

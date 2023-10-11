@@ -19,11 +19,8 @@ public class ItemDAO implements Serializable {
 	public List<ItemVO> getList() {
 		List<ItemVO> list = new ArrayList<>();
 		
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
-//			connect();
+		try {			
+			connect();
 			
 			String query = "select * from item";
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -43,10 +40,7 @@ public class ItemDAO implements Serializable {
 	public ItemVO getItem(int id) {
 		ItemVO temp = null;
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
-//			connect();
+			connect();
 
 			String query = "select * from item where id=?";
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -74,10 +68,7 @@ public class ItemDAO implements Serializable {
 			int enhDefence, int enhDamage, String enhNewDice) {
 		
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
-//			connect();
+			connect();
 			
 			  String insertQuery = "insert into item (name, description, attack, addAttack, count, limit, times,"
 					+ " use, needDice, activeLimit, fireStack, iceStack, elecStack, poisonStack,"
@@ -136,10 +127,7 @@ public class ItemDAO implements Serializable {
 	
 	public void deleteItem(int id) {
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
-//			connect();
+			connect();
 			
 			String insertQuery = "delete from item where id=?";
 			PreparedStatement pstmt = con.prepareStatement(insertQuery);
@@ -203,10 +191,15 @@ public class ItemDAO implements Serializable {
 		return temp;
 	}
 	
-	private void connect() throws Exception{
+	private void connectTomcat() throws Exception{
 		Context ctx = new InitialContext();
 		Context envContext = (Context) ctx.lookup("java:/comp/env");
 		DataSource dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
 		con = dataFactory.getConnection();
+	}
+	private void connect() throws Exception{
+		Class.forName("oracle.jdbc.OracleDriver");
+		con = DriverManager.getConnection(
+				"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
 	}
 }

@@ -144,23 +144,22 @@ public class BattleServ extends HttpServlet {
         if (jsonNode.get("magicDice")!=null) {
         	int dice = jsonNode.get("magicDice").asInt();
         	Skill.skillMag(player, myTurn, dice);
-        	System.out.println(dice);
         } else if (jsonNode.get("isUseSkill").asText().equals("true")) {
-        	String param = jsonNode.get("isUseSkill").asText();
-        	System.out.println("isUseSkill: " + param);
+//        	String param = jsonNode.get("isUseSkill").asText();
+//        	System.out.println("isUseSkill: " + param);
         	Skill.useSkill(player, enemy[enemyNum], myTurn);
         } else {
         // 각각의 파라미터로 저장
-        String param1 = jsonNode.get("idxDice").asText();
-        String param2 = jsonNode.get("idxItem").asText();
+        int param1 = jsonNode.get("idxDice").asInt();
+        int param2 = jsonNode.get("idxItem").asInt();
 
         // 변수 확인
         System.out.println("idxDice: " + param1);
         System.out.println("idxItem: " + param2);
 
-        System.out.println();
-        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, Integer.parseInt(param1), Integer.parseInt(param2));
+        myTurn.doMyTurnLoop(player, enemy[enemyNum], enemyTurn, param1, param2);
         }
+        
         if (player.getHp()<1) {
         	myTurn.getTurnScript().add("<br>YOU DIED");
         } else if (enemy[enemyNum].getHp()<1) {
@@ -188,9 +187,6 @@ public class BattleServ extends HttpServlet {
 		System.out.println("batlle PUT 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
-        
-        System.out.println("내턴:"+myTurn.getIsTurn());
-        System.out.println("적턴:"+enemyTurn.getIsTurn());
         
         if (myTurn.getIsTurn()) {
         	player.resetFireStack();

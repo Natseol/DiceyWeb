@@ -87,7 +87,7 @@ public class Servlet extends HttpServlet {
 		
 		ItemDAO dao = new ItemDAO();
 		List<ItemVO> list = dao.getList();
-		field.getStore().addList(list);
+		field.getStore().addList(list, 1);
 		field.createField();
 		
         ObjectMapper objectMapper = new ObjectMapper();
@@ -97,15 +97,15 @@ public class Servlet extends HttpServlet {
         if (jsonNode.get("jobNum")!=null&&jsonNode.get("equipmentNum")!=null) {
         	
         	// 각각의 파라미터로 저장
-        	String param1 = jsonNode.get("jobNum").asText();
-        	String param2 = jsonNode.get("equipmentNum").asText();
+        	int param1 = jsonNode.get("jobNum").asInt();
+        	int param2 = jsonNode.get("equipmentNum").asInt();
         	
         	// 변수에 저장한 후 필요한 작업을 수행
         	System.out.println("jobNum: " + param1);
         	System.out.println("equipmentNum: " + param2);
         	
-        	player.chooseJob(Integer.parseInt(param1));
-        	player.setJobItem(player.getJob(), Integer.parseInt(param2));
+        	player.chooseJob(param1);
+        	player.setJobItem(player.getJob(), param2);
         	
         }
         // JSON 데이터를 생성

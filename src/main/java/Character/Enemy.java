@@ -103,7 +103,6 @@ public class Enemy extends Status{
 		enemyAll.add(setEnemy(4));
 		
 		for (int i = 0; i < 18; i++) {
-//			System.out.println(enemyAll.get(i).getName());
 			enemy[i] = enemyAll.get(i);
 		}
 		
@@ -122,8 +121,6 @@ public class Enemy extends Status{
 	public String getGrade() {
 		return grade;
 	}
-	
-//	public void action(EnemyTurn EnemyTurn) {}
 	
 	public boolean getDiceMin() {
 		return diceMin;

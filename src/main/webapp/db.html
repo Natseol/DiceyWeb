@@ -75,7 +75,25 @@ input {
     <table id="table"></table>
     <div id="list-container"></div>
     <script>
-
+		
+    function printList() {
+        fetch("./dbserv", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);        
+                setDBList(data.list);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+    };
+    printList();
+    
     const table = document.getElementById("table");
     function setDBList(items) {        
                 // 테이블 헤더 생성
@@ -190,29 +208,11 @@ input {
                     console.error('Error:', error);
             }); 
         
-        });
-        th.appendChild(submitButton)
-        theadRow.appendChild(submitButton);
-        
+        });        
+        theadRow.appendChild(submitButton);        
     };    
 
-    function printList() {
-        fetch("./dbserv", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);        
-                setDBList(data.list);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-        });
-    };
-    printList();
+
     
     
     

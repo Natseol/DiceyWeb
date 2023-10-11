@@ -126,14 +126,8 @@ public class FieldServ extends HttpServlet {
 	        String param1 = jsonNode.get("store").asText();
 	        String param2 = jsonNode.get("forge").asText();
 	        String param3 = jsonNode.get("well").asText();
-	        int param4 = Integer.parseInt(jsonNode.get("idxItem").asText());
-	        int param5 = Integer.parseInt(jsonNode.get("idxStore").asText());
-	        
-	        System.out.println("idxDice: " + param1);
-	        System.out.println("idxItem: " + param2);
-	        System.out.println("idxDice: " + param3);
-	        System.out.println("idxItem: " + param4);
-	        System.out.println("idxDice: " + param5);
+	        int param4 = jsonNode.get("idxItem").asInt();
+	        int param5 = jsonNode.get("idxStore").asInt();
 	        
 	        if (param1.equals("true")) {
 	        	if (field.getStoreCount()>0) {

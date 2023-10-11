@@ -60,6 +60,7 @@ public class DbServ extends HttpServlet {
 		ItemDAO dao = new ItemDAO();
 		List<ItemVO> list = dao.getList();
 		
+		System.out.println(list.get(0).getName());
         ObjectMapper objectMapper = new ObjectMapper();
         
         // JSON 데이터를 생성

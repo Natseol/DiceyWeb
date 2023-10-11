@@ -7,15 +7,15 @@ import Main.Color;
 import db.ItemVO;
 
 public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefence, ILimit, ITimes, IUse,
-	IElecStack, IFireStack, IIceStack, IPoisonStack, INeedDice, INewDice, IRecovery, IDamage, IActiveLimit,
-	Cloneable{
-	
+IElecStack, IFireStack, IIceStack, IPoisonStack, INeedDice, INewDice, IRecovery, IDamage, IActiveLimit,
+Cloneable{
+
 	//흡혈, 상자, 석궁, 격돌, 패링, 역장, 제압, 가시방패, 양손검
 	//전염, 락픽, 쇠톱, 거울, 상승, 주걱, 타락한검, 알수없음, 종말
-	
+
 	protected String name;
 	protected String description;
-	
+
 	protected int attack;	
 	protected int addAttack;
 	protected int count;
@@ -23,7 +23,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	protected int times=1;
 	protected boolean use;
 	protected int needDice;
-	
+
 	protected String activeLimit="";	
 	protected int fireStack;
 	protected int iceStack;
@@ -33,30 +33,30 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 	protected int defence;
 	protected int damage;
 	protected String newDice="";
-		
+
 	protected int accumulation;
-	
+
 	public Item() {};
-	
+
 	public Item(String name,
-		String description,
-		int attack,
-		int addAttack,
-		int count,
-		String limit,
-		int times,
-		boolean use,
-		int needDice,		
-		String activeLimit,	
-		int fireStack,
-		int iceStack,
-		int elecStack,
-		int poisonStack,	
-		int recovery,
-		int defence,
-		int damage,
-		String newDice,		
-		int accumulation
+			String description,
+			int attack,
+			int addAttack,
+			int count,
+			String limit,
+			int times,
+			boolean use,
+			int needDice,		
+			String activeLimit,	
+			int fireStack,
+			int iceStack,
+			int elecStack,
+			int poisonStack,	
+			int recovery,
+			int defence,
+			int damage,
+			String newDice,		
+			int accumulation
 			) {
 		this.name=name;
 		this.description=description;
@@ -78,146 +78,61 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		this.newDice=newDice;
 		this.accumulation=accumulation;
 	}
-	
+
 	public Item(ItemVO itemVO
-				) {
-			this.name=itemVO.getName();
-			this.description=itemVO.getDescription();
-			this.attack=itemVO.getAttack();
-			this.addAttack=itemVO.getAddAttack();
-			this.count=itemVO.getCount();
-			this.limit=itemVO.getLimit();
-			this.times=itemVO.getTimes();
-			this.use=itemVO.isUse();
-			this.needDice=itemVO.getNeedDice();
-			this.activeLimit=itemVO.getActiveLimit();
-			this.fireStack=itemVO.getFireStack();
-			this.iceStack=itemVO.getIceStack();
-			this.elecStack=itemVO.getElecStack();
-			this.poisonStack=itemVO.getPoisonStack();
-			this.recovery=itemVO.getRecovery();
-			this.defence=itemVO.getDefence();
-			this.damage=itemVO.getDamage();
-			this.newDice=itemVO.getNewDice();
-//			this.accumulation=itemVO.getAccumulation();
-			
-			this.enhName=itemVO.getEnhName();
-			this.enhDescription=itemVO.getEnhDescription();
-			this.enhAttack=itemVO.getEnhAttack();
-			this.enhAddAttack=itemVO.getEnhAddAttack();
-			this.enhCount=itemVO.getEnhCount();
-			this.enhLimit=itemVO.getEnhLimit();
-			this.enhTimes=itemVO.getEnhTimes();
-			this.enhUse=itemVO.isEnhUse();
-			this.enhNeedDice=itemVO.getEnhNeedDice();
-			this.enhActiveLimit=itemVO.getEnhActiveLimit();
-			this.enhFireStack=itemVO.getEnhFireStack();
-			this.enhIceStack=itemVO.getEnhIceStack();
-			this.enhElecStack=itemVO.getEnhElecStack();
-			this.enhPoisonStack=itemVO.getEnhPoisonStack();
-			this.enhRecovery=itemVO.getEnhRecovery();
-			this.enhDefence=itemVO.getEnhDefence();
-			this.enhDamage=itemVO.getEnhDamage();
-			this.enhNewDice=itemVO.getEnhNewDice();
-		}
-		
-	@Override
-	public void setAttack(int attack) {this.attack=attack;}	
-	@Override
-	public int getAttack() {return attack;}
-	
-	@Override
-	public void setAddAttack(int addAttack) {this.addAttack=addAttack;}	
-	@Override
-	public int getAddAttack() {return addAttack;}
-	
-	@Override
-	public void setCount(int count) {this.count=count;}	
-	@Override
-	public int getCount() {return count;}
-	
-	@Override
-	public void setDefence(int defence) {this.defence=defence;}	
-	@Override
-	public int getDefence() {return defence;}
-	
-	@Override
-	public void setLimit(String limit) {this.limit=limit;}
-	@Override
-	public String getLimit() {return limit;}
-	
-	@Override
-	public void setTimes(int times) {this.times=times;}
-	@Override
-	public int getTimes() {return times;}
-	
-	@Override
-	public void setUse(boolean use) {this.use=use;}
-	@Override
-	public boolean getUse() {return use;}
-		
-	@Override
-	public void setActiveLimit(String limit) {this.activeLimit=limit;}
-	@Override
-	public String getActiveLimit() {return activeLimit;}
-	
-	@Override
-	public void setElecStack(int num) {this.elecStack=num;}
-	@Override
-	public int getElecStack() {return elecStack;}
-	
-	@Override
-	public void setFireStack(int num) {this.fireStack=num;}
-	@Override
-	public int getFireStack() {return fireStack;}
-	
-	@Override
-	public void setIceStack(int num) {this.iceStack=num;}
-	@Override
-	public int getIceStack() {return iceStack;}
-	
-	@Override
-	public void setPoisonStack(int num) {this.poisonStack=num;}
-	@Override
-	public int getPoisonStack() {return poisonStack;}
-	
-	@Override
-	public void setNeedDice(int needDice) {this.needDice=needDice;}
-	@Override
-	public int getNeedDice() {return needDice;}
-	
-	@Override
-	public void setNewDice(String newDice) {this.newDice=newDice;}
-	@Override
-	public String getNewDice() {return newDice;}
-	
-	@Override
-	public void setRecovery(int recovery) {this.recovery=recovery;}
-	@Override
-	public int getRecovery() {return recovery;}
-	
-	@Override
-	public void setDamage(int damage) {this.damage=damage;}
-	@Override
-	public int getDamage() {return damage;}	
-	
-	@Override
-	public String getName() {return name;}
-	@Override
-	public String getDescription() {return description;}
-	
+			) {
+		this.name=itemVO.getName();
+		this.description=itemVO.getDescription();
+		this.attack=itemVO.getAttack();
+		this.addAttack=itemVO.getAddAttack();
+		this.count=itemVO.getCount();
+		this.limit=itemVO.getLimit();
+		this.times=itemVO.getTimes();
+		this.use=itemVO.isUse();
+		this.needDice=itemVO.getNeedDice();
+		this.activeLimit=itemVO.getActiveLimit();
+		this.fireStack=itemVO.getFireStack();
+		this.iceStack=itemVO.getIceStack();
+		this.elecStack=itemVO.getElecStack();
+		this.poisonStack=itemVO.getPoisonStack();
+		this.recovery=itemVO.getRecovery();
+		this.defence=itemVO.getDefence();
+		this.damage=itemVO.getDamage();
+		this.newDice=itemVO.getNewDice();
+		//			this.accumulation=itemVO.getAccumulation();
+
+		this.enhName=itemVO.getEnhName();
+		this.enhDescription=itemVO.getEnhDescription();
+		this.enhAttack=itemVO.getEnhAttack();
+		this.enhAddAttack=itemVO.getEnhAddAttack();
+		this.enhCount=itemVO.getEnhCount();
+		this.enhLimit=itemVO.getEnhLimit();
+		this.enhTimes=itemVO.getEnhTimes();
+		this.enhUse=itemVO.isEnhUse();
+		this.enhNeedDice=itemVO.getEnhNeedDice();
+		this.enhActiveLimit=itemVO.getEnhActiveLimit();
+		this.enhFireStack=itemVO.getEnhFireStack();
+		this.enhIceStack=itemVO.getEnhIceStack();
+		this.enhElecStack=itemVO.getEnhElecStack();
+		this.enhPoisonStack=itemVO.getEnhPoisonStack();
+		this.enhRecovery=itemVO.getEnhRecovery();
+		this.enhDefence=itemVO.getEnhDefence();
+		this.enhDamage=itemVO.getEnhDamage();
+		this.enhNewDice=itemVO.getEnhNewDice();
+	}
+
 	public void action(Status player, Status enemy, int dice, TurnInfo my, int idx) {
 		if (getCount()!=0) {
 			if (actionCount(dice, my, idx)) return;
 		}
-				
+
 		if (getNeedDice()!=0) {
 			if (actionNeedDice(my, idx, dice)) return;
 		}
-		
+
 		if (getTimes()!=0) {actionTimes(my, idx);}
 		if (getUse()) {actionUse(my, idx);}
-		
+
 		if (getAttack()!=0) {actionAttack(player, enemy, dice);}
 		if (actionActiveLimit(dice)) {			
 			if (getFireStack()!=0) {actionFireStack(enemy, dice);}
@@ -229,7 +144,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			if (getDefence()!=0) {actionDefence(player, dice);}
 			if (getNewDice()!="") {actionNewDice(my, dice);}
 		}
-		
+
 		if (player.getIsUseSkill()) {			
 			if (getAttack()!=0) {actionAttack(player, enemy, dice);}
 			if (actionActiveLimit(dice)) {			
@@ -245,7 +160,7 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 			player.setIsUseSkill(false);
 		}
 	}
-	
+
 	@Override
 	public void enhance() {
 		name=enhName;
@@ -268,59 +183,145 @@ public class Item extends ItemUpgrade implements IItem, IAttack, ICount, IDefenc
 		if (enhNeedDice!=0) {needDice=enhNeedDice;}		
 	}
 
+	@Override
+	public Item clone() {
+		try {
+			Item cloned = (Item) super.clone();
+			cloned.name=this.name;
+			cloned.description=this.description;
+			cloned.attack=this.attack;
+			cloned.addAttack=this.addAttack;
+			cloned.count=this.count;
+			cloned.limit=this.limit;
+			cloned.times=this.times;
+			cloned.use=this.use;
+			cloned.needDice=this.needDice;
+			cloned.activeLimit=this.activeLimit;
+			cloned.fireStack=this.fireStack;
+			cloned.iceStack=this.iceStack;
+			cloned.elecStack=this.elecStack;
+			cloned.poisonStack=this.poisonStack;
+			cloned.recovery=this.recovery;
+			cloned.defence=this.defence;
+			cloned.damage=this.damage;
+			cloned.newDice=this.newDice;
+			cloned.accumulation=this.accumulation;
+
+			cloned.enhName=this.enhName;
+			cloned.enhDescription=this.enhDescription;
+			cloned.enhAttack=this.enhAttack;
+			cloned.enhAddAttack=this.enhAddAttack;
+			cloned.enhCount=this.enhCount;
+			cloned.enhLimit=this.enhLimit;
+			cloned.enhTimes=this.enhTimes;
+			cloned.enhUse=this.enhUse;
+			cloned.enhNeedDice=this.enhNeedDice;
+			cloned.enhActiveLimit=this.enhActiveLimit;
+			cloned.enhFireStack=this.enhFireStack;
+			cloned.enhIceStack=this.enhIceStack;
+			cloned.enhElecStack=this.enhElecStack;
+			cloned.enhPoisonStack=this.enhPoisonStack;
+			cloned.enhRecovery=this.enhRecovery;
+			cloned.enhDefence=this.enhDefence;
+			cloned.enhDamage=this.enhDamage;
+			cloned.enhNewDice=this.enhNewDice;
+			return cloned;
+		} catch (CloneNotSupportedException e) {
+			// 예외 처리
+			return null;
+		}
+	}	
+
+	@Override
+	public void setAttack(int attack) {this.attack=attack;}	
+	@Override
+	public int getAttack() {return attack;}
+
+	@Override
+	public void setAddAttack(int addAttack) {this.addAttack=addAttack;}	
+	@Override
+	public int getAddAttack() {return addAttack;}
+
+	@Override
+	public void setCount(int count) {this.count=count;}	
+	@Override
+	public int getCount() {return count;}
+
+	@Override
+	public void setDefence(int defence) {this.defence=defence;}	
+	@Override
+	public int getDefence() {return defence;}
+
+	@Override
+	public void setLimit(String limit) {this.limit=limit;}
+	@Override
+	public String getLimit() {return limit;}
+
+	@Override
+	public void setTimes(int times) {this.times=times;}
+	@Override
+	public int getTimes() {return times;}
+
+	@Override
+	public void setUse(boolean use) {this.use=use;}
+	@Override
+	public boolean getUse() {return use;}
+
+	@Override
+	public void setActiveLimit(String limit) {this.activeLimit=limit;}
+	@Override
+	public String getActiveLimit() {return activeLimit;}
+
+	@Override
+	public void setElecStack(int num) {this.elecStack=num;}
+	@Override
+	public int getElecStack() {return elecStack;}
+
+	@Override
+	public void setFireStack(int num) {this.fireStack=num;}
+	@Override
+	public int getFireStack() {return fireStack;}
+
+	@Override
+	public void setIceStack(int num) {this.iceStack=num;}
+	@Override
+	public int getIceStack() {return iceStack;}
+
+	@Override
+	public void setPoisonStack(int num) {this.poisonStack=num;}
+	@Override
+	public int getPoisonStack() {return poisonStack;}
+
+	@Override
+	public void setNeedDice(int needDice) {this.needDice=needDice;}
+	@Override
+	public int getNeedDice() {return needDice;}
+
+	@Override
+	public void setNewDice(String newDice) {this.newDice=newDice;}
+	@Override
+	public String getNewDice() {return newDice;}
+
+	@Override
+	public void setRecovery(int recovery) {this.recovery=recovery;}
+	@Override
+	public int getRecovery() {return recovery;}
+
+	@Override
+	public void setDamage(int damage) {this.damage=damage;}
+	@Override
+	public int getDamage() {return damage;}	
+
+	@Override
+	public String getName() {return name;}
+	@Override
+	public String getDescription() {return description;}
+
 	public int getAccumulmation() {
 		return accumulation;
 	}
 	public void setAccumulation(int num) {
 		accumulation=num;
 	}
-	
-	 @Override
-	    public Item clone() {
-	        try {
-	        	Item cloned = (Item) super.clone();
-	        	cloned.name=this.name;
-	    		cloned.description=this.description;
-	    		cloned.attack=this.attack;
-	    		cloned.addAttack=this.addAttack;
-	    		cloned.count=this.count;
-	    		cloned.limit=this.limit;
-	    		cloned.times=this.times;
-	    		cloned.use=this.use;
-	    		cloned.needDice=this.needDice;
-	    		cloned.activeLimit=this.activeLimit;
-	    		cloned.fireStack=this.fireStack;
-	    		cloned.iceStack=this.iceStack;
-	    		cloned.elecStack=this.elecStack;
-	    		cloned.poisonStack=this.poisonStack;
-	    		cloned.recovery=this.recovery;
-	    		cloned.defence=this.defence;
-	    		cloned.damage=this.damage;
-	    		cloned.newDice=this.newDice;
-	    		cloned.accumulation=this.accumulation;
-	    		
-	        	cloned.enhName=this.enhName;
-	    		cloned.enhDescription=this.enhDescription;
-	    		cloned.enhAttack=this.enhAttack;
-	    		cloned.enhAddAttack=this.enhAddAttack;
-	    		cloned.enhCount=this.enhCount;
-	    		cloned.enhLimit=this.enhLimit;
-	    		cloned.enhTimes=this.enhTimes;
-	    		cloned.enhUse=this.enhUse;
-	    		cloned.enhNeedDice=this.enhNeedDice;
-	    		cloned.enhActiveLimit=this.enhActiveLimit;
-	    		cloned.enhFireStack=this.enhFireStack;
-	    		cloned.enhIceStack=this.enhIceStack;
-	    		cloned.enhElecStack=this.enhElecStack;
-	    		cloned.enhPoisonStack=this.enhPoisonStack;
-	    		cloned.enhRecovery=this.enhRecovery;
-	    		cloned.enhDefence=this.enhDefence;
-	    		cloned.enhDamage=this.enhDamage;
-	    		cloned.enhNewDice=this.enhNewDice;
-	            return cloned;
-	        } catch (CloneNotSupportedException e) {
-	            // 예외 처리
-	            return null;
-	        }
-	    }	
+
 }
