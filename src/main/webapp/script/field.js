@@ -487,11 +487,11 @@ function createWellButton() {
 }
 
 function selectItem() {
-    var container = document.getElementById("item-container");
-    var items = container.getElementsByTagName('div');
+    let  container = document.getElementById("item-container");
+    let  items = container.getElementsByTagName('div');
 
     itemNum=-1;
-    for (var i = 0; i < items.length; i++) {
+    for (let  i = 0; i < items.length; i++) {
         if (items[i].classList.contains("itemRed")){
             console.log('아이템을 찾았습니다:', i);
             itemNum=i;
@@ -503,11 +503,11 @@ function selectItem() {
 }
 
 function selectStore() {
-    var container = document.getElementById("store-container");
-    var items = container.getElementsByTagName('div');
+    let  container = document.getElementById("store-container");
+    let  items = container.getElementsByTagName('div');
 
     let itemNum=-1;
-    for (var i = 0; i < items.length; i++) {
+    for (let  i = 0; i < items.length; i++) {
         if (items[i].classList.contains("itemRed")){
             console.log('아이템을 찾았습니다:', i);
             itemNum=i;

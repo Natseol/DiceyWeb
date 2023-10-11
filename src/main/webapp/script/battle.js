@@ -242,11 +242,11 @@ function setScript(script) {
 }
 
 function selectDice() {
-    var container = document.getElementById("image-container");
-    var images = container.getElementsByTagName('img');
+    let container = document.getElementById("image-container");
+    let images = container.getElementsByTagName('img');
 
     let diceNum=-1;
-    for (var i = 0; i < images.length; i++) {
+    for (let i = 0; i < images.length; i++) {
         let imagesSrc=images[i].src;
         let newSrc=imagesSrc.slice(imagesSrc.indexOf('DiceyWeb')+9);//로컬 주소 바뀔 시 오류 가능성 있음
         if (imageRedPaths.includes(newSrc)) {
@@ -261,11 +261,11 @@ function selectDice() {
 }
 
 function selectItem() {
-    var container = document.getElementById("item-container");
-    var items = container.getElementsByTagName('div');
+    let container = document.getElementById("item-container");
+    let items = container.getElementsByTagName('div');
 
     let itemNum=-1;
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         if (items[i].classList.contains("itemRed")){
             console.log('아이템을 찾았습니다:', i);
             itemNum=i;
@@ -374,7 +374,7 @@ function useMagic() {
     input.style.width="50px";
     input.style.height="38px";
     // 전송 버튼을 추가합니다.
-    var submitButton = document.createElement('button');
+    let submitButton = document.createElement('button');
     submitButton.textContent = '생성';
     submitButton.className = "btn btn-warning"
     submitButton.style.width="60px"

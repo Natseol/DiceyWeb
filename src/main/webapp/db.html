@@ -79,13 +79,13 @@ input {
     const table = document.getElementById("table");
     function setDBList(items) {        
                 // 테이블 헤더 생성
-        var thead = document.createElement('thead');
-        var trHead = document.createElement('tr');
+        let thead = document.createElement('thead');
+        let trHead = document.createElement('tr');
 
         // 테이블 헤더에 속성 이름 추가 (첫 번째 아이템 기준)
-        for (var prop in items[0]) {
+        for (let prop in items[0]) {
             if (items[0].hasOwnProperty(prop)) {
-                var th = document.createElement('th');
+                let th = document.createElement('th');
                 th.textContent = prop;
                 th.style.textAlign = "center";
                 trHead.appendChild(th);
@@ -96,14 +96,14 @@ input {
         table.appendChild(thead);
 
         // 테이블 바디 생성
-        var tbody = document.createElement('tbody');
+        let tbody = document.createElement('tbody');
 
         // 배열의 각 아이템을 테이블 행으로 추가
-        for (var i = 0; i < items.length; i++) {
-            var tr = document.createElement('tr');
-            for (var prop in items[i]) {
+        for (let i = 0; i < items.length; i++) {
+            let tr = document.createElement('tr');
+            for (let prop in items[i]) {
                 if (items[i].hasOwnProperty(prop)) {
-                    var td = document.createElement('td');
+                    let td = document.createElement('td');
                     td.textContent = items[i][prop];
                     td.style.textAlign = "center";
                     tr.appendChild(td);
@@ -111,7 +111,7 @@ input {
             }
 
             // 삭제 버튼을 생성하고 클로저를 사용하여 해당 행의 ID 값을 가져옵니다.
-            var td = document.createElement('td');
+            let td = document.createElement('td');
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "삭제";
             deleteButton.className = "btn btn-danger";
@@ -150,20 +150,20 @@ input {
         table.appendChild(tbody);
 
 
-        var inputValues = {};
-        var theadRow = thead.querySelector('tr');
+        let inputValues = {};
+        let theadRow = thead.querySelector('tr');
         const trhead = document.createElement('th');
         theadRow.querySelectorAll('th').forEach(function(th) {
-            var input = document.createElement('input');
+            let input = document.createElement('input');
             input.className="tableInput";
             input.type = 'text'; // 또는 다른 유형의 입력 필드로 변경 가능
-            var columnHeader = th.textContent; // 헤더 셀의 텍스트를 가져옴
+            let columnHeader = th.textContent; // 헤더 셀의 텍스트를 가져옴
             inputValues[columnHeader] = ''; // JSON 객체에 추가
             th.appendChild(input);
         });
         document.querySelectorAll('.tableInput')[0].remove();
         // 전송 버튼을 추가합니다.
-        var submitButton = document.createElement('button');
+        let submitButton = document.createElement('button');
         submitButton.textContent = '생성';
         submitButton.className = "btn btn-success"
         submitButton.style.width="60px"
@@ -171,7 +171,7 @@ input {
         submitButton.addEventListener('click', function() {
             // JSON 객체에 저장된 입력 값을 업데이트합니다.
             theadRow.querySelectorAll('th input').forEach(function(input) {
-                var columnHeader = input.parentElement.textContent;
+                let columnHeader = input.parentElement.textContent;
                 inputValues[columnHeader] = input.value;
             });
 
