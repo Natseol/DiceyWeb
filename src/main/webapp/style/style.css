@@ -7,6 +7,15 @@ body {
     font-family: 'NamSanb';    
 }
 
+.index-div {
+    margin: auto;
+    text-align: center;
+}
+
+.select-script {
+    width : 500px;
+    text-align: center;
+}
 #nextStage {
     margin : 10px;
 }
