@@ -1,18 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hi+Melody&display=swap');
+
 @font-face {
     font-family: 'NamSanb';
     src: url('../font/namsanb.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'SeoulNamsanvert';
+    src: url('../font/SeoulNamsanvert.ttf') format('truetype');
+}
+
 .font {    
     /* font-family: 'NamSanb'; */
-    /* font-family: 'Gamja Flower', sans-serif; */
-    font-family: 'Hi Melody', sans-serif;
+    font-family: 'Gamja Flower', sans-serif;
+    /* font-family: 'Hi Melody', sans-serif; */
+    /* font-family: 'SeoulNamsanvert'; */
+    font-size: larger;
 }
 
 .background-image {
-   	opacity : 20%;    
+   	opacity : 15%;
+    width: 80%;
+    margin: 100px auto;
 }
 
 .index-div {
@@ -26,7 +36,7 @@
     box-shadow: 0 0 10px 1px grey;
     padding: 10px;
     font-size: 20px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 #nextStage {
     margin : 10px;
