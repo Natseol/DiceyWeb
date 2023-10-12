@@ -11,12 +11,19 @@ jobButtons.forEach((button) => {
     } else if (buttonId === '5') {jobNumber=5;
     }
     jobPost();
-    // printInventory();
+    changeBorder(jobButtons, button);
   });
 });
 
+function changeBorder(buttons, button) {
+    buttons.forEach((button) => {
+    button.style = "border:0px;";
+	})
+    button.style = "box-shadow : 0 0 7px 2px black;";
+}
+
 const equipmentButtons = document.querySelectorAll('.selectEquipment');
-let equipmentNumber=0;
+let equipmentNumber=1;
 
 equipmentButtons.forEach((button) => {
   button.addEventListener('click', function(event) {
@@ -24,8 +31,8 @@ equipmentButtons.forEach((button) => {
     if (buttonId === '1') {equipmentNumber=1;      
     } else if (buttonId === '2') {equipmentNumber=2;      
     }
-    // printInventory();
     jobPost();
+    changeBorder(equipmentButtons, button);
   });
 });
 
@@ -57,54 +64,20 @@ function jobPost() {
     });
 }
 
-// function printInventory() {
-//     const postData = {
-//         jobNum: jobNumber,
-//         equipmentNum: equipmentNumber
-//     }
-
-//     fetch("./servlet", {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(postData)
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             let str="";
-//             if (data.player.inventory[0].name!=null){
-// 	            for (let i = 0 ; i < data.player.inventory.length ; i++) {
-// 	                str += data.player.inventory[i].name;
-// 	                str += " : ";
-// 	                str += data.player.inventory[i].description;
-//                     if (data.player.inventory[i].count>0) {
-//                         str += "  [카운트 : "+data.player.inventory[i].count+"]";
-//                     }
-//                     str += "<br>";
-// 	            }
-// 	            str += "<br>";
-// 	            document.getElementById("inventory").innerHTML = str;
-//             }   
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//     });
-// }
-
 function printInventory(inventory) {
     let str="";
     if (inventory[0].name!=null){
         for (let i = 0 ; i < inventory.length ; i++) {
-            str += inventory[i].name;
-            str += " : ";
-            str += inventory[i].description;
-            if (inventory[i].count>0) {
-                str += "  [카운트 : "+inventory[i].count+"]";
+            if (inventory[i].name!="빈슬롯") {
+                str += inventory[i].name;
+                str += " : ";
+                str += inventory[i].description;
+                if (inventory[i].count>0) {
+                    str += "  [카운트 : "+inventory[i].count+"]";
+                }
+                str += "<br>";
             }
-            str += "<br>";
         }
-        str += "<br>";
         document.getElementById("inventory").innerHTML = str;
     }
 }

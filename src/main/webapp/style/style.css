@@ -1,10 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hi+Melody&display=swap');
 @font-face {
     font-family: 'NamSanb';
-    src: url('./font/namsanb.woff') format('woff');
+    src: url('../font/namsanb.woff') format('woff');
 }
 
-body {    
-    font-family: 'NamSanb';    
+.font {    
+    /* font-family: 'NamSanb'; */
+    /* font-family: 'Gamja Flower', sans-serif; */
+    font-family: 'Hi Melody', sans-serif;
+}
+
+.background-image {
+   	opacity : 20%;    
 }
 
 .index-div {
@@ -13,8 +21,12 @@ body {
 }
 
 .select-script {
-    width : 500px;
-    text-align: center;
+    width : 600px;
+    margin : 30px auto;
+    box-shadow: 0 0 10px 1px grey;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }
 #nextStage {
     margin : 10px;
@@ -145,12 +157,14 @@ body {
 .grid-item:nth-child(3) {
     grid-column: 1 / 4;
 	grid-row: 2 / 3;
+	z-index: 1;
 }
 
 .grid-item:nth-child(4) {
 	grid-column: 1 / 4;
 	grid-row: 3 / 4;
-    overflow: auto;
+	z-index: 1;
+    /* overflow: auto; */
 }
 
 .grid-item:nth-child(5) {

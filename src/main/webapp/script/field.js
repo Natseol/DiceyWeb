@@ -69,41 +69,40 @@ function setStoreList(list) {
         }
 		itemElement.classList.add("itemBasic");
         
-        itemElement.addEventListener("click", function () {
-        if (itemElement.classList.contains("itemBasic")) {
-            console.log("검은색");
-            resetStoreColor(list);
-            itemElement.classList.remove("itemBasic");
-            itemElement.classList.add("itemRed");
-        } else if (itemElement.classList.contains("itemRed")) {
-            console.log("빨강");
-            itemElement.classList.remove("itemRed");
-            itemElement.classList.add("itemBasic");
-        } else {
-            console.log("안됨");
+        // itemElement.addEventListener("click", function() {
+        //     if (itemElement.classList.contains("itemBasic")) {
+        //         console.log("검은색");
+        //         resetStoreColor(list);
+        //         itemElement.classList.remove("itemBasic");
+        //         itemElement.classList.add("itemRed");
+        //     } else if (itemElement.classList.contains("itemRed")) {
+        //         console.log("빨강");
+        //         itemElement.classList.remove("itemRed");
+        //         itemElement.classList.add("itemBasic");
+        //     } else {
+        //         console.log("안됨");
+        //     }
+        // });
+        itemElement.onmousedown=(e)=>{
+            console.log(e);
+            console.log("마우스클릭");
+            mousePosition.x=e.clientX;
+            mousePosition.y=e.clientY;
+            mousePosition.isclick = true;
         }
         
-	      itemElement.onmousedown=(e)=>{
-			  console.log(e);
-			  mousePosition.x=e.clientX;
-			  mousePosition.y=e.clientY;
-			  mousePosition.isclick = true;
-	      }
-	      
-	      itemElement.onmousemove=(e)=>{
-			  if (mousePosition.isclick) {
-				  itemElement.style.transform = `translate(${e.clientX-mousePosition.x}px, ${e.clientY-mousePosition.y}px)`;
-				  console.dir(e.clientX);
-			  }
-		  }
-	      itemElement.onmouseup=(e)=>{
-			  
-			  mousePosition.isclick = false;
-			  e.target.style.transform = "";
-	        console.log("마우스클릭해제");
-	      }
-      });
-      storeContainer.appendChild(itemElement);
+        itemElement.onmousemove=(e)=>{
+            if (mousePosition.isclick) {
+                itemElement.style.transform = `translate(${e.clientX-mousePosition.x}px, ${e.clientY-mousePosition.y}px)`;
+                console.dir(e.clientX);
+            }
+        }
+        itemElement.onmouseup=(e)=>{
+            mousePosition.isclick = false;
+            e.target.style.transform = "";
+            console.log("마우스클릭해제");
+        }
+        storeContainer.appendChild(itemElement);
     }
 }
 function resetStoreColor(list) {
@@ -239,7 +238,7 @@ function setItemList(list) {
         itemElement.classList.add("bg-light");
         itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
-			itemElement.style.opacity = 0.3;
+			itemElement.style.opacity = 0.5;
 		}
         itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
@@ -251,20 +250,38 @@ function setItemList(list) {
         }
 		itemElement.classList.add("itemBasic");
         
-        itemElement.addEventListener("click", function () {
-        if (itemElement.classList.contains("itemBasic")) {
-            console.log("검은색");
-            resetItemColor(list);
-            itemElement.classList.remove("itemBasic");
-            itemElement.classList.add("itemRed");
-        } else if (itemElement.classList.contains("itemRed")) {
-            console.log("빨강");
-            itemElement.classList.remove("itemRed");
-            itemElement.classList.add("itemBasic");
-        } else {
-            console.log("안됨");
+        const span = itemElement.querySelector("span");
+        itemElement.onmouseover=(e)=>{
+			e.target.style = "border:5px solid black;"
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+            console.log("마우스오버");
         }
-      });
+
+        itemElement.onmouseleave=(e)=>{
+			e.target.style = "border: 1px solid #000;;"
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+			if (e.target.innerHTML.includes("빈슬롯")) {
+				e.target.style.opacity = 0.5;
+			}
+            console.log("마우스리브");
+            console.log(e);
+        }
+        
+        
+    //     itemElement.addEventListener("click", function () {
+    //     if (itemElement.classList.contains("itemBasic")) {
+    //         console.log("검은색");
+    //         resetItemColor(list);
+    //         itemElement.classList.remove("itemBasic");
+    //         itemElement.classList.add("itemRed");
+    //     } else if (itemElement.classList.contains("itemRed")) {
+    //         console.log("빨강");
+    //         itemElement.classList.remove("itemRed");
+    //         itemElement.classList.add("itemBasic");
+    //     } else {
+    //         console.log("안됨");
+    //     }
+    //   });
       itemContainer.appendChild(itemElement);
     }
 }
@@ -339,7 +356,7 @@ function forgeList(list, turn) {
         itemElement.classList.add("bg-light");
         itemElement.classList.add("bg-gradient");        
         if (list[i].name=="빈슬롯"){
-			itemElement.style.opacity = 0.3;
+			itemElement.style.opacity = 0.5;
 		}
         itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
@@ -450,7 +467,7 @@ well.addEventListener("click", function(){
                 document.getElementById("store-button").removeChild(document.getElementById("storeButton"));
             }
             if (data.field.healCount>0) {
-                itemElement.innerHTML="체력을 ["+(data.player.level+4)+"] 회복합니다<br><br>"
+                itemElement.innerHTML="체력을 ["+(data.player.level+4)+"] 회복합니다<br>"
                 itemElement.style.color="white";
                 createWellButton()
             } else {
