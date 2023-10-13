@@ -27,6 +27,7 @@ const imageRedPaths = [
     "image/dicered10.png"
 ];
 
+let diceDragNum = 0;
 //주사위 그림 생성
 const imageContainer = document.getElementById("image-container");
 function setDiceImage(list) {
@@ -36,21 +37,28 @@ function setDiceImage(list) {
         let imageElement = document.createElement("img");
         imageElement.className = "dice-image";
         imageElement.src = imagePaths[list[i]];
-        imageElement.addEventListener("click", function() {
-            console.log(imageElement.src);
-            console.log(imagePaths[list[i]]);
-            if (imageElement.src.includes(imagePaths[list[i]])) {
-                console.log("검은색");
-                resetDiceImage(list);
-                imageElement.src = imageRedPaths[list[i]];
+        imageElement.draggable=true;
+        imageElement.ondragstart=function(event) {
+			diceDragNum = i;
+			event.dataTransfer.setData("text", event.target.src);
+		}
+        // imageElement.addEventListener("click", function() {
+        //     console.log(imageElement.src);
+        //     console.log(imagePaths[list[i]]);
+        //     if (imageElement.src.includes(imagePaths[list[i]])) {
+        //         console.log("검은색");
+        //         resetDiceImage(list);
+        //         imageElement.src = imageRedPaths[list[i]];
                 
-            } else if (imageElement.src.includes(imageRedPaths[list[i]])) {
-                console.log("빨강");
-                imageElement.src = imagePaths[list[i]];
-            } else {
-                console.log("안됨");
-            }
-        });
+        //     } else if (imageElement.src.includes(imageRedPaths[list[i]])) {
+        //         console.log("빨강");
+        //         imageElement.src = imagePaths[list[i]];
+        //     } else {
+        //         console.log("안됨");
+        //     }
+        // });
+        // dragdropItem(imageElement);
+        // ronundOver(imageElement);      
         imageContainer.appendChild(imageElement);
     }
 }
@@ -68,11 +76,12 @@ function setDiceImage2(list) {
 
         let imageElement = document.createElement("img");
         imageElement.className = "dice-image2";
-        imageElement.src = imagePaths[list[i]];        
+        imageElement.src = imagePaths[list[i]];
         imageContainer2.appendChild(imageElement);
     }
 }
 
+let itemDragNum = 0;
 //아이템 리스트 생성
 const itemContainer = document.getElementById("item-container");
 function setItemList(list, turn) {
@@ -98,24 +107,99 @@ function setItemList(list, turn) {
         	itemElement.innerHTML +="누적 : "+turn.needDiceState[i]+"<br><br>";
         }
 		itemElement.classList.add("itemBasic");
-        
-        itemElement.addEventListener("click", function () {
-        if (itemElement.classList.contains("itemBasic")) {
-            console.log("검은색");
-            resetItemColor(list);
-            itemElement.classList.remove("itemBasic");
-            itemElement.classList.add("itemRed");
-        } else if (itemElement.classList.contains("itemRed")) {
-            console.log("빨강");
-            itemElement.classList.remove("itemRed");
-            itemElement.classList.add("itemBasic");
-        } else {
-            console.log("안됨");
-        }
-      });
-      itemContainer.appendChild(itemElement);
+		
+		itemElement.addEventListener("dragenter", ronundOver(itemElement));
+
+        itemElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+        })
+        itemElement.addEventListener("drop", (e) => {
+            e.preventDefault();
+            itemDragNum = i;
+            console.log(diceDragNum+" "+itemDragNum);
+            useDragItem(diceDragNum, itemDragNum)
+        });
+
+        // itemElement.addEventListener("click", function () {
+        //     if (itemElement.classList.contains("itemBasic")) {
+        //         console.log("검은색");
+        //         resetItemColor(list);
+        //         itemElement.classList.remove("itemBasic");
+        //         itemElement.classList.add("itemRed");
+        //     } else if (itemElement.classList.contains("itemRed")) {
+        //         console.log("빨강");
+        //         itemElement.classList.remove("itemRed");
+        //         itemElement.classList.add("itemBasic");
+        //     } else {
+        //         console.log("안됨");
+        //     }
+        // });
+        // ronundOver(itemElement);
+        // itemElement.appendChild(imageEdge());
+        itemContainer.appendChild(itemElement);
     }
 }
+
+function useDragItem(num1, num2) {
+	const postData = {
+        idxDice: num1,
+        idxItem: num2,
+        isUseSkill: "false"
+    }
+
+	fetch("./battleserv", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            
+            console.log(data);
+            //스크립트 출력
+            setScript(data.script)
+            setPlayerInfo(data.player);
+            setEnemyInfo(data.enemy);
+            setDiceImage(data.myTurn.diceList);
+            setItemList(data.myTurn.item, data.myTurn);
+            checkSp(data.player);
+            gameover(data.player, data.enemy)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+}
+
+//마우스오버시 테두리
+function ronundOver(itemElement) {
+    const span = itemElement.querySelector("span");
+    itemElement.onmouseover=(e)=>{
+        e.target.style = "box-shadow: 0 0 6px 1px black;"
+        span.style = "border: 0px solid #000; font-weight: bold;;"
+        console.log("마우스오버");
+    }
+
+    itemElement.onmouseleave=(e)=>{
+        e.target.style = "box-shadow:;"
+        span.style = "border: 0px solid #000; font-weight: bold;;"
+        if (e.target.innerHTML.includes("빈슬롯")) {
+            e.target.style.opacity = 0.5;
+        }
+        console.log("마우스리브");
+        console.log(e);
+    }
+}
+
+//카드 이미지 생성
+function imageEdge() {
+    let imageEdge = document.createElement("img");
+    imageEdge.src = "image/edge1.png";
+    imageEdge.className = "image-edge";
+    return imageEdge;
+}
+
 function resetItemColor(list) {
     for (let i = 0; i < list.length; i++) {
         document.getElementsByClassName("item-div")[i].classList.remove("itemRed");
@@ -314,9 +398,11 @@ function gameover(player, enemy) {
     const script = document.getElementById("script");
     if (player.hp<1) {
         disabledAllButton();
+        document.getElementsByClassName("dice-image").draggable=false;
         return;
     }
     if (enemy.hp<1) {
+		document.getElementsByClassName("dice-image").draggable=false;
         disabledAllButton();
         createNextButton();
         return;
@@ -435,6 +521,7 @@ function printDice() {
             setDiceImage(data.myTurn.diceList);
             setItemList(data.myTurn.item, data.myTurn);
             checkSp(data.player);
+            reverseTurnImage(data.myTurn.isTurn);
             gameover(data.player, data.enemy);            
         })
         .catch(error => {
@@ -487,8 +574,10 @@ function useItem() {
 }
 
 let useItemButton = document.getElementById("useItem");
+
 //턴종료 버튼
 function myTurnEnd() {
+	
     fetch("./battleserv", {
         method: 'PUT',
         headers: {
@@ -506,15 +595,17 @@ function myTurnEnd() {
             setItemList(data.enemyTurn.item, data.enemyTurn);
             checkSp(data.player);
             setDiceImage2(data.enemyTurn.diceList);
-            
+            reverseTurnImage(data.myTurn.isTurn);            
             console.log(data.myTurn.isTurn);
             if (data.myTurn.isTurn==true) {
-                useItemButton.disabled = false;
-                setItemList(data.myTurn.item, data.myTurn); 
+                //useItemButton.disabled = false;
+                setItemList(data.myTurn.item, data.myTurn);                 
                 console.log("사용버튼 활성화");
+                document.getElementById("endTurn").textContent = "턴종료";
             } else {
-                useItemButton.disabled = true;
+                //useItemButton.disabled = true;
                 console.log("사용버튼 비활성화");
+				document.getElementById("endTurn").textContent = "다음";
             }
             gameover(data.player, data.enemy)
         })
@@ -522,6 +613,17 @@ function myTurnEnd() {
             console.error('Error:', error);
     });
 };
+function reverseTurnImage(isCheck) {	
+	const playerDiv = document.getElementById("player-info-div");
+	const enemyDiv = document.getElementById("enemy-info-div");
+	if (isCheck) {
+	playerDiv.style="box-shadow: 0 0 20px 0px darkred";
+	enemyDiv.style="box-shadow:;";		
+	} else {
+	playerDiv.style="box-shadow:;";
+	enemyDiv.style="box-shadow: 0 0 20px 0px darkred";		
+	}
+}
 
 function modalItemList(list) {
 	let modalItem = document.getElementById("modal-body")
@@ -563,7 +665,8 @@ modalButton.addEventListener("click", function() {
         modalName.innerHTML = data.enemy.name + " (" + data.enemy.grade+")";
         modalName.style.fontWeight = "bold";        
         modalItem.innerHTML = data.enemy.description+"<br><br>";
-        modalItem.innerHTML += "인벤토리";
+        modalItem.innerHTML += "<인벤토리> 주사위 : ";
+        modalItem.innerHTML += data.enemy.diceQuantity+"개";
         modalItemList(data.enemy.inventory);
     })
     .catch(error => {

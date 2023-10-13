@@ -17,22 +17,28 @@
     /* font-family: 'Hi Melody', sans-serif; */
     /* font-family: 'SeoulNamsanvert'; */
     font-size: larger;
+    background-image: url(../image/rectangle.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 40px 10px 0 0;
 }
 
 .background-image {
    	opacity : 15%;
-    width: 80%;
-    margin: 100px auto;
+    width: 90%;
+    margin: 0px
 }
 
 .index-div {
     margin: auto;
     text-align: center;
+    padding: 40px 0px 20px;
 }
 
 .select-script {
     width : 600px;
-    margin : 30px auto;
+    margin: 10px auto 50px;
     box-shadow: 0 0 10px 1px grey;
     padding: 10px;
     font-size: 20px;
@@ -98,10 +104,19 @@
 .item-div {	
     width : 150px;
     height : minmax(160px, auto);
-    border: 1px solid #000;
+    border: 4px outset #000;
     padding: 10px;
     margin: 10px;
+    position: relative;
 }
+
+.image-edge {
+    position: absolute;
+    top: -23%;
+    left: -56%;
+    width: 212%;
+    height: auto;
+  }
 
 .modal-div {	
     height : minmax(160px, auto);
@@ -139,15 +154,13 @@
 
 /* 그리드 스타일 */
 .grid-container {
-    /* background-image: url('/image/cage.png');
-    background-size: cover; */
     display: grid;
     grid-template-columns: repeat(3, minmax(195px, 300px));
     grid-template-rows: repeat(5, minmax(150px, auto));
     grid-gap: 10px;
     padding: 10px;
     justify-content: center;
-    margin: auto;    
+    margin: auto;
 }
 
 /* 특정 셀들을 합치기 */

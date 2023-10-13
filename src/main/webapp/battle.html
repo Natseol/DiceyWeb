@@ -10,7 +10,7 @@
 <body class="font">
 	<!-- <button onclick="printDice()" id="dicePrint">전투시작</button> -->
     <div class="grid-container">
-        <div class="grid-item rounded-4 bg-light bg-gradient" >            
+        <div class="grid-item rounded-4 bg-light bg-gradient" id="player-info-div">            
             <div id="playerInfo"></div>
             <div id="skill"></div>
         </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="grid-item">
 			<div id="item-container"></div>
-            <button onclick="useItem()" type="button" class="btn btn-primary" id="useItem">사용</button>
+            <!--<button onclick="useItem()" type="button" class="btn btn-primary" id="useItem">사용</button>-->
         </div>
         <div class="grid-item">
             <div id="script"></div>
@@ -29,7 +29,7 @@
         <div class="grid-item">
             <div id="image-container2"></div>
         </div>
-        <div class="grid-item rounded-4 bg-light bg-gradient">
+        <div class="grid-item rounded-4 bg-light bg-gradient" id="enemy-info-div">
             <div id="enemyInfo"></div> 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modal-button">정보보기</button>

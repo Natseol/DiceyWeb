@@ -50,7 +50,7 @@ public class Job extends Status {
 			if (num == 1) {
 				inventory[0]= new Sword();
 				inventory[1]= new Axe();
-				inventory[2]= new Glove();
+				inventory[2]= new Nothing();
 				inventory[3]= new Nothing();
 				inventory[4]= new Reroll();
 			}
