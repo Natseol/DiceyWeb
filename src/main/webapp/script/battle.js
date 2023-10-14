@@ -27,7 +27,7 @@ const imageRedPaths = [
     "image/dicered10.png"
 ];
 
-let diceDragNum = 0;
+let diceDragNum = -1;
 //주사위 그림 생성
 const imageContainer = document.getElementById("image-container");
 function setDiceImage(list) {
@@ -37,11 +37,11 @@ function setDiceImage(list) {
         let imageElement = document.createElement("img");
         imageElement.className = "dice-image";
         imageElement.src = imagePaths[list[i]];
-        imageElement.draggable=true;
+        imageElement.draggable=true;        
         imageElement.ondragstart=function(event) {
-			diceDragNum = i;
-			event.dataTransfer.setData("text", event.target.src);
+			diceDragNum = i;		
 		}
+        
         // imageElement.addEventListener("click", function() {
         //     console.log(imageElement.src);
         //     console.log(imagePaths[list[i]]);
@@ -81,7 +81,7 @@ function setDiceImage2(list) {
     }
 }
 
-let itemDragNum = 0;
+let itemDragNum = -1;
 //아이템 리스트 생성
 const itemContainer = document.getElementById("item-container");
 function setItemList(list, turn) {
@@ -112,7 +112,11 @@ function setItemList(list, turn) {
 
         itemElement.addEventListener("dragover", (e) => {
             e.preventDefault();
+            itemElement.style.boxShadow = '0 0 6px 1px black';
         })
+        itemElement.addEventListener('dragleave', () => {
+            itemElement.style.boxShadow = 'none';
+        });
         itemElement.addEventListener("drop", (e) => {
             e.preventDefault();
             itemDragNum = i;
@@ -370,7 +374,7 @@ function disabledAllButton() {
 function createNextButton() {
     const next = document.getElementById("nextField");
     const nextButton = document.createElement('button');
-    nextButton.className="btn btn-success";
+    nextButton.className="btn btn-success btn-lg";
     nextButton.type="button";
     nextButton.innerHTML="다음으로";
     nextButton.addEventListener("click", function() {
@@ -398,11 +402,11 @@ function gameover(player, enemy) {
     const script = document.getElementById("script");
     if (player.hp<1) {
         disabledAllButton();
-        document.getElementsByClassName("dice-image").draggable=false;
+        disableDrag(false);        
         return;
     }
     if (enemy.hp<1) {
-		document.getElementsByClassName("dice-image").draggable=false;
+		disableDrag(false);
         disabledAllButton();
         createNextButton();
         return;
@@ -595,7 +599,8 @@ function myTurnEnd() {
             setItemList(data.enemyTurn.item, data.enemyTurn);
             checkSp(data.player);
             setDiceImage2(data.enemyTurn.diceList);
-            reverseTurnImage(data.myTurn.isTurn);            
+            reverseTurnImage(data.myTurn.isTurn);
+            disableDrag(data.myTurn.isTurn);
             console.log(data.myTurn.isTurn);
             if (data.myTurn.isTurn==true) {
                 //useItemButton.disabled = false;
@@ -624,6 +629,14 @@ function reverseTurnImage(isCheck) {
 	enemyDiv.style="box-shadow: 0 0 20px 0px darkred";		
 	}
 }
+
+function disableDrag(isCheck) {	
+    const diceImages = document.getElementsByClassName("dice-image");
+    for (let i = 0; i < diceImages.length; i++) {
+        diceImages[i].draggable = isCheck;
+    }
+}
+
 
 function modalItemList(list) {
 	let modalItem = document.getElementById("modal-body")
