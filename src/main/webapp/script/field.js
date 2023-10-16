@@ -83,25 +83,25 @@ function setStoreList(list) {
                 console.log("안됨");
             }
         });
-        itemElement.onmousedown=(e)=>{
-            console.log(e);
-            console.log("마우스클릭");
-            mousePosition.x=e.clientX;
-            mousePosition.y=e.clientY;
-            mousePosition.isclick = true;
-        }
+        // itemElement.onmousedown=(e)=>{
+        //     console.log(e);
+        //     console.log("마우스클릭");
+        //     mousePosition.x=e.clientX;
+        //     mousePosition.y=e.clientY;
+        //     mousePosition.isclick = true;
+        // }
         
-        itemElement.onmousemove=(e)=>{
-            if (mousePosition.isclick) {
-                itemElement.style.transform = `translate(${e.clientX-mousePosition.x}px, ${e.clientY-mousePosition.y}px)`;
-                console.dir(e.clientX);
-            }
-        }
-        itemElement.onmouseup=(e)=>{
-            mousePosition.isclick = false;
-            e.target.style.transform = "";
-            console.log("마우스클릭해제");
-        }
+        // itemElement.onmousemove=(e)=>{
+        //     if (mousePosition.isclick) {
+        //         itemElement.style.transform = `translate(${e.clientX-mousePosition.x}px, ${e.clientY-mousePosition.y}px)`;
+        //         console.dir(e.clientX);
+        //     }
+        // }
+        // itemElement.onmouseup=(e)=>{
+        //     mousePosition.isclick = false;
+        //     e.target.style.transform = "";
+        //     console.log("마우스클릭해제");
+        // }
         ronundOver(itemElement)
         storeContainer.appendChild(itemElement);
     }
@@ -130,7 +130,7 @@ function createStoreButton() {
         console.log("둘다 입력받음");
 
 
-        const postData = {
+        const postData = {  
             store: "true",
             forge: "false",
             well: "false",

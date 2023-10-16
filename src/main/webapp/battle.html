@@ -10,9 +10,12 @@
 <body class="font">
 	<!-- <button onclick="printDice()" id="dicePrint">전투시작</button> -->
     <div class="grid-container">
-        <div class="grid-item rounded-4 bg-light bg-gradient" id="player-info-div">            
+        <div class="grid-item rounded-4 bg-light bg-gradient" id="player-info-div">
             <div id="playerInfo"></div>
             <div id="skill"></div>
+			<!-- <div class="hp">
+				<div class="innerHp"></div>
+			</div> -->
         </div>
         <div class="grid-item">
             <button onclick="myTurnEnd()" type="button" class="btn btn-danger" id="endTurn">턴종료</button>
@@ -22,24 +25,24 @@
 			<div id="item-container"></div>
             <!--<button onclick="useItem()" type="button" class="btn btn-primary" id="useItem">사용</button>-->
         </div>
-        <div class="grid-item">
+        <div class="grid-item rounded-5">
             <div id="script"></div>
             <form  id="nextField"></form>
         </div>
-        <div class="grid-item">
-            <div id="image-container2"></div>
-        </div>
         <div class="grid-item rounded-4 bg-light bg-gradient" id="enemy-info-div">
-            <div id="enemyInfo"></div> 
+			 <div id="enemyInfo"></div> 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modal-button">정보보기</button>
         </div>
         <div class="grid-item">
-            
+           <div id="image-container2"></div>
         </div>
-        <div class="grid-item" style="grid-column: 1 / 4; grid-row: 2 / 4;">
+        <!-- <div class="grid-item">
+            
+        </div> -->
+        <!-- <div class="grid-item" style="grid-column: 1 / 4; grid-row: 2 / 4;">
 			<img src="./image/cave.png" class="background-image"  /></div>
-    	</div>
+    	</div> -->
     </div>
 
         <!-- Modal -->

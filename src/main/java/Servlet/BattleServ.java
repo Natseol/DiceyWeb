@@ -91,7 +91,7 @@ public class BattleServ extends HttpServlet {
 //		player.setSp(12);
 //		player.setExp(4);
 //		player.setHp(62);
-//		enemy[enemyNum].setHp(2);
+		enemy[enemyNum].setHp(2);
 //		field.setForgeCount(1);
 
 //		enemy[enemyNum].setCondition(0,4);

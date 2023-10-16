@@ -58,7 +58,7 @@ function setDiceImage(list) {
         //     }
         // });
         // dragdropItem(imageElement);
-        // ronundOver(imageElement);      
+        ronundOver(imageElement);      
         imageContainer.appendChild(imageElement);
     }
 }
@@ -181,13 +181,17 @@ function ronundOver(itemElement) {
     const span = itemElement.querySelector("span");
     itemElement.onmouseover=(e)=>{
         e.target.style = "box-shadow: 0 0 6px 1px black;"
-        span.style = "border: 0px solid #000; font-weight: bold;;"
+        if (span!=null) {
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+        }
         console.log("마우스오버");
     }
 
     itemElement.onmouseleave=(e)=>{
         e.target.style = "box-shadow:;"
-        span.style = "border: 0px solid #000; font-weight: bold;;"
+        if (span!=null) {
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+        }
         if (e.target.innerHTML.includes("빈슬롯")) {
             e.target.style.opacity = 0.5;
         }
@@ -215,9 +219,20 @@ function resetItemColor(list) {
 const playerContainer = document.getElementById("playerInfo");
 function setPlayerInfo(player) {
     playerContainer.innerHTML = "";
+    let playerElement1 = document.createElement("div");
+    playerElement1.className = "player-div";
+    playerElement1.innerHTML = player.job + "  Level" + player.level + "<br>"
+
+    playerContainer.appendChild(playerElement1);
+        let playerHp = document.createElement("div");
+        playerHp.className = "hp";
+        let playerInnerHp = document.createElement("div");
+        playerInnerHp.className = "innerHp";
+        playerHp.appendChild(playerInnerHp);
+    playerContainer.appendChild(playerHp);
+
     let playerElement = document.createElement("div");
     playerElement.className = "player-div";
-    playerElement.innerHTML = player.job + "  Level" + player.level + "<br>"
     playerElement.innerHTML += "HP: "+player.hp;
     if (player.def>0) { 
 		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
@@ -678,8 +693,8 @@ modalButton.addEventListener("click", function() {
         modalName.innerHTML = data.enemy.name + " (" + data.enemy.grade+")";
         modalName.style.fontWeight = "bold";        
         modalItem.innerHTML = data.enemy.description+"<br><br>";
-        modalItem.innerHTML += "<인벤토리> 주사위 : ";
-        modalItem.innerHTML += data.enemy.diceQuantity+"개";
+        modalItem.innerHTML += "주사위 : "+data.enemy.diceQuantity+"개<br><br>";
+        modalItem.innerHTML += "<인벤토리>";
         modalItemList(data.enemy.inventory);
     })
     .catch(error => {
