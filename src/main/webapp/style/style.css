@@ -12,20 +12,21 @@
 }
 
 .hp {
-	width: 200px;
-	height: 20px;
-	background-color: yellow;
-	overflow: hidden;
+    width: 150px;
+    height: 25px;
+    background-color:#3d3939;
+    overflow: hidden;
+    margin: auto;
+    border: 2px solid;
 }
 
 .innerHp {
 	width: 100%;
 	height: 100%;
-	background-color: red;
+	background-color: #18a706;;
 	transform: translateX(0%);
 	transition: transform 1s ease-in-out;
 }
-
 
 .hp:hover .innerHp {
 	transform: translateX(-50%);
@@ -219,7 +220,11 @@
     grid-column: 2 / 3;
 	grid-row: 1 / 3;
 	/* z-index: 1; */
-	background-image: url(../image/cave2.png);
+	
+}
+
+.grid-background {
+    background-image: url(../image/cave2.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

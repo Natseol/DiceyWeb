@@ -215,21 +215,43 @@ function resetItemColor(list) {
     }
 }
 
+function changeHp(player) {
+    let playerHp = document.createElement("div");
+    playerHp.className = "hp";
+    let playerInnerHp = document.createElement("div");
+    playerInnerHp.className = "innerHp";
+    let hpP = 100-(player.hp/player.maxHp*100);
+    playerInnerHp.style.transform = 'translateX(-'+hpP+'%)';
+    if (hpP>70) {
+        playerInnerHp.style.backgroundColor ='red';
+    } else if (hpP>40) {
+        playerInnerHp.style.backgroundColor ='rgb(229,213,15)';
+    }   
+    playerHp.appendChild(playerInnerHp);    
+    return playerHp;
+}
+
 //플레이어 정보 생성
 const playerContainer = document.getElementById("playerInfo");
 function setPlayerInfo(player) {
     playerContainer.innerHTML = "";
     let playerElement1 = document.createElement("div");
     playerElement1.className = "player-div";
-    playerElement1.innerHTML = player.job + "  Level" + player.level + "<br>"
-
+    playerElement1.innerHTML = player.job + "  Level " + player.level + "<br>"
     playerContainer.appendChild(playerElement1);
-        let playerHp = document.createElement("div");
-        playerHp.className = "hp";
-        let playerInnerHp = document.createElement("div");
-        playerInnerHp.className = "innerHp";
-        playerHp.appendChild(playerInnerHp);
-    playerContainer.appendChild(playerHp);
+
+    //     let playerHp = document.createElement("div");
+    //     playerHp.className = "hp";
+    //     let playerInnerHp = document.createElement("div");
+    //     playerInnerHp.className = "innerHp";
+    //     playerHp.appendChild(playerInnerHp);
+    // playerContainer.appendChild(playerHp);
+
+    // let hpP = 100-(player.hp/player.maxHp*100);
+    // const innerHpElement = document.querySelector('.hp .innerHp');
+    // innerHpElement.style.transition = "transform 1s ease-in-out";    
+    // innerHpElement.style.transform = 'translateX(-'+hpP+'%)';
+    playerContainer.appendChild(changeHp(player));
 
     let playerElement = document.createElement("div");
     playerElement.className = "player-div";
@@ -274,10 +296,13 @@ function setPlayerInfo(player) {
 const enemyContainer = document.getElementById("enemyInfo");
 function setEnemyInfo(player) {
     enemyContainer.innerHTML = "";
+    let playerElement1 = document.createElement("div");
+    playerElement1.className = "enemy-div";
+    playerElement1.innerHTML = player.name + "  (" + player.grade + ") <br>"
+    enemyContainer.appendChild(playerElement1);
+    enemyContainer.appendChild(changeHp(player));
     let playerElement = document.createElement("div");
-    playerElement.className = "enemy-div";
-    playerElement.innerHTML = player.name + "  (" + player.grade + ") <br>"
-    playerElement.innerHTML += "HP: "+player.hp;
+    playerElement.innerHTML = "HP: "+player.hp;
     if (player.def>0) { 
 		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
 	}
