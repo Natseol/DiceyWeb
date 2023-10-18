@@ -90,7 +90,7 @@ function setItemList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-dark");
         itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
@@ -184,7 +184,6 @@ function ronundOver(itemElement) {
         if (span!=null) {
             span.style = "border: 0px solid #000; font-weight: bold;;"
         }
-        console.log("마우스오버");
     }
 
     itemElement.onmouseleave=(e)=>{
@@ -195,8 +194,6 @@ function ronundOver(itemElement) {
         if (e.target.innerHTML.includes("빈슬롯")) {
             e.target.style.opacity = 0.5;
         }
-        console.log("마우스리브");
-        console.log(e);
     }
 }
 
@@ -230,27 +227,40 @@ function changeHp(player) {
     playerHp.appendChild(playerInnerHp);    
     return playerHp;
 }
+function drawIcon(player) {
+    let playerIcon = document.createElement("img");
+    playerIcon.className = "player-icon";
+    if (player.job=="전사") {
+        playerIcon.src="image/warrior.png";
+    } else if (player.job=="도적") {
+        playerIcon.src="image/rogue.png";
+    } else if (player.job=="마법사") {
+        playerIcon.src="image/magician.png";
+    } else if (player.job=="궁수") {
+        playerIcon.src="image/archer.png";
+    } else if (player.job=="기사") {
+        playerIcon.src="image/knight.png";
+    }
+    return playerIcon;
+}
 
+function hundredSp(player) {
+    let sp = Math.ceil((player.sp/(10+player.level))*100)
+    sp>=100 ? sp = 100 : sp;
+    return sp;
+}
 //플레이어 정보 생성
 const playerContainer = document.getElementById("playerInfo");
 function setPlayerInfo(player) {
     playerContainer.innerHTML = "";
+
+    playerContainer.appendChild(drawIcon(player));
+
     let playerElement1 = document.createElement("div");
     playerElement1.className = "player-div";
     playerElement1.innerHTML = player.job + "  Level " + player.level + "<br>"
     playerContainer.appendChild(playerElement1);
 
-    //     let playerHp = document.createElement("div");
-    //     playerHp.className = "hp";
-    //     let playerInnerHp = document.createElement("div");
-    //     playerInnerHp.className = "innerHp";
-    //     playerHp.appendChild(playerInnerHp);
-    // playerContainer.appendChild(playerHp);
-
-    // let hpP = 100-(player.hp/player.maxHp*100);
-    // const innerHpElement = document.querySelector('.hp .innerHp');
-    // innerHpElement.style.transition = "transform 1s ease-in-out";    
-    // innerHpElement.style.transform = 'translateX(-'+hpP+'%)';
     playerContainer.appendChild(changeHp(player));
 
     let playerElement = document.createElement("div");
@@ -260,7 +270,7 @@ function setPlayerInfo(player) {
 		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
 	}
     playerElement.innerHTML += " / " + player.maxHp + "<br>"
-    playerElement.innerHTML +=" Dice:" + player.diceQuantity +  " SP:" + player.sp + "<br>"
+    playerElement.innerHTML +=" Dice:" + player.diceQuantity +  " SP:" + hundredSp(player) + "<br>"
     playerContainer.appendChild(playerElement);
     if (player.condition[0]>0) {
         playerElement = document.createElement("div");
@@ -292,50 +302,64 @@ function setPlayerInfo(player) {
     }
 }
 
+function drawEnemyIcon(enemy) {
+    let enemyIcon = document.createElement("img");
+    enemyIcon.className = "player-icon";
+    if (enemy.grade=="일반") {
+        enemyIcon.src="image/gradeN.png";
+    } else if (enemy.grade=="어려움") {
+        enemyIcon.src="image/gradeH.png";
+    } else if (enemy.grade=="보스") {
+        enemyIcon.src="image/gradeB.png";
+    } 
+    return enemyIcon;
+}
+
 //적 정보 생성
 const enemyContainer = document.getElementById("enemyInfo");
-function setEnemyInfo(player) {
+function setEnemyInfo(enemy) {
     enemyContainer.innerHTML = "";
-    let playerElement1 = document.createElement("div");
-    playerElement1.className = "enemy-div";
-    playerElement1.innerHTML = player.name + "  (" + player.grade + ") <br>"
-    enemyContainer.appendChild(playerElement1);
-    enemyContainer.appendChild(changeHp(player));
-    let playerElement = document.createElement("div");
-    playerElement.innerHTML = "HP: "+player.hp;
-    if (player.def>0) { 
-		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
+    enemyContainer.appendChild(drawEnemyIcon(enemy));
+    let enemyElement1 = document.createElement("div");
+    enemyElement1.className = "enemy-div";
+    enemyElement1.innerHTML = enemy.name + "  (" + enemy.grade + ") <br>"
+    enemyContainer.appendChild(enemyElement1);
+    enemyContainer.appendChild(changeHp(enemy));
+    let enemyElement = document.createElement("div");
+    enemyElement.innerHTML = "HP: "+enemy.hp;
+    if (enemy.def>0) { 
+		enemyElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+enemy.def+")</span>";
 	}
-    playerElement.innerHTML += " / " + player.maxHp + "<br>"
-    playerElement.innerHTML +=" Dice:" + player.diceQuantity + "<br>"
-    enemyContainer.appendChild(playerElement);
-    if (player.condition[0]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="화염 : "+player.condition[0]+"<br>";
-        playerElement.style.color = "rgb(255, 71, 71)";
-        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
-        enemyContainer.appendChild(playerElement);
+    enemyElement.innerHTML += " / " + enemy.maxHp + "<br>"
+    enemyElement.innerHTML +=" Dice:" + enemy.diceQuantity + "<br>"
+    enemyContainer.appendChild(enemyElement);
+    if (enemy.condition[0]>0) {
+        enemyElement = document.createElement("div");
+        enemyElement.innerHTML +="화염 : "+enemy.condition[0]+"<br>";
+        enemyElement.style.color = "rgb(255, 71, 71)";
+        enemyElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
+        enemyContainer.appendChild(enemyElement);
     }
-    if (player.condition[1]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="냉기 : "+player.condition[1]+"<br>";
-        playerElement.style.color = "skyblue";
-        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
-        enemyContainer.appendChild(playerElement);
+    if (enemy.condition[1]>0) {
+        enemyElement = document.createElement("div");
+        enemyElement.innerHTML +="냉기 : "+enemy.condition[1]+"<br>";
+        enemyElement.style.color = "skyblue";
+        enemyElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
+        enemyContainer.appendChild(enemyElement);
     }
-    if (player.condition[2]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="전기 : "+player.condition[2]+"<br>";
-        playerElement.style.color = "yellow";
-        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
-        enemyContainer.appendChild(playerElement);
+    if (enemy.condition[2]>0) {
+        enemyElement = document.createElement("div");
+        enemyElement.innerHTML +="전기 : "+enemy.condition[2]+"<br>";
+        enemyElement.style.color = "yellow";
+        enemyElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
+        enemyContainer.appendChild(enemyElement);
     }
-    if (player.condition[3]>0) {
-        playerElement = document.createElement("div");
-        playerElement.innerHTML +="독 : "+player.condition[3]+"<br>";
-        playerElement.style.color = "rgb(204, 120, 253)";
-        playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
-        enemyContainer.appendChild(playerElement);
+    if (enemy.condition[3]>0) {
+        enemyElement = document.createElement("div");
+        enemyElement.innerHTML +="독 : "+enemy.condition[3]+"<br>";
+        enemyElement.style.color = "rgb(204, 120, 253)";
+        enemyElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
+        enemyContainer.appendChild(enemyElement);
     }
 }
 
@@ -559,14 +583,15 @@ function printDice() {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
+            
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setDiceImage(data.myTurn.diceList);
             setItemList(data.myTurn.item, data.myTurn);
             checkSp(data.player);
             reverseTurnImage(data.myTurn.isTurn);
-            gameover(data.player, data.enemy);            
+            gameover(data.player, data.enemy);
+
         })
         .catch(error => {
             console.error('Error:', error);
@@ -576,7 +601,7 @@ function printDice() {
 printDice();
 
 // 사용버튼
-function useItem() {
+function useItem() {    
     const diceNum=selectDice();
     const itemNum=selectItem();
     console.log(diceNum);
@@ -621,7 +646,6 @@ let useItemButton = document.getElementById("useItem");
 
 //턴종료 버튼
 function myTurnEnd() {
-	
     fetch("./battleserv", {
         method: 'PUT',
         headers: {
@@ -662,11 +686,11 @@ function reverseTurnImage(isCheck) {
 	const playerDiv = document.getElementById("player-info-div");
 	const enemyDiv = document.getElementById("enemy-info-div");
 	if (isCheck) {
-	playerDiv.style="box-shadow: 0 0 20px 0px darkred";
+	playerDiv.style="box-shadow: 0 0 20px 0px red";
 	enemyDiv.style="box-shadow:;";		
 	} else {
 	playerDiv.style="box-shadow:;";
-	enemyDiv.style="box-shadow: 0 0 20px 0px darkred";		
+	enemyDiv.style="box-shadow: 0 0 20px 0px red";		
 	}
 }
 

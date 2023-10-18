@@ -45,6 +45,8 @@ storeList.addEventListener("click", function(){
         .catch(error => {
             console.error('Error:', error);
     });
+    const gridBackground = document.getElementById("field-background");
+    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/shop.jpg)";
 });
 
 const mousePosition = {x:0,y:0,isclick:false};
@@ -174,7 +176,7 @@ function setPlayerInfo(player) {
     playerContainer.innerHTML = "";
     let playerElement = document.createElement("div");
     playerElement.className = "player-div";
-    playerElement.innerHTML = player.job + "  Level" + player.level + "<br>"
+    playerElement.innerHTML = player.job + "  Level " + player.level + "<br>"
     playerElement.innerHTML += "HP: "+player.hp;
     if (player.def>0) { 
 		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
@@ -236,7 +238,7 @@ function setItemList(list) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-dark");
         itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.5;
@@ -277,7 +279,6 @@ function ronundOver(itemElement) {
     itemElement.onmouseover=(e)=>{
         e.target.style = "box-shadow: 0 0 6px 1px black;"
         span.style = "border: 0px solid #000; font-weight: bold;;"
-        console.log("마우스오버");
     }
 
     itemElement.onmouseleave=(e)=>{
@@ -286,8 +287,6 @@ function ronundOver(itemElement) {
         if (e.target.innerHTML.includes("빈슬롯")) {
             e.target.style.opacity = 0.5;
         }
-        console.log("마우스리브");
-        console.log(e);
     }
 }
 
@@ -327,10 +326,13 @@ forge.addEventListener("click", function(){
     if(document.getElementById("storeButton")){
         document.getElementById("store-button").removeChild(document.getElementById("storeButton"));
     }
+    const gridBackground = document.getElementById("field-background");
+    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/anvil.jpg)";
 });
 
 
 function setForge(list, index) {
+    
     const forgeContainer = document.getElementById("store-container");
     forgeContainer.innerHTML="";
     let forgeInfo = document.createElement("div");
@@ -359,7 +361,7 @@ function forgeList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-light");
+        itemElement.classList.add("bg-dark");
         itemElement.classList.add("bg-gradient");        
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.5;
@@ -485,6 +487,8 @@ well.addEventListener("click", function(){
             console.error('Error:', error);
     });
     storeContainer.appendChild(itemElement);
+    const gridBackground = document.getElementById("field-background");
+    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/well.jpg)";
 });
 function createWellButton() {
     const store = document.getElementById("store-button");
