@@ -92,6 +92,7 @@ function setItemList(list, turn) {
         itemElement.classList.add("rounded-3");
         itemElement.classList.add("bg-dark");
         itemElement.classList.add("bg-gradient");
+        itemElement.classList.add("text-white");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;
 		}
@@ -180,7 +181,7 @@ function useDragItem(num1, num2) {
 function ronundOver(itemElement) {
     const span = itemElement.querySelector("span");
     itemElement.onmouseover=(e)=>{
-        e.target.style = "box-shadow: 0 0 6px 1px black;"
+        e.target.style = "box-shadow: 0 0 10px 7px black;"
         if (span!=null) {
             span.style = "border: 0px solid #000; font-weight: bold;;"
         }
@@ -687,10 +688,14 @@ function reverseTurnImage(isCheck) {
 	const enemyDiv = document.getElementById("enemy-info-div");
 	if (isCheck) {
 	playerDiv.style="box-shadow: 0 0 20px 0px red";
-	enemyDiv.style="box-shadow:;";		
+	playerDiv.style.border = "7px dashed red";
+	enemyDiv.style="box-shadow:;";
+	enemyDiv.style.border = "";
 	} else {
 	playerDiv.style="box-shadow:;";
-	enemyDiv.style="box-shadow: 0 0 20px 0px red";		
+	playerDiv.style.border = "";
+	enemyDiv.style="box-shadow: 0 0 20px 0px red";
+	enemyDiv.style.border = "7px dashed red";		
 	}
 }
 

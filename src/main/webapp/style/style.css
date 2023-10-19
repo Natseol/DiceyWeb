@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hi+Melody&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cute+Font&family=Gamja+Flower&family=Gowun+Dodum&family=Hi+Melody&family=Noto+Sans+KR:wght@400&display=swap');
 
 @font-face {
     font-family: 'NamSanb';
@@ -8,6 +7,11 @@
 
 @font-face {
     font-family: 'SeoulNamsanvert';
+    src: url('../font/SeoulNamsanvert.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'GowunDodum';
     src: url('../font/SeoulNamsanvert.ttf') format('truetype');
 }
 
@@ -34,10 +38,15 @@
 
 .font {    
     /* font-family: 'NamSanb'; */
-    font-family: 'Gamja Flower', sans-serif;
+    /* font-family: 'Black Han Sans', sans-serif; */
+    /* font-family: 'Cute Font', sans-serif; */
+    /* font-family: 'Dongle', sans-serif; */
+    /* font-family: 'Gowun Dodum', sans-serif; */
+    /* font-family: 'Gamja Flower', sans-serif; */
     /* font-family: 'Hi Melody', sans-serif; */
+    font-family: 'Noto Sans KR', sans-serif;
     /* font-family: 'SeoulNamsanvert'; */
-    font-size: x-large;
+    font-size: large;
     width: 1900px;
 }
 
@@ -119,6 +128,7 @@
     color: red;
     font-weight: bold;
     border: 4px outset red;
+    opacity: 1;
 }
 
 .itemBasic {
@@ -127,8 +137,15 @@
     border: 4px outset #000;
 }
 
+.itemWhite {
+    color: white;
+    font-weight: normal;
+    border: 3px outset white;
+}
+
 .script-div {
     background-color: white;
+    font-size: x-large;
 }
 
 #item-container {
@@ -141,10 +158,11 @@
     width: 190px;
     height: 300px;
     /* border: 4px outset #000; */
-    padding: 15px;
+    padding: 40px 15px;
     margin: 10px;
+    /* border: 3px outset white; */
     /* position: relative; */
-    color: white;
+    /*color: white;*/
 }
 
 .image-edge {
@@ -171,15 +189,19 @@
 .store-div {	
     width: 190px;
     height: 300px;
-    padding: 15px;
+    padding: 40px 15px;
     margin: 10px;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.8) ), url(../image/logo.png);
+    background-size: cover;
+    background-position: center;
+
 }
 
 .forge-div {	
-    width : 490px;
-    height : minmax(160px, auto);
-    padding: 10px;
-    margin: 10px;
+    width : auto;
+    padding: 50px;
+    margin: 30px;
+    box-shadow: 0 0 10px 2px snow;
 }
 
 .well-div {	
@@ -187,6 +209,7 @@
     height : minmax(160px, auto);
     padding: 10px;
     margin: 10px;
+    box-shadow: 0 0 20px 0px lightgreen
 }
 
 .grid-battle {
@@ -222,7 +245,8 @@
     text-align: center;
 }
 .grid-item:nth-child(1) {
-    border: 2px solid black;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) );
+    box-shadow: 0 0 5px 1px white;
 }
 
 .grid-item:nth-child(2) {
@@ -231,6 +255,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    box-shadow: 0 0 5px 1px white;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7) );
 }
 
 .grid-item:nth-child(3) {
@@ -268,7 +294,8 @@
 	grid-column: 3 / 4;
 	grid-row: 1 / 2;
     justify-content: flex-end;
-    border: 2px solid black;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) );
+    box-shadow: 0 0 5px 1px white;
 }
 
 .grid-item:nth-child(6) {
@@ -278,6 +305,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    box-shadow: 0 0 5px 1px white;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7) );
 }
 
 #field-info-div {

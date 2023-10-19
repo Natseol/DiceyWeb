@@ -59,8 +59,7 @@ function setStoreList(list) {
         let itemElement = document.createElement("div");
         itemElement.className = "store-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-info");
-        itemElement.classList.add("bg-gradient");
+        itemElement.classList.add("bg-light");
         itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
@@ -121,7 +120,7 @@ function createStoreButton() {
     skillButton.className="btn btn-warning";
     skillButton.type="button";
     skillButton.setAttribute("id", "storeButton");
-    skillButton.innerHTML="교환";
+    skillButton.innerHTML="구입";
     skillButton.addEventListener("click", function() {
         const itemNum=selectItem();
         const storeNum=selectStore();
@@ -251,20 +250,20 @@ function setItemList(list) {
 		if (list[i].count>0) {
         	itemElement.innerHTML +="카운트 : "+list[i].count+"<br><br>";
         }
-		itemElement.classList.add("itemBasic");
+		itemElement.classList.add("itemWhite");
         
         ronundOver(itemElement);        
         
         itemElement.addEventListener("click", function () {
-        if (itemElement.classList.contains("itemBasic")) {
+        if (itemElement.classList.contains("itemWhite")) {
             console.log("검은색");
             resetItemColor(list);
-            itemElement.classList.remove("itemBasic");
+            itemElement.classList.remove("itemWhite");
             itemElement.classList.add("itemRed");
         } else if (itemElement.classList.contains("itemRed")) {
             console.log("빨강");
             itemElement.classList.remove("itemRed");
-            itemElement.classList.add("itemBasic");
+            itemElement.classList.add("itemWhite");
         } else {
             console.log("안됨");
         }
@@ -277,7 +276,7 @@ function setItemList(list) {
 function ronundOver(itemElement) {
     const span = itemElement.querySelector("span");
     itemElement.onmouseover=(e)=>{
-        e.target.style = "box-shadow: 0 0 6px 1px black;"
+        e.target.style = "box-shadow: 0 0 7px 5px black;"
         span.style = "border: 0px solid #000; font-weight: bold;;"
     }
 
@@ -293,7 +292,7 @@ function ronundOver(itemElement) {
 function resetItemColor(list) {
     for (let i = 0; i < list.length; i++) {
         document.getElementsByClassName("item-div")[i].classList.remove("itemRed");
-        document.getElementsByClassName("item-div")[i].classList.add("itemBasic");
+        document.getElementsByClassName("item-div")[i].classList.add("itemWhite");
     }
 }
 
@@ -315,7 +314,8 @@ forge.addEventListener("click", function(){
 
             if (data.field.forgeCount>0) {
                 forgeList(data.player.inventory);
-                createForgeButton();
+                printForge()
+                // createForgeButton();
             } else {
                 storeContainer.innerHTML="모든 횟수를 소진했습니다"
             }
@@ -330,9 +330,7 @@ forge.addEventListener("click", function(){
     gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/anvil.jpg)";
 });
 
-
-function setForge(list, index) {
-    
+function printForge() {
     const forgeContainer = document.getElementById("store-container");
     forgeContainer.innerHTML="";
     let forgeInfo = document.createElement("div");
@@ -340,13 +338,25 @@ function setForge(list, index) {
     forgeInfo.classList.add("rounded-3");
     forgeInfo.classList.add("bg-secondary");
     forgeInfo.classList.add("bg-gradient"); 
-    forgeInfo.style.color="white";
-    forgeInfo.innerHTML ="<br><span style='font-weight:bold'>"+list[index].enhName+"</span><br><br>";
-    forgeInfo.innerHTML += list[index].enhDescription+"<br></br>";
+    forgeInfo.classList.add("text-white");
+    forgeInfo.innerHTML ="<span style='font-weight:bold'>강화할 아이템을 선택하세요</span>";
+    forgeContainer.appendChild(forgeInfo);
+}
+
+function setForge(list, index) {
+    const forgeContainer = document.getElementById("store-container");
+    forgeContainer.innerHTML="";
+    let forgeInfo = document.createElement("div");
+    forgeInfo.className = "forge-div";
+    forgeInfo.classList.add("rounded-3");
+    forgeInfo.classList.add("bg-secondary");
+    forgeInfo.classList.add("bg-gradient"); 
+    forgeInfo.classList.add("text-white");
+    // forgeInfo.style.color="white";
+    forgeInfo.innerHTML ="<span style='font-weight:bold'>"+list[index].enhName+"</span><br><br>";
+    forgeInfo.innerHTML += list[index].enhDescription+"<br />";
     if (list[index].enhCount>0) {
-        forgeInfo.innerHTML += "카운트 : "+list[index].enhCount+"<br>";
-    } else {
-        forgeInfo.innerHTML += "<br><br><br>"
+        forgeInfo.innerHTML += "<br />카운트 : "+list[index].enhCount+"<br />";
     }
     console.log(index);
     forgeContainer.appendChild(forgeInfo);
@@ -362,7 +372,8 @@ function forgeList(list, turn) {
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
         itemElement.classList.add("bg-dark");
-        itemElement.classList.add("bg-gradient");        
+        itemElement.classList.add("bg-gradient");
+        itemElement.classList.add("text-white");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.5;
 		}
@@ -374,20 +385,23 @@ function forgeList(list, turn) {
 		if (list[i].count>0) {
         	itemElement.innerHTML +="카운트 : "+list[i].count+"<br><br>";
         }
-		itemElement.classList.add("itemBasic");
+		itemElement.classList.add("itemWhite");
         
         itemElement.addEventListener("click", function () {
-        if (itemElement.classList.contains("itemBasic")) {
+        if (itemElement.classList.contains("itemWhite")) {
             console.log("검은색");
             resetItemColor(list);
-            itemElement.classList.remove("itemBasic");
+            itemElement.classList.remove("itemWhite");
+            itemElement.classList.remove("text-white");
             itemElement.classList.add("itemRed");
             selectItem();
             setForge(list, itemNum);
+            createForgeButton();
         } else if (itemElement.classList.contains("itemRed")) {
             console.log("빨강");            
             itemElement.classList.remove("itemRed");
-            itemElement.classList.add("itemBasic");
+            itemElement.classList.add("text-white");
+            itemElement.classList.add("itemWhite");
         } else {
             console.log("안됨");
         }
@@ -398,6 +412,9 @@ function forgeList(list, turn) {
 }
 
 function createForgeButton() {
+    if(document.getElementById("storeButton")){
+        document.getElementById("store-button").removeChild(document.getElementById("storeButton"));
+    }
     const store = document.getElementById("store-button");
     const skillButton = document.createElement('button');
     skillButton.className="btn btn-warning";
