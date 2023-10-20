@@ -90,8 +90,6 @@ function setItemList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-dark");
-        itemElement.classList.add("bg-gradient");
         itemElement.classList.add("text-white");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.3;

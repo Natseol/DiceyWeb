@@ -132,6 +132,7 @@ public class FieldServ extends HttpServlet {
 	        if (param1.equals("true")) {
 	        	if (field.getStoreCount()>0) {
 	        		player.setInventory(param4,field.getStore().getStoreList(param5));
+	        		field.getStore().setStoreItem(param5);
 	        		field.setStoreCount(field.getStoreCount()-1);
 	        	} else {
 	        		script.getStrb().append("모든 횟수를 소진 했습니다");

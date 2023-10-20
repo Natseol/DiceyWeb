@@ -46,7 +46,7 @@ storeList.addEventListener("click", function(){
             console.error('Error:', error);
     });
     const gridBackground = document.getElementById("field-background");
-    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/shop.jpg)";
+    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/back6.jpg)";
 });
 
 const mousePosition = {x:0,y:0,isclick:false};
@@ -58,8 +58,6 @@ function setStoreList(list) {
     for (let i = 0; i < list.length; i++) {
         let itemElement = document.createElement("div");
         itemElement.className = "store-div";
-        itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-light");
         itemElement.innerHTML = "<span style='font-weight:bold'>"+list[i].name+"</span><br><br>";
         itemElement.innerHTML +=list[i].description+"<br><br>";
         if (list[i].times>1) {
@@ -154,7 +152,8 @@ function createStoreButton() {
 
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);            
-            setItemList(data.player.inventory);               
+            setItemList(data.player.inventory);
+            setStoreList(data.field.store.storeList)
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -237,8 +236,6 @@ function setItemList(list) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-dark");
-        itemElement.classList.add("bg-gradient");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.5;
 		}
@@ -371,8 +368,6 @@ function forgeList(list, turn) {
         let itemElement = document.createElement("div");
         itemElement.className = "item-div";
         itemElement.classList.add("rounded-3");
-        itemElement.classList.add("bg-dark");
-        itemElement.classList.add("bg-gradient");
         itemElement.classList.add("text-white");
         if (list[i].name=="빈슬롯"){
 			itemElement.style.opacity = 0.5;

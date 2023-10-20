@@ -147,4 +147,8 @@ public class Store implements Serializable{
 		}
 		itemList = temp;
 	}
+	
+	public void setStoreItem(int idx) {
+		storeList[idx] = new Nothing();
+	}
 }

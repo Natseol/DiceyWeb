@@ -18,8 +18,8 @@ jobButtons.forEach((button) => {
 function changeBorder(buttons, button) {
     buttons.forEach((button) => {
     button.style = "border:0px;";
-	})
-    button.style = "box-shadow : 0 0 7px 2px black;";
+	})    
+    button.style = "box-shadow: black 0px 0px 9px 1px; border: solid white 2px;";
 }
 
 const equipmentButtons = document.querySelectorAll('.selectEquipment');

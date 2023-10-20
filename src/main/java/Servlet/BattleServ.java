@@ -163,9 +163,9 @@ public class BattleServ extends HttpServlet {
         }
         
         if (player.getHp()<1) {
-        	myTurn.getTurnScript().add("<br>YOU DIED");
+        	myTurn.getTurnScript().add("<br>&nbspYOU DIED&nbsp");
         } else if (enemy[enemyNum].getHp()<1) {
-        	myTurn.getTurnScript().add("<br>승리");
+        	myTurn.getTurnScript().add("<br>&nbsp승리&nbsp");
         	myTurn.getTurnScript().add(player.levelUpStr());
         }
         

@@ -56,19 +56,47 @@
     margin: 0px
 }
 
+.index-back {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) ), url(../image/back8.jpg);
+    height: 950px;
+    width: 1900px;
+    background-size: contain;
+    background-position: center;
+}
+
 .index-div {
     margin: auto;
     text-align: center;
     padding: 40px 0px 20px;
 }
 
+.index-title {
+	margin: 180px;
+    font-size: xxx-large;
+    font-weight: bold;
+    color: white;
+}
+
+.index-button {
+	margin : 89px 60px 30px 40px;	
+}
+
+.select-back {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3) ), url(../image/back5.jpg);
+    height: 950px;
+    width: 1900px;
+    background-size: contain;
+    background-position: center;
+    padding: 65px;
+}
+
 .select-script {
-    width : 600px;
+    width: 650px;
     margin: 10px auto 50px;
-    box-shadow: 0 0 10px 1px grey;
-    padding: 10px;
+    box-shadow: 0 0 10px 2px black;
+    padding: 12px;
     font-size: 20px;
-    /* font-weight: bold; */
+    font-weight: bold;
 }
 
 #playerInfo {
@@ -163,6 +191,8 @@
     /* border: 3px outset white; */
     /* position: relative; */
     /*color: white;*/
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url(../image/card8.jpg);
+    background-size: 100% 100%;
 }
 
 .image-edge {
@@ -191,10 +221,8 @@
     height: 300px;
     padding: 40px 15px;
     margin: 10px;
-    background-image: linear-gradient( rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.8) ), url(../image/logo.png);
-    background-size: cover;
-    background-position: center;
-
+    background-image: linear-gradient( rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3) ), url(../image/card8.jpg);
+    background-size: 100% 100%;    
 }
 
 .forge-div {	
@@ -220,8 +248,8 @@
 }
 
 .gird-field {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(../image/shop.jpg);
-    background-size: cover;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(../image/shop.jpg);    
+    background-size: 100% 100%;    
     background-repeat: no-repeat;
     background-position: center;
 }

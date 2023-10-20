@@ -62,7 +62,7 @@ public class Script implements Color, Serializable {
 	}
 	
 	public String selectTurnEndStr() {
-		String str = "- 턴 종료 -";
+		String str = "&nbsp- 턴 종료 -&nbsp";
 		return str;
 	}
 	
@@ -71,7 +71,7 @@ public class Script implements Color, Serializable {
 	}
 	
 	public String printCheckTrueStr() {
-		return " * 사용할 수 없습니다 * <br>";
+		return "&nbsp* 사용할 수 없습니다 *&nbsp<br>";
 	}
 	
 	public void printStore() {
