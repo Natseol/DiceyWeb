@@ -27,6 +27,17 @@ const imageRedPaths = [
     "image/dicered10.png"
 ];
 
+window.addEventListener('load', function () {
+    var loadingOverlay = document.getElementById('loading-overlay');
+    var centeredContent = document.querySelector('.centered-content');
+
+    // 3초 후 로딩 오버레이 사라지게 함
+    setTimeout(function () {
+        loadingOverlay.style.opacity = 0;
+        centeredContent.style.display = 'none'; // 로딩 중 텍스트 숨기기
+    }, 3000); // 3초 후 오버레이를 투명하게 함
+});
+
 let diceDragNum = -1;
 //주사위 그림 생성
 const imageContainer = document.getElementById("image-container");
@@ -111,9 +122,11 @@ function setItemList(list, turn) {
 
         itemElement.addEventListener("dragover", (e) => {
             e.preventDefault();
-            itemElement.style.boxShadow = '0 0 6px 1px black';
+            itemElement.style.boxShadow = '0 0 10px 7px black';
+            itemElement.style.border = '2px solid white';
         })
         itemElement.addEventListener('dragleave', () => {
+            itemElement.style.border = '4px outset black';
             itemElement.style.boxShadow = 'none';
         });
         itemElement.addEventListener("drop", (e) => {
@@ -252,9 +265,7 @@ function hundredSp(player) {
 const playerContainer = document.getElementById("playerInfo");
 function setPlayerInfo(player) {
     playerContainer.innerHTML = "";
-
     playerContainer.appendChild(drawIcon(player));
-
     let playerElement1 = document.createElement("div");
     playerElement1.className = "player-div";
     playerElement1.innerHTML = player.job + "  Level " + player.level + "<br>"

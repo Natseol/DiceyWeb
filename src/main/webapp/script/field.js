@@ -20,6 +20,8 @@ function printInfo() {
 
 const storeList = document.getElementById("store");
 storeList.addEventListener("click", function(){
+    const gridBackground = document.getElementById("field-background");
+    
     fetch("./fieldserv", {
         method: 'POST',
         headers: {
@@ -38,15 +40,16 @@ storeList.addEventListener("click", function(){
             if (data.field.storeCount>0) {
                 setStoreList(data.field.store.storeList)
                 createStoreButton()
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/back6.jpg)";
             } else {
                 storeContainer.innerHTML="모든 횟수를 소진했습니다"
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/shop.jpg)";
             }
         })
         .catch(error => {
             console.error('Error:', error);
     });
-    const gridBackground = document.getElementById("field-background");
-    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/back6.jpg)";
+    
 });
 
 const mousePosition = {x:0,y:0,isclick:false};
@@ -296,6 +299,8 @@ function resetItemColor(list) {
 
 const forge = document.getElementById("forge");
 forge.addEventListener("click", function(){
+    const gridBackground = document.getElementById("field-background");
+    
     fetch("./fieldserv", {
         method: 'POST',
         headers: {
@@ -312,9 +317,11 @@ forge.addEventListener("click", function(){
             if (data.field.forgeCount>0) {
                 forgeList(data.player.inventory);
                 printForge()
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/anvil.jpg)";
                 // createForgeButton();
             } else {
                 storeContainer.innerHTML="모든 횟수를 소진했습니다"
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/shop.jpg)";
             }
         })
         .catch(error => {
@@ -323,8 +330,7 @@ forge.addEventListener("click", function(){
     if(document.getElementById("storeButton")){
         document.getElementById("store-button").removeChild(document.getElementById("storeButton"));
     }
-    const gridBackground = document.getElementById("field-background");
-    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/anvil.jpg)";
+    
 });
 
 function printForge() {
@@ -471,7 +477,10 @@ well.addEventListener("click", function(){
     itemElement.setAttribute("id", "wellScript");
     itemElement.classList.add("rounded-3");
     itemElement.classList.add("bg-success");
-    itemElement.classList.add("bg-gradient"); 
+    itemElement.classList.add("bg-gradient");
+    
+    const gridBackground = document.getElementById("field-background");
+    
     fetch("./fieldserv", {
         method: 'POST',
         headers: {
@@ -491,16 +500,20 @@ well.addEventListener("click", function(){
                 itemElement.innerHTML="체력을 ["+(data.player.level+4)+"] 회복합니다<br>"
                 itemElement.style.color="white";
                 createWellButton()
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/well.jpg)";
             } else {
+                itemElement.classList.remove("well-div")
+                itemElement.classList.remove("bg-success")
+                itemElement.classList.remove("bg-gradient")
                 itemElement.innerHTML="모든 횟수를 소진했습니다"
+                gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/shop.jpg)";
             }
         })
         .catch(error => {
             console.error('Error:', error);
     });
     storeContainer.appendChild(itemElement);
-    const gridBackground = document.getElementById("field-background");
-    gridBackground.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5) ), url(./image/well.jpg)";
+    
 });
 function createWellButton() {
     const store = document.getElementById("store-button");
