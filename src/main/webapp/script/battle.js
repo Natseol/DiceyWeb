@@ -27,15 +27,52 @@ const imageRedPaths = [
     "image/dicered10.png"
 ];
 
+function stageNum(num) {
+    let text;
+    if (num>=0&&num<4) {
+        text = "1 - "+(num+1);
+    } else if (num>=4&&num<7) {
+        text = "2 - "+(num-3);
+    } else if (num>=7&&num<10) {
+        text = "3 - "+(num-6);
+    } else if (num>=10&&num<14) {
+        text = "4 - "+(num-9);
+    } else if (num>=14&&num<17) {
+        text = "5 - "+(num-13);
+    } else if (num==17) {
+        text = "BOSS";
+    }
+    return text;
+}
+function setStageNum() {
+    const stageText = document.getElementById("stageText");
+    fetch("./battleserv", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            stageText.innerHTML="STAGE<BR>"+stageNum(data.enemyNum);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+    });
+    this.disabled = true;
+}
+
 window.addEventListener('load', function () {
-    var loadingOverlay = document.getElementById('loading-overlay');
-    var centeredContent = document.querySelector('.centered-content');
+    setStageNum();
+    let loadingOverlay = document.getElementById('loading-overlay');
+    let centeredContent = document.querySelector('.centered-content');
 
     // 3초 후 로딩 오버레이 사라지게 함
     setTimeout(function () {
         loadingOverlay.style.opacity = 0;
         centeredContent.style.display = 'none'; // 로딩 중 텍스트 숨기기
-    }, 3000); // 3초 후 오버레이를 투명하게 함
+    }, 2000); // 3초 후 오버레이를 투명하게 함
 });
 
 let diceDragNum = -1;
@@ -235,7 +272,11 @@ function changeHp(player) {
         playerInnerHp.style.backgroundColor ='red';
     } else if (hpP>40) {
         playerInnerHp.style.backgroundColor ='rgb(229,213,15)';
-    }   
+    } 
+    if (player.def>0) {
+        playerInnerHp.style.backgroundColor ='white';
+    }
+    
     playerHp.appendChild(playerInnerHp);    
     return playerHp;
 }
@@ -472,17 +513,55 @@ function createNextButton() {
     next.appendChild(nextButton);
 }
 
+function gameoverDisplay() {
+	const loadingOverlay = document.getElementById('loading-overlay');
+	const stageText = document.getElementById("stageText");
+	let centeredContent = document.querySelector('.centered-content');
+    centeredContent.style.display = "block";
+    stageText.innerHTML = "패배<br><br>";
+    const reButton = document.createElement("a");
+    reButton.innerHTML="<다시하기>";
+    reButton.href = "../DiceyWeb/";
+    reButton.style.textDecoration = "none";
+    reButton.style.fontSize = "x-large";
+    reButton.style.color = "red";
+    stageText.appendChild(reButton);
+    loadingOverlay.style = "background-image : linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7) ), url(./image/gameover.jpg)";
+    loadingOverlay.style.opacity = 1;
+    loadingOverlay.style.pointerEvents = "auto";
+}
+
+function endGameDisplay() {
+	const loadingOverlay = document.getElementById('loading-overlay');
+	const stageText = document.getElementById("stageText");
+	let centeredContent = document.querySelector('.centered-content');
+    centeredContent.style.display = "block";
+    stageText.innerHTML = "축하합니다<br><br>모든 적을 쓰러트렸습니다";
+    stageText.style.color = "black";
+    loadingOverlay.style = "background-image : linear-gradient( rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2) ), url(./image/back4.jpg)";
+    loadingOverlay.style.opacity = 1;
+}
+
 function gameover(player, enemy) {
+
     const script = document.getElementById("script");
+    
     if (player.hp<1) {
         disabledAllButton();
-        disableDrag(false);        
+        disableDrag(false);
+        gameoverDisplay();   
         return;
     }
     if (enemy.hp<1) {
-		disableDrag(false);
-        disabledAllButton();
-        createNextButton();
+        if(enemy.name=="부활한 뱀파이어") {
+            endGameDisplay();
+            disableDrag(false);
+            disabledAllButton();    
+        } else {
+            disableDrag(false);
+            disabledAllButton();
+            createNextButton();
+        }		
         return;
     }
 }
