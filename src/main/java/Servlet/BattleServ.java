@@ -76,7 +76,7 @@ public class BattleServ extends HttpServlet {
     		field = (Field) session.getAttribute("field");
     		session.removeAttribute("player");
     		
-    		enemyNum=17;//test
+//    		enemyNum=17;//test
     		
     		enemy[enemyNum].setHp(enemy[enemyNum].getMaxHp());
     		enemy[enemyNum].resetCondition();
@@ -92,7 +92,7 @@ public class BattleServ extends HttpServlet {
 //		player.setLevel(5);
 //		player.setSp(12);
 //		player.setExp(4);
-		player.setHp(2);
+//		player.setHp(2);
 //		player.setDef(4);
 		enemy[enemyNum].setHp(2);
 //		field.setForgeCount(1);

@@ -29,16 +29,16 @@ const imageRedPaths = [
 
 function stageNum(num) {
     let text;
-    if (num>=0&&num<4) {
+    if (num>=0&&num<3) {
         text = "1 - "+(num+1);
-    } else if (num>=4&&num<7) {
-        text = "2 - "+(num-3);
-    } else if (num>=7&&num<10) {
-        text = "3 - "+(num-6);
-    } else if (num>=10&&num<14) {
-        text = "4 - "+(num-9);
-    } else if (num>=14&&num<17) {
-        text = "5 - "+(num-13);
+    } else if (num>=3&&num<6) {
+        text = "2 - "+(num-2);
+    } else if (num>=6&&num<9) {
+        text = "3 - "+(num-5);
+    } else if (num>=9&&num<13) {
+        text = "4 - "+(num-8);
+    } else if (num>=13&&num<16) {
+        text = "5 - "+(num-12);
     } else if (num==17) {
         text = "BOSS";
     }
@@ -321,32 +321,32 @@ function setPlayerInfo(player) {
 		playerElement.innerHTML += " <span style='color:gold; text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;'>("+player.def+")</span>";
 	}
     playerElement.innerHTML += " / " + player.maxHp + "<br>"
-    playerElement.innerHTML +=" Dice:" + player.diceQuantity +  " SP:" + hundredSp(player) + "<br>"
+    playerElement.innerHTML +=" Dice:" + player.diceQuantity +  " SP:" + hundredSp(player);
     playerContainer.appendChild(playerElement);
     if (player.condition[0]>0) {
         playerElement = document.createElement("div");
-        playerElement.innerHTML +="화염 : "+player.condition[0]+"<br>";
+        playerElement.innerHTML +="화염 : "+player.condition[0];
         playerElement.style.color = "rgb(255, 71, 71)";
         playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[1]>0) {
         playerElement = document.createElement("div");
-        playerElement.innerHTML +="냉기 : "+player.condition[1]+"<br>";
+        playerElement.innerHTML +="냉기 : "+player.condition[1];
         playerElement.style.color = "skyblue";
         playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[2]>0) {
         playerElement = document.createElement("div");
-        playerElement.innerHTML +="전기 : "+player.condition[2]+"<br>";
+        playerElement.innerHTML +="전기 : "+player.condition[2];
         playerElement.style.color = "yellow";
         playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);
     }
     if (player.condition[3]>0) {
         playerElement = document.createElement("div");
-        playerElement.innerHTML +="독 : "+player.condition[3]+"<br>";
+        playerElement.innerHTML +="독 : "+player.condition[3];
         playerElement.style.color = "rgb(204, 120, 253)";
         playerElement.style.textShadow = "1px 1px 1px rgba(0, 0, 0, 1)";
         playerContainer.appendChild(playerElement);

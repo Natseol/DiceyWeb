@@ -20,7 +20,7 @@ public class ItemDAO implements Serializable {
 		List<ItemVO> list = new ArrayList<>();
 		
 		try {			
-			connect();
+			connectTomcat();
 			
 			String query = "select * from item";
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -40,7 +40,7 @@ public class ItemDAO implements Serializable {
 	public ItemVO getItem(int id) {
 		ItemVO temp = null;
 		try {
-			connect();
+			connectTomcat();
 
 			String query = "select * from item where id=?";
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -68,7 +68,7 @@ public class ItemDAO implements Serializable {
 			int enhDefence, int enhDamage, String enhNewDice) {
 		
 		try {
-			connect();
+			connectTomcat();
 			
 			  String insertQuery = "insert into item (name, description, attack, addAttack, count, limit, times,"
 					+ " use, needDice, activeLimit, fireStack, iceStack, elecStack, poisonStack,"
@@ -127,7 +127,7 @@ public class ItemDAO implements Serializable {
 	
 	public void deleteItem(int id) {
 		try {
-			connect();
+			connectTomcat();
 			
 			String insertQuery = "delete from item where id=?";
 			PreparedStatement pstmt = con.prepareStatement(insertQuery);
@@ -138,6 +138,62 @@ public class ItemDAO implements Serializable {
 			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void createTable() {
+		try {
+			connectTomcat();
+			
+			String insertQuery = "CREATE TABLE ITEM "
+					+ " (ID NUMBER GENERATED IDENTITY constraint primary key, "
+					+ "	NAME VARCHAR2(50 BYTE), "
+					+ "	DESCRIPTION VARCHAR2(100 BYTE), "
+					+ "	ATTACK NUMBER DEFAULT 0, "
+					+ "	ADDATTACK NUMBER DEFAULT 0, "
+					+ "	COUNT NUMBER DEFAULT 0, "
+					+ "	LIMIT VARCHAR2(20 BYTE), "
+					+ "	TIMES NUMBER DEFAULT 1, "
+					+ "	USE NUMBER DEFAULT 0, "
+					+ "	NEEDDICE NUMBER DEFAULT 0, "
+					+ "	ACTIVELIMIT VARCHAR2(20 BYTE), "
+					+ "	FIRESTACK NUMBER DEFAULT 0, "
+					+ "	ICESTACK NUMBER DEFAULT 0, "
+					+ "	ELECSTACK NUMBER DEFAULT 0, "
+					+ "	POISONSTACK NUMBER DEFAULT 0, "
+					+ "	RECOVERY NUMBER DEFAULT 0, "
+					+ "	DEFENCE NUMBER DEFAULT 0, "
+					+ "	DAMAGE NUMBER DEFAULT 0, "
+					+ "	NEWDICE VARCHAR2(20 BYTE), "
+					+ "	ACCUMULATION NUMBER DEFAULT 0, "
+					+ "	ENHNAME VARCHAR2(50 BYTE), "
+					+ "	ENHDESCRIPTION VARCHAR2(100 BYTE), "
+					+ "	ENHATTACK NUMBER DEFAULT 0, "
+					+ "	ENHADDATTACK NUMBER DEFAULT 0, "
+					+ "	ENHCOUNT NUMBER DEFAULT 0, "
+					+ "	ENHLIMIT VARCHAR2(20 BYTE), "
+					+ "	ENHTIMES NUMBER DEFAULT 1, "
+					+ "	ENHUSE NUMBER DEFAULT 0, "
+					+ "	ENHNEEDDICE NUMBER DEFAULT 0, "
+					+ "	ENHACTIVELIMIT VARCHAR2(20 BYTE), "
+					+ "	ENHFIRESTACK NUMBER DEFAULT 0, "
+					+ "	ENHICESTACK NUMBER DEFAULT 0, "
+					+ "	ENHELECSTACK NUMBER DEFAULT 0, "
+					+ "	ENHPOISONSTACK NUMBER DEFAULT 0, "
+					+ "	ENHRECOVERY NUMBER DEFAULT 0, "
+					+ "	ENHDEFENCE NUMBER DEFAULT 0, "
+					+ "	ENHDAMAGE NUMBER DEFAULT 0, "
+					+ "	ENHNEWDICE VARCHAR2(20 BYTE), "
+					+ "	ENHACCUMULATION NUMBER DEFAULT 0);";
+			PreparedStatement pstmt = con.prepareStatement(insertQuery);
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+			System.out.println("성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("실패");
 		}
 	}
 	
@@ -197,6 +253,7 @@ public class ItemDAO implements Serializable {
 		DataSource dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
 		con = dataFactory.getConnection();
 	}
+	
 	private void connect() throws Exception{
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(

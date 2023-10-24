@@ -12,11 +12,34 @@ function printInfo() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);
             setItemList(data.player.inventory);
+            checkUse(data.field);
         })
         .catch(error => {
             console.error('Error:', error);
     });
 };
+
+function checkUse(field) {
+    const storeButton = document.getElementById("store");
+    const forgeButton = document.getElementById("forge");
+    const wellButton = document.getElementById("well");
+
+    if (field.storeCount>0) {
+        storeButton.innerHTML = "상점("+field.storeCount+")";
+    } else {
+        storeButton.innerHTML = "상점";
+    }
+    if (field.forgeCount>0) {
+        forgeButton.innerHTML = "대장간("+field.forgeCount+")";
+    } else {
+        forgeButton.innerHTML = "대장간";
+    }
+    if (field.healCount>0) {
+        wellButton.innerHTML = "회복("+field.healCount+")";
+    } else {
+        wellButton.innerHTML = "회복";
+    }
+}
 
 const storeList = document.getElementById("store");
 storeList.addEventListener("click", function(){
@@ -156,7 +179,8 @@ function createStoreButton() {
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);            
             setItemList(data.player.inventory);
-            setStoreList(data.field.store.storeList)
+            setStoreList(data.field.store.storeList);
+            checkUse(data.field);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -453,7 +477,8 @@ function createForgeButton() {
 
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);            
-            setItemList(data.player.inventory);               
+            setItemList(data.player.inventory);
+            checkUse(data.field);
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -547,7 +572,8 @@ function createWellButton() {
 
             setPlayerInfo(data.player);
             setEnemyInfo(data.enemy);            
-            setItemList(data.player.inventory);               
+            setItemList(data.player.inventory);
+            checkUse(data.field);
             })
             .catch(error => {
                 console.error('Error:', error);

@@ -111,7 +111,7 @@
     background: black; /* 검은색 배경 */
     opacity: 0.7; /* 시작 시 완전 불투명하게 */
     pointer-events: none; /* 사용자 상호 작용 비활성화 */
-    transition: opacity 3s; /* opacity 변경을 3초 동안 애니메이션화 */
+    transition: opacity 2s; /* opacity 변경을 3초 동안 애니메이션화 */
     text-align: center;
     z-index: 1;
     font-size: xx-large;

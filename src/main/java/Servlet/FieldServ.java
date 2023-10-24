@@ -138,7 +138,9 @@ public class FieldServ extends HttpServlet {
 	        		script.getStrb().append("모든 횟수를 소진 했습니다");
 	        	}
 	        } else if (param2.equals("true")) {
-	    		if (player.getInventory(param4).getEnhName().equals("빈슬롯")) {
+	    		if (player.getInventory(param4).getEnhName().equals("빈슬롯")
+	    				||player.getInventory(param4).getName().endsWith("(강화)")) {
+	    			script.getStrb().append("선택할 수 없습니다");
 	    		} else if (field.getForgeCount()>0) {
 	        		player.getInventory(param4).enhance();
 	        		field.setForgeCount(field.getForgeCount()-1);	

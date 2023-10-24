@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Field.Store;
+import Item.Item;
 import db.ItemDAO;
 import db.ItemVO;
 
@@ -40,6 +42,49 @@ public class DbServ extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		System.out.println("DB 생성");
+		ItemDAO dao = new ItemDAO();
+		Store store = new Store();
+		List<Item> list = store.getItemList();		
+		
+		dao.createTable();
+//		for (int i=9 ; i<list.size() ; i++ ) {
+//			dao.createItem(list.get(i).getName(),
+//					list.get(i).getDescription(),
+//					list.get(i).getAttack(),
+//					list.get(i).getAddAttack(),
+//					list.get(i).getCount(),
+//					list.get(i).getLimit(),
+//					list.get(i).getTimes(),
+//					list.get(i).getUse()?1:0,
+//					list.get(i).getNeedDice(),
+//					list.get(i).getActiveLimit(),
+//					list.get(i).getFireStack(),
+//					list.get(i).getIceStack(),
+//					list.get(i).getElecStack(),
+//					list.get(i).getPoisonStack(),
+//					list.get(i).getRecovery(),
+//					list.get(i).getDefence(),
+//					list.get(i).getDamage(),
+//					list.get(i).getNewDice(),
+//					list.get(i).getEnhName(),
+//					list.get(i).getEnhDescription(),
+//					list.get(i).getEnhAttack(),
+//					list.get(i).getEnhAddAttack(),
+//					list.get(i).getEnhCount(),
+//					list.get(i).getEnhLimit(),
+//					list.get(i).getEnhTimes(),
+//					list.get(i).getUse()?1:0,
+//					list.get(i).getEnhNeedDice(),
+//					list.get(i).getEnhActiveLimit(),
+//					list.get(i).getEnhFireStack(),
+//					list.get(i).getEnhIceStack(),
+//					list.get(i).getEnhElecStack(),
+//					list.get(i).getEnhPoisonStack(),
+//					list.get(i).getEnhRecovery(),
+//					list.get(i).getEnhDefence(),
+//					list.get(i).getEnhDamage(),
+//					list.get(i).getEnhNewDice());
+//		}
 	}
 
 	/**
@@ -47,6 +92,7 @@ public class DbServ extends HttpServlet {
 	 */
 	public void destroy() {
 		// TODO Auto-generated method stub
+
 	}
 
 	/**
