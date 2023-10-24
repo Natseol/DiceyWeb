@@ -55,6 +55,10 @@ public abstract class ItemUpgrade extends ItemScript{
 		return enhTimes;
 	}
 
+	public boolean getEnhUse() {
+		return enhUse;
+	}
+
 	public String getEnhActiveLimit() {
 		return enhActiveLimit;
 	}

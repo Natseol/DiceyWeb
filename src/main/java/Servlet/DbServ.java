@@ -45,7 +45,6 @@ public class DbServ extends HttpServlet {
 		ItemDAO dao = new ItemDAO();
 		Store store = new Store();
 		List<Item> list = store.getItemList();		
-		
 		dao.createTable();
 //		for (int i=9 ; i<list.size() ; i++ ) {
 //			dao.createItem(list.get(i).getName(),
@@ -73,7 +72,7 @@ public class DbServ extends HttpServlet {
 //					list.get(i).getEnhCount(),
 //					list.get(i).getEnhLimit(),
 //					list.get(i).getEnhTimes(),
-//					list.get(i).getUse()?1:0,
+//					list.get(i).getEnhUse()?1:0,
 //					list.get(i).getEnhNeedDice(),
 //					list.get(i).getEnhActiveLimit(),
 //					list.get(i).getEnhFireStack(),
@@ -106,7 +105,6 @@ public class DbServ extends HttpServlet {
 		ItemDAO dao = new ItemDAO();
 		List<ItemVO> list = dao.getList();
 		
-		System.out.println(list.get(0).getName());
         ObjectMapper objectMapper = new ObjectMapper();
         
         // JSON 데이터를 생성

@@ -2,6 +2,7 @@ package db;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -145,55 +146,55 @@ public class ItemDAO implements Serializable {
 		try {
 			connectTomcat();
 			
-			String insertQuery = "CREATE TABLE ITEM "
-					+ " (ID NUMBER GENERATED IDENTITY constraint primary key, "
-					+ "	NAME VARCHAR2(50 BYTE), "
-					+ "	DESCRIPTION VARCHAR2(100 BYTE), "
-					+ "	ATTACK NUMBER DEFAULT 0, "
-					+ "	ADDATTACK NUMBER DEFAULT 0, "
-					+ "	COUNT NUMBER DEFAULT 0, "
-					+ "	LIMIT VARCHAR2(20 BYTE), "
-					+ "	TIMES NUMBER DEFAULT 1, "
-					+ "	USE NUMBER DEFAULT 0, "
-					+ "	NEEDDICE NUMBER DEFAULT 0, "
-					+ "	ACTIVELIMIT VARCHAR2(20 BYTE), "
-					+ "	FIRESTACK NUMBER DEFAULT 0, "
-					+ "	ICESTACK NUMBER DEFAULT 0, "
-					+ "	ELECSTACK NUMBER DEFAULT 0, "
-					+ "	POISONSTACK NUMBER DEFAULT 0, "
-					+ "	RECOVERY NUMBER DEFAULT 0, "
-					+ "	DEFENCE NUMBER DEFAULT 0, "
-					+ "	DAMAGE NUMBER DEFAULT 0, "
-					+ "	NEWDICE VARCHAR2(20 BYTE), "
-					+ "	ACCUMULATION NUMBER DEFAULT 0, "
-					+ "	ENHNAME VARCHAR2(50 BYTE), "
-					+ "	ENHDESCRIPTION VARCHAR2(100 BYTE), "
-					+ "	ENHATTACK NUMBER DEFAULT 0, "
-					+ "	ENHADDATTACK NUMBER DEFAULT 0, "
-					+ "	ENHCOUNT NUMBER DEFAULT 0, "
-					+ "	ENHLIMIT VARCHAR2(20 BYTE), "
-					+ "	ENHTIMES NUMBER DEFAULT 1, "
-					+ "	ENHUSE NUMBER DEFAULT 0, "
-					+ "	ENHNEEDDICE NUMBER DEFAULT 0, "
-					+ "	ENHACTIVELIMIT VARCHAR2(20 BYTE), "
-					+ "	ENHFIRESTACK NUMBER DEFAULT 0, "
-					+ "	ENHICESTACK NUMBER DEFAULT 0, "
-					+ "	ENHELECSTACK NUMBER DEFAULT 0, "
-					+ "	ENHPOISONSTACK NUMBER DEFAULT 0, "
-					+ "	ENHRECOVERY NUMBER DEFAULT 0, "
-					+ "	ENHDEFENCE NUMBER DEFAULT 0, "
-					+ "	ENHDAMAGE NUMBER DEFAULT 0, "
-					+ "	ENHNEWDICE VARCHAR2(20 BYTE), "
-					+ "	ENHACCUMULATION NUMBER DEFAULT 0);";
-			PreparedStatement pstmt = con.prepareStatement(insertQuery);
-			pstmt.executeUpdate();
-			
-			pstmt.close();
-			con.close();
-			System.out.println("성공");
+		    if (!doesTableExist("ITEM")) {
+		    	String insertQuery ="create TABLE ITEM"
+						+" (ID number(10, 0) generated as identity constraint pk_item_id primary key,"
+						+"	NAME VARCHAR2(50),"
+						+"	DESCRIPTION VARCHAR2(100),"
+						+"	ATTACK number(10, 0),"
+						+"	ADDATTACK number(10, 0),"
+						+"	COUNT number(10, 0),"
+						+"	LIMIT VARCHAR2(20),"
+						+"	TIMES number(10, 0) DEFAULT 1,"
+						+"	USE number(10, 0),"
+						+"	NEEDDICE number(10, 0),"
+						+"	ACTIVELIMIT VARCHAR2(20),"
+						+"	FIRESTACK number(10, 0),"
+						+"	ICESTACK number(10, 0),"
+						+"	ELECSTACK number(10, 0),"
+						+"	POISONSTACK number(10, 0),"
+						+"	RECOVERY number(10, 0),"
+						+"	DEFENCE number(10, 0),"
+						+"	DAMAGE number(10, 0),"
+						+"	NEWDICE VARCHAR2(20),"
+						+"	ACCUMULATION number(10, 0),"
+						+"	ENHNAME VARCHAR2(50),"
+						+"	ENHDESCRIPTION VARCHAR2(100),"
+						+"	ENHATTACK number(10, 0),"
+						+"	ENHADDATTACK number(10, 0),"
+						+"	ENHCOUNT number(10, 0),"
+						+"	ENHLIMIT VARCHAR2(20),"
+						+"	ENHTIMES number(10, 0) DEFAULT 1,"
+						+"	ENHUSE number(10, 0),"
+						+"	ENHNEEDDICE number(10, 0),"
+						+"	ENHACTIVELIMIT VARCHAR2(20),"
+						+"	ENHFIRESTACK number(10, 0),"
+						+"	ENHICESTACK number(10, 0),"
+						+"	ENHELECSTACK number(10, 0),"
+						+"	ENHPOISONSTACK number(10, 0),"
+						+"	ENHRECOVERY number(10, 0),"
+						+"	ENHDEFENCE number(10, 0),"
+						+"	ENHDAMAGE number(10, 0),"
+						+"	ENHNEWDICE VARCHAR2(20),"
+						+"	ENHACCUMULATION number(10, 0))";
+		        PreparedStatement pstmt = con.prepareStatement(insertQuery);
+		        pstmt.executeUpdate();
+
+		        pstmt.close();
+		        con.close();
+		    }
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("실패");
 		}
 	}
 	
@@ -258,5 +259,11 @@ public class ItemDAO implements Serializable {
 		Class.forName("oracle.jdbc.OracleDriver");
 		con = DriverManager.getConnection(
 				"jdbc:oracle:thin:@localhost:1521/xe","java","qwer");
+	}
+	
+	private boolean doesTableExist(String tableName) throws SQLException {
+	    DatabaseMetaData metadata = con.getMetaData();
+	    ResultSet tables = metadata.getTables(null, null, tableName, null);
+	    return tables.next();
 	}
 }
