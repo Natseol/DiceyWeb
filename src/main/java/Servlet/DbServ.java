@@ -24,7 +24,7 @@ import db.ItemVO;
 /**
  * Servlet implementation class DbServ
  */
-@WebServlet("/dbserv")
+//@WebServlet("/dbserv")
 public class DbServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

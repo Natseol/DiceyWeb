@@ -29,7 +29,7 @@ import db.ItemVO;
 /**
  * Servlet implementation class Servlet
  */
-@WebServlet("/servlet")
+//@WebServlet("/servlet")
 public class Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -85,9 +85,11 @@ public class Servlet extends HttpServlet {
 		System.out.println("servlet POST 연결됨");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		ItemDAO dao = new ItemDAO();
-		List<ItemVO> list = dao.getList();
-		field.getStore().addList(list, 1);
+		//db 추가
+//		ItemDAO dao = new ItemDAO(); 
+//		List<ItemVO> list = dao.getList();
+//		field.getStore().addList(list, 1);
+		
 		field.createField();
 		
         ObjectMapper objectMapper = new ObjectMapper();

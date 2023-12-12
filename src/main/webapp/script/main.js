@@ -42,7 +42,7 @@ function jobPost() {
         equipmentNum: equipmentNumber
     }
 
-	fetch("./servlet", {
+	fetch("servlet", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ function printInventory(inventory) {
 const nextPage = document.getElementById("nextPage");
 if (nextPage) {
 nextPage.addEventListener('click', function() {
-    fetch("./servlet", {
+    fetch("servlet", {
         method: 'GET'
     })          
         .catch(error => {

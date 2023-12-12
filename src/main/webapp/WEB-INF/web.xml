@@ -9,4 +9,41 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>battle</servlet-name>
+  	<servlet-class>Servlet.BattleServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>battle</servlet-name>
+  	<url-pattern>/battleserv</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>db</servlet-name>
+  	<servlet-class>Servlet.DbServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>db</servlet-name>
+  	<url-pattern>/dbserv</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>serv</servlet-name>
+  	<servlet-class>Servlet.Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>serv</servlet-name>
+  	<url-pattern>/servlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>field</servlet-name>
+  	<servlet-class>Servlet.FieldServ</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>field</servlet-name>
+  	<url-pattern>/fieldserv</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

@@ -30,7 +30,7 @@ import db.ItemVO;
 /**
  * Servlet implementation class BattleServ
  */
-@WebServlet("/battleserv")
+//@WebServlet("/battleserv")
 public class BattleServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -94,7 +94,7 @@ public class BattleServ extends HttpServlet {
 //		player.setExp(4);
 //		player.setHp(2);
 //		player.setDef(4);
-		enemy[enemyNum].setHp(2);
+//		enemy[enemyNum].setHp(2);
 //		field.setForgeCount(1);
 
 //		enemy[enemyNum].setCondition(0,4);

@@ -27,7 +27,7 @@ import Main.Script;
 /**
  * Servlet implementation class FieldServ
  */
-@WebServlet("/fieldserv")
+//@WebServlet("/fieldserv")
 public class FieldServ extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
