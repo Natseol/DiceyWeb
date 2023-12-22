@@ -1,11 +1,5 @@
 package ItemList;
 
-import Battle.EnemyTurn;
-import Battle.MyTurn;
-import Battle.TurnInfo;
-import Character.Enemy;
-import Character.Player;
-import Character.Status;
 import Item.Item;
 
 public class Revolver extends Item{

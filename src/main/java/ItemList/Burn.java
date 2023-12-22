@@ -1,7 +1,5 @@
 package ItemList;
 
-import Battle.TurnInfo;
-import Character.Status;
 import Item.Item;
 
 public class Burn extends Item{

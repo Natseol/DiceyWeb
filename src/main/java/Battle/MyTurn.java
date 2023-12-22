@@ -1,13 +1,6 @@
 package Battle;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 import Character.*;
-import Dice.Roll;
-import Main.*;
-import Field.*;
-import Item.Item;
 import ItemList.*;
 
 public class MyTurn extends TurnInfo{

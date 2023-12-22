@@ -1,11 +1,5 @@
 package ItemList;
 
-import Battle.MyTurn;
-import Battle.TurnInfo;
-import Character.Enemy;
-import Character.Player;
-import Character.Status;
-import Dice.Roll;
 import Item.Item;
 
 public class Precision extends Item{

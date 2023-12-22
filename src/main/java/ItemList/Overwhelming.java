@@ -1,9 +1,7 @@
 package ItemList;
 
-import Battle.*;
 import Character.*;
 import Item.Item;
-import Item.ItemScript;
 
 public class Overwhelming extends Item{
 		

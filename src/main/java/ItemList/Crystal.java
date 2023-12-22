@@ -1,8 +1,5 @@
 package ItemList;
 
-import Battle.TurnInfo;
-import Character.*;
-import Dice.Roll;
 import Item.Item;
 
 public class Crystal extends Item {

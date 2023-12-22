@@ -1,12 +1,7 @@
 package Character;
 
-import java.util.Scanner;
-
 import Battle.MyTurn;
 import Dice.Roll;
-import Item.ItemScript;
-import Main.Color;
-import Main.Input;
 
 public class Skill {
 	

@@ -1,7 +1,5 @@
 package ItemList;
 
-import Battle.*;
-import Character.*;
 import Item.Item;
 
 public class Freeze extends Item{

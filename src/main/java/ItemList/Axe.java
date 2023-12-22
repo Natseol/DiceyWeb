@@ -1,8 +1,5 @@
 package ItemList;
 
-import Battle.MyTurn;
-import Battle.TurnInfo;
-import Character.*;
 import Item.Item;
 
 public class Axe extends Item{

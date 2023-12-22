@@ -168,10 +168,10 @@ Cloneable{
 		if (enhAttack!=0) {attack=enhAttack;}
 		if (enhAddAttack!=0) {addAttack=enhAddAttack;}
 		if (enhCount!=0) {count=enhCount;}
-		if (!enhLimit.equals("")) {limit=enhLimit;}
+		if (!enhLimit.equals(limit)) {limit=enhLimit;}
 		if (enhTimes!=0) {times=enhTimes;}
 		if (enhUse) {use=enhUse;}
-		if (!enhActiveLimit.equals("")) {activeLimit=enhActiveLimit;}
+		if (!enhActiveLimit.equals(activeLimit)) {activeLimit=enhActiveLimit;}
 		if (enhFireStack!=0) {fireStack=enhFireStack;}
 		if (enhIceStack!=0) {iceStack=enhIceStack;}
 		if (enhElecStack!=0) {elecStack=enhElecStack;}
@@ -179,7 +179,7 @@ Cloneable{
 		if (enhRecovery!=0) {recovery=enhRecovery;}
 		if (enhDefence!=0) {defence=enhDefence;}
 		if (enhDamage!=0) {damage=enhDamage;}
-		if (!enhNewDice.equals("")) {newDice=enhNewDice;}
+		if (!enhNewDice.equals(newDice)) {newDice=enhNewDice;}
 		if (enhNeedDice!=0) {needDice=enhNeedDice;}		
 	}
 

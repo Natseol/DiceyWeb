@@ -1,15 +1,10 @@
 package Battle;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Scanner;
 
 import Character.*;
-import Dice.Roll;
-import Item.Item;
 import Item.ItemScript;
 import ItemList.*;
-import Main.Script;
 
 public class EnemyTurn extends TurnInfo{
 		

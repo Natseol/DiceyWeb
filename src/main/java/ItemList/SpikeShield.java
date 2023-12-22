@@ -1,13 +1,7 @@
 package ItemList;
 
-import Battle.EnemyTurn;
-import Battle.MyTurn;
-import Battle.TurnInfo;
-import Character.Enemy;
-import Character.Player;
 import Character.Status;
 import Item.Item;
-import Item.ItemScript;
 
 public class SpikeShield extends Item{
 	

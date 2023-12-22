@@ -1,6 +1,5 @@
 package Monster;
 
-import Battle.*;
 import Character.*;
 import Item.Item;
 import ItemList.*;

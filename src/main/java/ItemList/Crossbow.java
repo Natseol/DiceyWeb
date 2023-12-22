@@ -1,10 +1,7 @@
 package ItemList;
 
-import Battle.MyTurn;
-import Battle.TurnInfo;
 import Character.*;
 import Item.Item;
-import Item.ItemScript;
 
 public class Crossbow extends Item{
 	

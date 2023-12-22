@@ -1,6 +1,5 @@
 package Item;
 
-import Battle.TurnInfo;
 import Character.Status;
 
 public interface IFireStack {

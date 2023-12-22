@@ -1,9 +1,5 @@
 package Item;
 
-import java.util.ArrayList;
-
-import Main.Color;
-
 public class ItemScript {	
 	
 	protected static StringBuilder strb = new StringBuilder();

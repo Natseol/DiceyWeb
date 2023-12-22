@@ -1,8 +1,5 @@
 package ItemList;
 
-import Battle.*;
-import Character.*;
-import Dice.Roll;
 import Item.Item;
 
 public class Rat extends Item{

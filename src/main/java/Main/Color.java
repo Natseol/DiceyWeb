@@ -1,7 +1,5 @@
 package Main;
 
-import Dice.Roll;
-
 public interface Color {
 	public static final String RESET = "\u001B[0m";
 	public static final String BOLD = "\u001B[1m";

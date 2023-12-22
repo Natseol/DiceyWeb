@@ -1,6 +1,5 @@
 package ItemList;
 
-import Battle.*;
 import Character.*;
 import Item.Item;
 import Item.ItemScript;
