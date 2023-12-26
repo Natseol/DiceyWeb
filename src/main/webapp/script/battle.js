@@ -83,7 +83,7 @@ function setDiceImage(list) {
     for (let i = 0; i < list.length; i++) {
 
         let imageElement = document.createElement("img");
-        imageElement.className = "dice-image";
+        imageElement.className = "dice-image rounded-4";
         imageElement.src = imagePaths[list[i]];
         imageElement.draggable=true;        
         imageElement.ondragstart=function(event) {
@@ -106,7 +106,7 @@ function setDiceImage(list) {
         //     }
         // });
         // dragdropItem(imageElement);
-        ronundOver(imageElement);      
+        ronundOverWhite(imageElement);      
         imageContainer.appendChild(imageElement);
     }
 }
@@ -245,6 +245,26 @@ function ronundOver(itemElement) {
         }
     }
 }
+function ronundOverWhite(itemElement) {
+    const span = itemElement.querySelector("span");
+    itemElement.onmouseover=(e)=>{
+        e.target.style = "box-shadow: 0 0 10px 7px white;"
+        if (span!=null) {
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+        }
+    }
+
+    itemElement.onmouseleave=(e)=>{
+        e.target.style = "box-shadow:;"
+        if (span!=null) {
+            span.style = "border: 0px solid #000; font-weight: bold;;"
+        }
+        if (e.target.innerHTML.includes("빈슬롯")) {
+            e.target.style.opacity = 0.5;
+        }
+    }
+}
+
 
 //카드 이미지 생성
 function imageEdge() {
